@@ -28,39 +28,34 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
 )";
 mysqli_query($db, $sql);
 
-// LOGIN USER
-if (isset($_POST['login_user'])) {
+// REGISTER USER
+if (isset($_POST['register_user'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
+    $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
+    $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
+    // form validation
     if (empty($username)) {
         array_push($errors, "Username is required");
     }
-    if (empty($password)) {
+    if (empty($password_1)) {
         array_push($errors, "Password is required");
     }
-
-    if (count($errors) == 0) {
-        $password = md5($password);
-        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $results = mysqli_query($db, $query);
-        if (mysqli_num_rows($results) == 1) {
-            $_SESSION['username'] = $username;
-            $_SESSION['success'] = "You are now logged in";
-            header('location: index.php');
-            exit();
-        } else {
-            array_push($errors, "Wrong username/password combination");
-        }
+    if ($password_1 != $password_2) {
+        array_push($errors, "The two passwords do not match");
     }
-}
 
-// LOGOUT USER
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header('location: login.php');
-    exit();
+    // register user if there are no errors in the form
+    if (count($errors) == 0) {
+        $password = md5($password_1); // encrypt the password before saving in the database
+        $query = "INSERT INTO users (username, password) VALUES('$username', '$password')";
+        mysqli_query($db, $query);
+
+        $_SESSION['username'] = $username;
+        $_SESSION['success'] = "You are now logged in";
+        header('location: index.php');
+        exit();
+    }
 }
 ?>
 
@@ -69,29 +64,29 @@ if (isset($_GET['logout'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Registration Page</title>
     <link rel="stylesheet" href="styles.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 <div class="wrapper">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <h3>Engineering Inventory Management System</h3>
+        <h3>Engineering Inventory Management System - Registration</h3>
         <div class="input-box">
             <input type="text" name="username" placeholder="Username" required>
             <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password_1" placeholder="Password" required>
             <i class='bx bxs-lock-alt'></i>
         </div>
-        <div class="remember-forgot">
-            <label><input type="checkbox" name="remember">Remember Me</label>
-            <a href="#">Forgot Password</a>
+        <div class="input-box">
+            <input type="password" name="password_2" placeholder="Confirm Password" required>
+            <i class='bx bxs-lock-alt'></i>
         </div>
-        <button type="submit" class="btn" name="login_user">Login</button>
-        <div class="register-link">
-            <p>Don't have an account? <a href="register.php">Register</a></p>
+        <button type="submit" class="btn" name="register_user">Register</button>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.php">Login</a></p>
         </div>
         <?php if(isset($errors) && count($errors) > 0) { ?>
             <div class="error-message">
