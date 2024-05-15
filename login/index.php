@@ -2,7 +2,7 @@
 session_start();
 
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['name'])) {
     header('location: login.php');
     exit();
 }
@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['logout'])) {
     session_destroy();
-    unset($_SESSION['username']);
+    unset($_SESSION['name']);
     header('location: login.php');
     exit();
 }
@@ -81,7 +81,7 @@ if (isset($_GET['logout'])) {
     </div>
     <div class="welcome">
         <h2>Engineering Inventory Management System</h2>
-        <p>Hi <?php echo $_SESSION['username']; ?>,</p>
+        <p>Hi <?php echo $_SESSION['name']; ?>,</p>
     </div>
     <div class="content">
 
