@@ -1,10 +1,79 @@
 <?php
 session_start();
 
-// Check if user is logged in and has admin type
-?>
+// Redirect to index.php if user is already logged in
+if (isset($_SESSION['user_id'])) {
+  header('location: admin_home.php');
+}
 
-<?php
+// initializing variables
+$user_id = "";
+$errors = array(); 
+
+// Connect to the database
+$db = mysqli_connect('localhost', 'root', '', 'login');
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+// Auto-create table if it doesn't exist (consider a separate script for production)
+$sql = "CREATE TABLE IF NOT EXISTS users (
+  id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT(10) NOT NULL,
+  name VARCHAR(30) NOT NULL,
+  password VARCHAR(255) NOT NULL
+  role VARCHAR(255) NOT NULL
+)";
+mysqli_query($db, $sql);
+
+// LOGIN USER
+if (isset($_POST['login_user'])) {
+    $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
+    $password = mysqli_real_escape_string($db, $_POST['password']);
+
+    if (empty($user_id)) {
+        array_push($errors, "User ID is required");
+    }
+    if (empty($password)) {
+        array_push($errors, "Password is required");
+    }
+
+    if (count($errors) == 0) {
+        $query = "SELECT * FROM users WHERE user_id='$user_id' AND password='$password'";
+        $results = mysqli_query($db, $query);
+    
+        if (mysqli_num_rows($results) == 1) {
+          $row = mysqli_fetch_assoc($results);
+          // Assuming password is not hashed (for testing only, use secure hashing in production)
+          $password = $row['password'];
+    
+        if ($password === $password) { // Replace with password_verify for production
+            $_SESSION['user_id'] = $user_id;
+            $role = $row['role'];  // Assuming a user_type field exists
+
+        if ($role === "admin") {
+          $_SESSION['success'] = "Welcome Admin, you are now logged in";
+          header('location: admin_home.php');  // Redirect to admin homepage
+        } else {
+          $_SESSION['success'] = "You are now logged in";
+          header('location: student_home.php');  // Redirect to student homepage
+        }
+            exit();
+          } else {
+            array_push($errors, "Wrong User ID/password combination");
+          }
+        } else {
+          array_push($errors, "Wrong User ID/password combination");
+        }
+      }
+    }
+    
+
+
+// LOGOUT USER
 if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['user_id']);
@@ -13,8 +82,6 @@ if (isset($_GET['logout'])) {
     exit();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +89,7 @@ if (isset($_GET['logout'])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Regna Bootstrap Template</title>
+  <title>Inner Page - Regna Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -56,7 +123,7 @@ if (isset($_GET['logout'])) {
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+  <header id="header" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex justify-content-between align-items-center">
 
       <div id="logo">
@@ -67,107 +134,61 @@ if (isset($_GET['logout'])) {
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-           <li class="dropdown"><a href="#Cpe tools"><span>Cpe tools</span> <i class="bi bi-chevron-right"></i></a>
+          <li><a class="nav-link scrollto " href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="#">Hand Tools</a></li>
-                  <li><a href="#">Measurement Tools</a></li>
-                  <li><a href="#">Prototyping Tools</a></li>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
                 </ul>
               </li>
-		  <li class="dropdown"><a href="#IE tools"><span>IE tools</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Assembly and Fastening Tools</a></li>
-                  <li><a href="#">Cutting and Machining Tools</a></li>
-                  <li><a href="#">Measurement and Machining Tools</a></li>
-                </ul>
-              </li>
-          <li><a class="nav-link scrollto" href="#services">Borrowers</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Log Out</a></li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Welcome to Admin Homepage</h1>
-    </div>
-  </section><!-- End Hero Section -->
-
   <main id="main">
 
-     <!-- ======= Team Section ======= -->
-    <section id="team">
-      <div class="container" data-aos="fade-up">
-        <div class="section-header">
-          <h3 class="section-title">Team</h3>
-          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="member" data-aos="fade-up" data-aos-delay="100">
-              <div class="pic"><img src="assets/img/team-1.jpg" alt=""></div>
-              <h4>Walter White</h4>
-              <span>Chief Executive Officer</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member" data-aos="fade-up" data-aos-delay="200">
-              <div class="pic"><img src="assets/img/team-2.jpg" alt=""></div>
-              <h4>Sarah Jhinson</h4>
-              <span>Product Manager</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member" data-aos="fade-up" data-aos-delay="300">
-              <div class="pic"><img src="assets/img/team-3.jpg" alt=""></div>
-              <h4>William Anderson</h4>
-              <span>CTO</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member" data-aos="fade-up" data-aos-delay="400">
-              <div class="pic"><img src="assets/img/team-4.jpg" alt=""></div>
-              <h4>Amanda Jepson</h4>
-              <span>Accountant</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inner Page</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
         </div>
 
       </div>
-    </section><!-- End Team Section -->
+    </section><!-- End Breadcrumbs Section -->
 
-	
+    <section class="inner-page pt-4">
+      <div class="container">
+        <p>
+          Example inner page template
+        </p>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
@@ -210,4 +231,3 @@ if (isset($_GET['logout'])) {
 </body>
 
 </html>
-<!--trial-->
