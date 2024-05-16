@@ -1,10 +1,7 @@
 <?php
 
-$user_id = "";
-$errors = array(); 
-
 // Connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'login');
+$db = mysqli_connect('localhost', 'root', '', 'tools');
 
 // Check connection
 if (mysqli_connect_errno()) {
