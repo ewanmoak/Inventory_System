@@ -11,7 +11,6 @@ mysqli_query($db, $sql);
 
 $sql = "CREATE TABLE IF NOT EXISTS tools (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  unique_id VARCHAR(255),
   name VARCHAR(255),
   date_manufactured DATE,
   expiration_date DATE,
@@ -41,7 +40,6 @@ if (mysqli_num_rows($result) > 0) {
 // Add tool functionality
 if (isset($_POST['submit'])) {
   // Sanitize user input (prevent SQL injection)
-  $unique_id = mysqli_real_escape_string($db, $_POST['unique_id']);
   $name = mysqli_real_escape_string($db, $_POST['name']);
   $date_manufactured = mysqli_real_escape_string($db, $_POST['date_manufactured']);
   $expiration_date = mysqli_real_escape_string($db, $_POST['expiration_date']);
@@ -54,7 +52,7 @@ if (isset($_POST['submit'])) {
 
   // Prepare and execute insert query
   $sql = "INSERT INTO tools (unique_id, name, date_manufactured, expiration_date, maintenance_date, quantity, description, student_id, status, category_id)
-          VALUES ('$unique_id', '$name', '$date_manufactured', '$expiration_date', '$maintenance_date', $quantity, '$description', '$student_id', '$status', $category_id)";
+          VALUES ('$name', '$date_manufactured', '$expiration_date', '$maintenance_date', $quantity, '$description', '$student_id', '$status', $category_id)";
   if (mysqli_query($db, $sql)) {
     echo "<br>Tool added successfully!";
   } else {
@@ -75,9 +73,6 @@ if (isset($_POST['submit'])) {
 <body>
   <h1>Add New Tool</h1>
   <form method="post">
-    <label for="unique_id">Unique ID:</label>
-    <input type="text" name="unique_id" id="unique_id" required><br><br>
-
     <label for="name">Tool Name:</label>
     <input type="text" name="name" id="name" required><br><br>
 

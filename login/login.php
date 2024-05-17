@@ -25,8 +25,8 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id INT(10) NOT NULL,
   name VARCHAR(30) NOT NULL,
-  password VARCHAR(255) NOT NULL
-  role VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
 )";
 mysqli_query($db, $sql);
 
@@ -57,7 +57,7 @@ if (isset($_POST['login_user'])) {
 
         if ($role === "admin") {
           $_SESSION['success'] = "Welcome Admin, you are now logged in";
-          header('location: admin_home.php');  // Redirect to admin homepage
+          header('location: homepage_admin.php');  // Redirect to admin homepage
         } else {
           $_SESSION['success'] = "You are now logged in";
           header('location: student_home.php');  // Redirect to student homepage
