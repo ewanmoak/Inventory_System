@@ -2,6 +2,9 @@
 session_start();
 include "connect.php";
 
+$student_content = "<h1>Welcome to the Student Homepage!</h1>
+<p>This is some content specific to the admin user.</p>";
+
 // Redirect to login if user is not logged in
 if (!isset($_SESSION['user_id'])) {
   header('location: login.php'); // Redirect to login page (assuming it exists)
@@ -9,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Check if user is admin
-if ($_SESSION['role'] === "admin") {
+if (isset($_SESSION['role']) && $_SESSION['role'] === "student") {
   echo $admin_content;
 } else {
   // Handle non-admin users (e.g., redirect to a different page)
@@ -35,24 +38,25 @@ if (isset($_GET['logout'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Home</title>
-    <link rel="stylesheet" href="style.css"> </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
 <header class="d-flex flex-column h-100 justify-content-center">
-  <h1 class="text-center">Admin Dashboard</h1>
+  <h1 class="text-center">Dashboard</h1>
   <nav class="bg-light d-flex flex-column px-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link" href="#ad_cpetools.php">CPE Tools</a>
+        <a class="nav-link" href="ad_cpetools.php">CPE Tools</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#ad_ietools.php">IE Tools</a>
+        <a class="nav-link" href="ad_ietools.php">IE Tools</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#users">Users Management</a>
+        <a class="nav-link" href="notifications.php">Notifications</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout</a>
@@ -61,10 +65,9 @@ if (isset($_GET['logout'])) {
   </nav>
 </header>
 
-<?php if (isset($admin_content)): ?>
-    <?php echo $admin_content; ?>
+<?php if (isset($student_content)): ?>
+  <?php echo $student_content; ?>
 <?php endif; ?>
 
 </body>
 </html>
-

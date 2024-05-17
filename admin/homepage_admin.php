@@ -46,7 +46,7 @@ if (isset($_GET['logout'])) {
 <body>
 
 <header class="d-flex flex-column h-100 justify-content-center">
-  <h1 class="text-center">Admin Dashboard</h1>
+  <h1 class="text-center">Dashboard</h1>
   <nav class="bg-light d-flex flex-column px-3">
     <ul class="nav flex-column">
       <li class="nav-item">
