@@ -60,7 +60,7 @@ if (isset($_POST['login_user'])) {
           header('location: homepage_admin.php');  // Redirect to admin homepage
         } else {
           $_SESSION['success'] = "You are now logged in";
-          header('location: student_home.php');  // Redirect to student homepage
+          header('location: homepage_student.php');  // Redirect to student homepage
           exit();
         }
  
