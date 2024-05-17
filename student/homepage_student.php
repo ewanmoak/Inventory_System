@@ -1,9 +1,10 @@
 <?php
 session_start();
 include "connect.php";
+include "search.php";
 
 $student_content = "<h1>Welcome to the Student Homepage!</h1>
-<p>This is some content specific to the admin user.</p>";
+<p>This is some content specific to the student user.</p>";
 
 // Redirect to login if user is not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -13,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Check if user is admin
 if (isset($_SESSION['role']) && $_SESSION['role'] === "student") {
-  echo $admin_content;
+  echo $student_content;
 } else {
   // Handle non-admin users (e.g., redirect to a different page)
   echo "You are not authorized to access this page.";
