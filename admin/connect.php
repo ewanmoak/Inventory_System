@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'tools');
+$db = mysqli_connect('localhost', 'root', '', 'inventory');
 
 // Check connection
 if (mysqli_connect_errno()) {
