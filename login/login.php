@@ -61,8 +61,9 @@ if (isset($_POST['login_user'])) {
         } else {
           $_SESSION['success'] = "You are now logged in";
           header('location: student_home.php');  // Redirect to student homepage
+          exit();
         }
-            exit();
+ 
           } else {
             array_push($errors, "Wrong User ID/password combination");
           }

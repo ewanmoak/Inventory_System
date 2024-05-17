@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Check if user is admin
-if ($_SESSION['role'] === "admin") {
+if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
   echo $admin_content;
 } else {
   // Handle non-admin users (e.g., redirect to a different page)
