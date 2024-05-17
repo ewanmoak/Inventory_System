@@ -11,8 +11,7 @@ if (isset($_POST['search'])) {
       // (e.g., query database based on $searchTerm)
 
       // Example (replace with your actual search implementation):
-      $sql = "SELECT * FROM tools WHERE name LIKE '%$searchTerm%'";
-      $result = mysqli_query($conn, $sql);
+    
 
       if (mysqli_num_rows($result) > 0) {
         echo "<h3>Search Results for '$searchTerm':</h3>";

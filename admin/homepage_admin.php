@@ -2,6 +2,7 @@
 session_start();
 include "connect.php";
 include "search.php";
+include "logout.php";
 
 $admin_content = "<h1>Welcome to the Admin Homepage!</h1>
 <p>This is some content specific to the admin user.</p>";
