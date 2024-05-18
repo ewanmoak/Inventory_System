@@ -1,7 +1,13 @@
 <?php
 session_start();
-include "connect.php";
 include "search.php";
+
+$db = mysqli_connect('localhost', 'root', '', 'login');
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
 
 $student_content = "<h1>Welcome to the Student Homepage!</h1>
 <p>This is some content specific to the student user.</p>";

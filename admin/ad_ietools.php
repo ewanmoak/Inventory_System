@@ -33,7 +33,7 @@ if ($result_tools) { // Check if query was successful
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin CPE Tools</title>
+  <title>IE Tools</title>
   <style>
     /* Optional styling for tool containers */
     .tool-container {
