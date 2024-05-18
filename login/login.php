@@ -32,28 +32,29 @@ mysqli_query($db, $sql);
 
 // LOGIN USER
 if (isset($_POST['login_user'])) {
-    $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
+  $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
+  $password = mysqli_real_escape_string($db, $_POST['password']);
 
-    if (empty($user_id)) {
-        array_push($errors, "User ID is required");
-    }
-    if (empty($password)) {
-        array_push($errors, "Password is required");
-    }
+  if (empty($user_id)) {
+    array_push($errors, "User ID is required");
+  }
+  if (empty($password)) {
+    array_push($errors, "Password is required");
+  }
 
-    if (count($errors) == 0) {
-        $query = "SELECT * FROM users WHERE user_id='$user_id' AND password='$password'";
-        $results = mysqli_query($db, $query);
-    
-        if (mysqli_num_rows($results) == 1) {
-          $row = mysqli_fetch_assoc($results);
-          // Assuming password is not hashed (for testing only, use secure hashing in production)
-          $password = $row['password'];
-    
-        if ($password === $password) { // Replace with password_verify for production
-            $_SESSION['user_id'] = $user_id;
-            $role = $row['role'];  // Assuming a user_type field exists
+  if (count($errors) == 0) {
+    $query = "SELECT * FROM users WHERE user_id='$user_id'";
+    $results = mysqli_query($db, $query);
+  
+    if (mysqli_num_rows($results) == 1) {
+      $row = mysqli_fetch_assoc($results);
+
+      // Hashing user-entered password before comparison
+      $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Use a cost of at least 12
+
+      if (password_verify($password, $row['password'])) { // Verify with hashed password
+        $_SESSION['user_id'] = $user_id;
+        $role = $row['role'];  // Assuming a user_type field exists
 
         if ($role === "admin") {
           $_SESSION['success'] = "Welcome Admin, you are now logged in";
@@ -61,29 +62,28 @@ if (isset($_POST['login_user'])) {
         } else {
           $_SESSION['success'] = "You are now logged in";
           header('location: homepage_student.php');  // Redirect to student homepage
-          exit();
         }
- 
-          } else {
-            array_push($errors, "Wrong User ID/password combination");
-          }
-        } else {
-          array_push($errors, "Wrong User ID/password combination");
-        }
+        exit();
+      } else {
+        array_push($errors, "Wrong User ID/password combination");
       }
+    } else {
+      array_push($errors, "Wrong User ID/password combination");
     }
-    
+  }
+}
 
 
 // LOGOUT USER
 if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['user_id']);
-    header('location: login.php');
-    print_r($_POST);
-    exit();
+  session_destroy();
+  unset($_SESSION['user_id']);
+  header('location: login.php');
+  print_r($_POST);
+  exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
