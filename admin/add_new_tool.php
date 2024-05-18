@@ -20,7 +20,8 @@ $sql = "CREATE TABLE IF NOT EXISTS tools (
   student_info VARCHAR(255),
   status VARCHAR(255),
   category_id INT(11),
-  FOREIGN KEY (category_id) REFERENCES categories(id)
+  FOREIGN KEY (category_id) REFERENCES categories(id),
+  img_url VARCHAR(255),
 )";
 mysqli_query($db, $sql);
 
