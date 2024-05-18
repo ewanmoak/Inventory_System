@@ -106,6 +106,13 @@ if (isset($_GET['logout'])) {
             <input type="password" name="password" placeholder="Password" required>
             <i class='bx bxs-lock-alt'></i>
         </div>
+        <div class="role">
+              <label for="role">Select Role:</label>
+              <input type="radio" id="role-admin" name="role" value="admin" required>
+              <label for="role-admin">Admin</label>
+              <input type="radio" id="role-user" name="role" value="user" required>
+              <label for="role-user">User</label>
+          </div>
         <div class="remember-forgot">
             <label><input type="checkbox" name="remember">Remember Me</label>
             <a href="#">Forgot Password</a>

@@ -1,5 +1,7 @@
 <?php
 session_start();
+include "search.php";
+include "add_new_tool.php";
 
 $db = mysqli_connect('localhost', 'root', '', 'login');
 // Check connection

@@ -96,6 +96,13 @@ if (isset($_POST['register_user'])) {
             <input type="password" name="password_2" placeholder="Confirm Password" required>
             <i class='bx bxs-lock-alt'></i>
         </div>
+        <div class="role">
+              <label for="role">Select Role:</label>
+              <input type="radio" id="role-admin" name="role" value="admin" required>
+              <label for="role-admin">Admin</label>
+              <input type="radio" id="role-user" name="role" value="user" required>
+              <label for="role-user">User</label>
+        </div>
         <button type="submit" class="btn" name="register_user">Register</button>
         <div class="login-link">
             <p>Already have an account? <a href="login.php">Login</a></p>

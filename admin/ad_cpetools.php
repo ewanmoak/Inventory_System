@@ -25,12 +25,7 @@ if ($result_tools) { // Check if query was successful
   echo "Error retrieving tools: " . mysqli_error($db);
 }
 
-// Loop through each tool and display content with clickable pictures
-} else {
-  echo "No tools found.";
-}
-
-mysqli_close($db); // Close the database connection
+// Removed the extra closing curly brace and else statement
 ?>
 
 <!DOCTYPE html>
