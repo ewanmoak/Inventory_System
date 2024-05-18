@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+$db = mysqli_connect('localhost', 'root', '', 'login');
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
 
 $admin_content = "<h1>Welcome to the Admin Homepage!</h1>
 <p>This is some content specific to the admin user.</p>";
@@ -10,16 +16,6 @@ if (!isset($_SESSION['user_id'])) {
   header('location: login.php'); // Redirect to login page (assuming it exists)
   exit();
 }
-
-
-$db = mysqli_connect('localhost', 'root', '', 'login');
-
-// Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  exit();
-}
-
 
 // Check if user is admin
 if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
@@ -75,7 +71,7 @@ if (isset($_GET['logout'])) {
   </nav>
 </header>
 
-<?php if (isset($admin_content)); ?>
+<?php if (isset($admin_content)): ?>
   <?php echo $admin_content; ?>
 <?php endif; ?>
 
