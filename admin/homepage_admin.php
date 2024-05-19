@@ -23,7 +23,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
   echo $admin_content;
 } else {
   // Handle non-admin users (e.g., redirect to a different page)
-  echo "You are not authorized to access this page.";
+  header('location: login.php');
+  exit();
 }
 
 if (isset($_GET['logout'])) {
@@ -131,7 +132,15 @@ if (isset($_GET['logout'])) {
         transform: translate(-100%, 0);
       }
     }
+
+    .search-bar {
+      position: absolute;
+      top: 10px; /* Adjust top and right values for positioning */
+      right: 10px;
+      display: flex; /* Arrange search box and button horizontally */
+    }
   </style>
+  
 </head>
 
 <body>
@@ -165,6 +174,12 @@ if (isset($_GET['logout'])) {
           <li><a class="nav-link" href="borrowers.php">Borrowers</a></li>
           <li><a class="nav-link" href="#LogOut">Log Out</a></li>
         </ul>
+        <li class="search-bar">
+            <form action="" method="post">
+              <input type="text" name="search" placeholder="Search CPE/IE tools...">
+              <button type="submit">Search</button>
+            </form>
+          </li>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
