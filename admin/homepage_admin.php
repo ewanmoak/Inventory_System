@@ -1,6 +1,5 @@
 <?php
 session_start();
-include "search.php";
 
 $db = mysqli_connect('localhost', 'root', '', 'login');
 // Check connection
@@ -21,9 +20,6 @@ if (!isset($_SESSION['user_id'])) {
 // Check if user is admin
 if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
   echo $admin_content;
-} else {
-  // Handle non-admin users (e.g., redirect to a different page)
-  echo "You're not authorize here";
 }
 
 if (isset($_GET['logout'])) {
@@ -132,12 +128,6 @@ if (isset($_GET['logout'])) {
       }
     }
 
-    .search-bar {
-      position: absolute;
-      top: 10px; /* Adjust top and right values for positioning */
-      right: 10px;
-      display: flex; /* Arrange search box and button horizontally */
-    }
   </style>
   
 </head>
@@ -175,7 +165,7 @@ if (isset($_GET['logout'])) {
         </ul>
         <li class="search-bar">
             <form action="" method="post">
-              <input type="text" name="search" placeholder="Search CPE/IE tools...">
+              <input type="text" name="search" placeholder="Search">
               <button type="submit">Search</button>
             </form>
           </li>
