@@ -35,13 +35,9 @@ if ($result_tools) { // Check if query was successful
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>MyPortfolio Bootstrap Template - Index</title>
+  <title>IE Tools</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -72,7 +68,7 @@ if ($result_tools) { // Check if query was successful
       <div class="row align-items-start">
         <div class="col-md-2">
           <ul class="custom-menu">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li class="active"><a href="homepage_admin.php">Home</a></li>
             
           </ul>
         </div>
@@ -88,7 +84,7 @@ if ($result_tools) { // Check if query was successful
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">IE Tools</a>
+      <a class="navbar-brand" href="ad_ietools">IE Tools</a>
       <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
         <span></span>
       </a>

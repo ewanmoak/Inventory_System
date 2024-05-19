@@ -49,4 +49,6 @@ if ($result_tools) { // Check if query was successful
     }
   </style>
 </head>
+
+
 </html>

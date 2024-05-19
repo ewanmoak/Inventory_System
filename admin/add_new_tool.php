@@ -17,8 +17,6 @@ $sql = "CREATE TABLE IF NOT EXISTS tools (
   maintenance_date DATE,
   quantity INT(11),
   description TEXT,
-  student_info VARCHAR(255),
-  status VARCHAR(255),
   category_id INT(11),
   FOREIGN KEY (category_id) REFERENCES categories(id),
   img_url VARCHAR(255),
@@ -47,13 +45,12 @@ if (isset($_POST['submit'])) {
   $maintenance_date = mysqli_real_escape_string($db, $_POST['maintenance_date']);
   $quantity = (int)mysqli_real_escape_string($db, $_POST['quantity']); // Cast to integer
   $description = mysqli_real_escape_string($db, $_POST['description']);
-  $student_info = mysqli_real_escape_string($db, $_POST['student_info']);
-  $status = mysqli_real_escape_string($db, $_POST['status']);
   $category_id = (int)mysqli_real_escape_string($db, $_POST['category_id']); // Cast to integer
+  $img_url = mysqli_real_escape_string($db, $_POST['img_url']); // Cast to integer
 
   // Prepare and execute insert query
-  $sql = "INSERT INTO tools (unique_id, name, date_manufactured, expiration_date, maintenance_date, quantity, description, student_info, status, category_id)
-          VALUES ('$name', '$date_manufactured', '$expiration_date', '$maintenance_date', $quantity, '$description', '$student_info', '$status', $category_id)";
+  $sql = "INSERT INTO tools (unique_id, name, date_manufactured, expiration_date, maintenance_date, quantity, description, category_id, img_url)
+          VALUES ('$name', '$date_manufactured', '$expiration_date', '$maintenance_date', $quantity, '$description', $category_id, 'img_url')";
   if (mysqli_query($db, $sql)) {
     echo "<br>Tool added successfully!";
   } else {
@@ -91,12 +88,6 @@ if (isset($_POST['submit'])) {
 
     <label for="description">Description:</label>
     <input type="text" name="description" id="description" required><br><br>
-
-    <label for="student_info">Student Information:</label>
-    <input type="text" name="student_info" id="student_info" required><br><br>
-
-    <label for="status">Status:</label>
-    <input type="text" name="estatus" id="status"><br><br>
 
     <label for="category_id">Category ID:</label>
     <input type="text" name="category_id" id="category_id"><br><br>

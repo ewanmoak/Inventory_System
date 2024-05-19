@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "connect";
 
 // Check if user is logged in and admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== "admin") {
