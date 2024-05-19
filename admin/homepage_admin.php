@@ -23,8 +23,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
   echo $admin_content;
 } else {
   // Handle non-admin users (e.g., redirect to a different page)
-  header('location: login.php');
-  exit();
+  echo "You're not authorize here";
 }
 
 if (isset($_GET['logout'])) {
