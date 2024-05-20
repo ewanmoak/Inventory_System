@@ -5,18 +5,16 @@ include "connect.php";
 // Create tables (if they don't exist)
 $sql = "CREATE TABLE IF NOT EXISTS categories (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  category VARCHAR(255) NOT NULL,
-  subcategory VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL, 
+  category_name VARCHAR(255) NOT NULL,
 
 )";
 mysqli_query($db, $sql);
 
 $sql = "CREATE TABLE IF NOT EXISTS tools (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
+  tool_name VARCHAR(255) NOT NULL,
   quantity INT(11) NOT NULL,
-  description TEXT NOT NULL,
+  def TEXT NOT NULL,
   category_id INT(11) NOT NULL,
   FOREIGN KEY (category_id) REFERENCES categories(id),
 )";
@@ -29,7 +27,7 @@ $result = mysqli_query($db, $sql);
 if (mysqli_num_rows($result) > 0) {
   echo "<h2>Existing Categories</h2>";
   while ($row = mysqli_fetch_assoc($result)) {
-    echo "Category Name: " . $row["name"] . "<br>";
+    echo "Category Name: " . $row["category_name"] . "<br>";
   }
 } else {
   echo "No categories found";
@@ -38,14 +36,14 @@ if (mysqli_num_rows($result) > 0) {
 // Add tool functionality
 if (isset($_POST['submit'])) {
   // Sanitize user input (prevent SQL injection)
-  $name = mysqli_real_escape_string($db, $_POST['name']);
+  $tool_name = mysqli_real_escape_string($db, $_POST['tool_name']);
   $quantity = (int)mysqli_real_escape_string($db, $_POST['quantity']); // Cast to integer
-  $description = mysqli_real_escape_string($db, $_POST['description']);
+  $def = mysqli_real_escape_string($db, $_POST['def']);
   $category_id = (int)mysqli_real_escape_string($db, $_POST['category_id']); // Cast to integer
 
   // Prepare and execute insert query
-  $sql = "INSERT INTO tools (unique_id, name, date_manufactured, expiration_date, maintenance_date, quantity, description, category_id, img_url)
-          VALUES ('$name', $quantity, '$description', $category_id)";
+  $sql = "INSERT INTO tools (id, tool_name, quantity, def, category_id,)
+          VALUES ('$tool_name', $quantity, '$def', $category_id)";
   if (mysqli_query($db, $sql)) {
     echo "<br>Tool added successfully!";
   } else {
@@ -66,23 +64,14 @@ if (isset($_POST['submit'])) {
 <body>
   <h1>Add New Tool</h1>
   <form method="post">
-    <label for="name">Tool Name:</label>
-    <input type="text" name="name" id="name" required><br><br>
-
-    <label for="expiration_date">Expiration Date:</label>
-    <input type="date" name="expiration_date" id="expiration_date"><br><br>
-
-    <label for="maintenance_interval">Maintenance Interval:</label>
-    <input type="date" name="maintenance_interval" id="maintenance_interval"><br><br>
-
-    <label for="last_maintained_date">Last Maintained Date:</label>
-    <input type="date" name="last_maintained_date" id="last_maintained_date"><br><br>
+    <label for="tool_name">Tool Name:</label>
+    <input type="text" name="tool_name" id="tool_name" required><br><br>
 
     <label for="quantity">Quantity:</label>
     <input type="text" name="quantity" id="quantity" required><br><br>
 
-    <label for="description">Description:</label>
-    <input type="text" name="description" id="description" required><br><br>
+    <label for="def">Description:</label>
+    <input type="text" name="def" id="df" required><br><br>
 
     <label for="category_id">Category ID:</label>
     <input type="text" name="category_id" id="category_id"><br><br>
