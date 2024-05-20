@@ -9,13 +9,12 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== "admin") {
 }
 
 // Include connection script (modify path as needed)
-require_once "connect.php";
 
 // Define variables (optional, for filtering or searching borrowers)
 $search_term = ""; // Placeholder for search term
 
 // Connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'login');
+$db = mysqli_connect('localhost', 'root', '', 'borrowers');
 
 // Check connection
 if (mysqli_connect_errno()) {

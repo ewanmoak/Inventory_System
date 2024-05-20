@@ -11,15 +11,11 @@ if (mysqli_connect_errno()) {
 $admin_content = "<h1>Welcome to the Admin Homepage!</h1>
 <p>This is some content specific to the admin user.</p>";
 
-// Redirect to login if user is not logged in
-if (!isset($_SESSION['user_id'])) {
-  header('location: login.php'); // Redirect to login page (assuming it exists)
-  exit();
-}
-
 // Check if user is admin
 if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
   echo $admin_content;
+  header('login.php'); // Redirect to login page (assuming it exists)
+  exit();
 }
 
 if (isset($_GET['logout'])) {
@@ -161,7 +157,7 @@ if (isset($_GET['logout'])) {
                 </ul>
               </li>
           <li><a class="nav-link" href="borrowers.php">Borrowers</a></li>
-          <li><a class="nav-link" href="#LogOut">Log Out</a></li>
+          <li><a class="nav-link" href="login.php">Log Out</a></li>
         </ul>
         <li class="search-bar">
             <form action="" method="post">

@@ -5,21 +5,21 @@ include "connect.php";
 // Create tables (if they don't exist)
 $sql = "CREATE TABLE IF NOT EXISTS categories (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) UNIQUE,
+  category VARCHAR(255) NOT NULL,
+  subcategory VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL, 
+
 )";
 mysqli_query($db, $sql);
 
 $sql = "CREATE TABLE IF NOT EXISTS tools (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255),
-  date_manufactured DATE,
-  expiration_date DATE,
-  maintenance_date DATE,
-  quantity INT(11),
-  description TEXT,
-  category_id INT(11),
+  name VARCHAR(255) NOT NULL,
+  maintenance_date DATE NOT NULL,
+  quantity INT(11) NOT NULL,
+  description TEXT NOT NULL,
+  category_id INT(11) NOT NULL,
   FOREIGN KEY (category_id) REFERENCES categories(id),
-  img_url VARCHAR(255),
 )";
 mysqli_query($db, $sql);
 
@@ -40,17 +40,14 @@ if (mysqli_num_rows($result) > 0) {
 if (isset($_POST['submit'])) {
   // Sanitize user input (prevent SQL injection)
   $name = mysqli_real_escape_string($db, $_POST['name']);
-  $date_manufactured = mysqli_real_escape_string($db, $_POST['date_manufactured']);
-  $expiration_date = mysqli_real_escape_string($db, $_POST['expiration_date']);
   $maintenance_date = mysqli_real_escape_string($db, $_POST['maintenance_date']);
   $quantity = (int)mysqli_real_escape_string($db, $_POST['quantity']); // Cast to integer
   $description = mysqli_real_escape_string($db, $_POST['description']);
   $category_id = (int)mysqli_real_escape_string($db, $_POST['category_id']); // Cast to integer
-  $img_url = mysqli_real_escape_string($db, $_POST['img_url']); // Cast to integer
 
   // Prepare and execute insert query
   $sql = "INSERT INTO tools (unique_id, name, date_manufactured, expiration_date, maintenance_date, quantity, description, category_id, img_url)
-          VALUES ('$name', '$date_manufactured', '$expiration_date', '$maintenance_date', $quantity, '$description', $category_id, 'img_url')";
+          VALUES ('$name', '$maintenance_date', $quantity, '$description', $category_id)";
   if (mysqli_query($db, $sql)) {
     echo "<br>Tool added successfully!";
   } else {
@@ -73,12 +70,6 @@ if (isset($_POST['submit'])) {
   <form method="post">
     <label for="name">Tool Name:</label>
     <input type="text" name="name" id="name" required><br><br>
-
-    <label for="date_manufactured">Date Manufactured:</label>
-    <input type="date" name="date_manufactured" id="date_manufactured" required><br><br>
-
-    <label for="expiration_date">Expiration Date:</label>
-    <input type="date" name="expiration_date" id="expiration_date"><br><br>
 
     <label for="maintenance_date">Maintenance Date:</label>
     <input type="date" name="maintenance_date" id="maintenance_date"><br><br>
