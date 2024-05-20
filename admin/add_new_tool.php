@@ -73,8 +73,6 @@ if (isset($_POST['submit'])) {
     <label for="def">Description:</label>
     <input type="text" name="def" id="df" required><br><br>
 
-    <label for="category_id">Category ID:</label>
-    <input type="text" name="category_id" id="category_id"><br><br>
 
     <?php
 
