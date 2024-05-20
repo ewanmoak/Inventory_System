@@ -75,11 +75,123 @@ if (isset($_POST['register_user'])) {
     <title>Registration Page</title>
     <link rel="stylesheet" href="styles.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+    /* General styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+
+/* Wrapper styles */
+.wrapper {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.input-box input {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.input-box i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #ccc;
+  font-size: 18px;
+}
+
+.input-box input:focus + i,
+.input-box input:valid + i {
+  color: #999;
+}
+
+/* Role selection styles */
+.role {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.role label {
+  margin-right: 10px;
+}
+
+/* Button styles */
+.btn {
+  background-color: #671111;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background-color: #671111;
+}
+
+/* Login link styles */
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-link a {
+  color: #671111;
+  text-decoration: none;
+}
+
+/* Error message styles */
+.error-message {
+  background-color: #f0ad4e;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+.error-message p {
+  margin-bottom: 5px;
+}
+</style>
+
 </head>
 <body>
 <div class="wrapper">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <h3>Engineering Inventory Management System - Registration</h3>
+        <h3>Admin Registration</h3>
         <div class="input-box">
             <input type="text" name="user_id" placeholder="User ID" required>
             <i class='bx bxs-user'></i>

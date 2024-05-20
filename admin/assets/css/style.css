@@ -16,14 +16,14 @@ body {
 }
 
 a {
-  color: #2dc997;
+  color: #671111;
   text-decoration: none;
 }
 
 a:hover,
 a:active,
 a:focus {
-  color: #2dca98;
+  color: #671111;
   outline: none;
   text-decoration: none;
 }
@@ -55,7 +55,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #2dc997;
+  background: #671111;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -69,7 +69,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #49d6a9;
+  background: #671111;
   color: #fff;
 }
 
@@ -710,7 +710,7 @@ section {
 #facts .counters span {
   font-size: 48px;
   display: block;
-  color: #2dc997;
+  color: #671111;
 }
 
 #facts .counters p {
@@ -752,7 +752,7 @@ section {
   text-align: center;
   width: 72px;
   height: 72px;
-  background: #2dc997;
+  background: #671111;
 }
 
 #services .icon a {
@@ -767,15 +767,15 @@ section {
 
 #services .box:hover .icon {
   background: #fff;
-  border: 2px solid #2dc997;
+  border: 2px solid #671111;
 }
 
 #services .box:hover .icon i {
-  color: #2dc997;
+  color: #671111;
 }
 
 #services .box:hover .icon a {
-  color: #2dc997;
+  color: #671111;
 }
 
 #services .title {
@@ -842,8 +842,8 @@ section {
 }
 
 #call-to-action .cta-btn:hover {
-  background: #2dc997;
-  border: 2px solid #2dc997;
+  background: #671111;
+  border: 2px solid #671111;
 }
 
 /* Portfolio Section
@@ -878,7 +878,7 @@ section {
 #portfolio #portfolio-flters li:hover,
 #portfolio #portfolio-flters li.filter-active {
   color: #fff;
-  background: #2dc997;
+  background: #671111;
 }
 
 #portfolio #portfolio-flters li:last-child {
@@ -904,7 +904,7 @@ section {
   bottom: -50px;
   z-index: 3;
   transition: all ease-in-out 0.3s;
-  background: #2dc997;
+  background: #671111;
   padding: 15px 20px;
 }
 
@@ -932,7 +932,7 @@ section {
 
 #portfolio .portfolio-item .portfolio-info .preview-link:hover,
 #portfolio .portfolio-item .portfolio-info .details-link:hover {
-  color: #a4ebd4;
+  color: #671111;
 }
 
 #portfolio .portfolio-item .portfolio-info .details-link {
@@ -969,11 +969,11 @@ section {
   height: 12px;
   background-color: #fff;
   opacity: 1;
-  border: 1px solid #2dc997;
+  border: 1px solid #671111;
 }
 
 .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #2dc997;
+  background-color: #671111;
 }
 
 .portfolio-details .portfolio-info {
@@ -1056,7 +1056,7 @@ section {
 }
 
 #team .member .social a:hover {
-  color: #2dc997;
+  color: #671111;
 }
 
 #team .member .social i {
