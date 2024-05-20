@@ -1,7 +1,7 @@
 <?php
 include "connect.php";
 
-$cpe_content = "<h1>CPE Tools</h1>";
+$tools_content = "<h1>Tools</h1>";
 
 // Assuming you have a database table for tools (modify as needed)
 // Retrieve categories
