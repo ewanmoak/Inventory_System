@@ -68,8 +68,8 @@ table {
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 5px solid #ddd;
+  padding: 10px;
   text-align: left;
 }
 

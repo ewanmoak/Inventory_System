@@ -142,9 +142,11 @@ if (isset($_GET['logout'])) {
 
       <nav id="navbar" class="navbar">
         <ul>
-            <<li class="dropdown"><a href="ad_tools.php"><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
-                <ul><li><a href="add_tool_maintenance.php">Tool Maintenance</a></li></ul>
-              </li>
+            <li class="dropdown"><a href=""><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
+                <ul><li><a href="ad_tools.php">Tools</a></li>
+                <li><a href="add_tool_maintenance.php">Tool Maintenance</a></li>
+                </ul>
+            </li>
           <li><a class="nav-link" href="borrowers.php">Borrowers</a></li>
           <li><a class="nav-link" href="notifications.php">Notifications</a></li>
           <li><a class="nav-link" href="logout.php">Log Out</a></li>
