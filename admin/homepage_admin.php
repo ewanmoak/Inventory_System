@@ -142,29 +142,20 @@ if (isset($_GET['logout'])) {
 
       <nav id="navbar" class="navbar">
         <ul>
-           <li class="dropdown"><a href="ad_cpetools.php"><span>CPE tools</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="ad_handtools.php">Hand Tools</a></li>
-                  <li><a href="ad_mtools.php">Measurement Tools</a></li>
-                  <li><a href="ad_proto.php">Prototyping Tools</a></li>
-                </ul>
-              </li>
-          <li class="dropdown"><a href="ad_ietools.php"><span>IE tools</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Assembly and Fastening Tools</a></li>
-                  <li><a href="#">Cutting and Machining Tools</a></li>
-                  <li><a href="#">Measurement and Machining Tools</a></li>
-                </ul>
+            <<li class="dropdown"><a href="ad_tools.php"><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
+                <ul><li><a href="add_tool_maintenance.php">Tool Maintenance</a></li></ul>
               </li>
           <li><a class="nav-link" href="borrowers.php">Borrowers</a></li>
+          <li><a class="nav-link" href="notifications.php">Notifications</a></li>
           <li><a class="nav-link" href="login.php">Log Out</a></li>
-        </ul>
         <li class="search-bar">
             <form action="" method="post">
               <input type="text" name="search" placeholder="Search">
               <button type="submit">Search</button>
             </form>
           </li>
+        </ul>
+        
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
