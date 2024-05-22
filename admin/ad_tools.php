@@ -56,7 +56,7 @@ mysqli_close($db); // Close the connection
   margin: 20px;
 }
 
-h1, h2 {
+h1 ,h2 {
   margin-bottom: 10px;
 }
 
@@ -64,7 +64,8 @@ h1, h2 {
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  width: 70%;
+  margin: 50px 50px;
 }
 
 th, td {
@@ -100,7 +101,7 @@ textarea {
 }
 
 button {
-  background-color: #4CAF50; /* Green */
+  background-color: #6b1500; /* Green */
   border: none;
   color: white;
   padding: 10px 20px;
@@ -124,7 +125,9 @@ button {
 </head>
 
 <body>
-  <h1>Tool Records</h1>
+  <div>
+    <h1>Tool Records</h1>
+
 
   <?php
   // Include connection details
@@ -196,25 +199,26 @@ button {
   $result = mysqli_query($db, $sql);
 
   ?>
-
-<button id="add-tool-btn">Add</button>
-
-<div id="add-tool-container" style="display: none;">  <h2>Add New Tool Record</h2>
-  <form method="post" id="add-tool-form">
-    <label for="tool_name">Tool Name:</label>
-    <input type="text" name="tool_name" id="tool_name" required><br>
-    <label for="def">Description:</label>
-    <textarea name="def" id="def" rows="5" required></textarea><br>
-    <label for="quantity">Quantity:</label>
-    <input type="number" name="quantity" id="quantity" required><br>
-    <label for="category_name">Category:</label>
-    <input type="text" name="category_name" id="category_name" required><br>
-    <label for="quantity">Category ID:</label>
-    <input type="text" name="category_id" id="category_id" required><br>
-    <button type="submit">Add Record</button>
-  </form>
+  
+<div id="add-tool-wrapper">
+  <button id="add-tool-btn">Add Tool</button>
+  <div id="add-tool-container" style="display: none;">
+    <h2>Add New Tool Record</h2>
+    <form method="post" id="add-tool-form">
+      <label for="tool_name">Tool Name:</label>
+      <input type="text" name="tool_name" id="tool_name" required><br>
+      <label for="def">Description:</label>
+      <textarea name="def" id="def" rows="5" required></textarea><br>
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" required><br>
+      <label for="category_name">Category:</label>
+      <input type="text" name="category_name" id="category_name" required><br>
+      <label for="quantity">Category ID:</label>
+      <input type="text" name="category_id" id="category_id" required><br>
+      <button type="submit">Add Record</button>
+    </form>
+  </div>
 </div>
-
   <?php
   // Display existing records (call the function)
   displayRecords($result);

@@ -59,7 +59,7 @@ if (isset($_POST['login_user'])) {
 
         if ($role === "admin") {
           $_SESSION['success'] = "Welcome Admin, you are now logged in";
-          header('location: admin/homepage_admin.php');  // Redirect to admin homepage
+          header('location: home_admin.html');  // Redirect to admin homepage
         } else {
           $_SESSION['success'] = "You are now logged in";
           header('location: student/homepage_student.php');  // Redirect to student homepage
