@@ -1,7 +1,6 @@
 <?php
-include "connect.php";
-include "add_new_tool.php";
-include "add_tool_maintenance";
+include "admin_connect.php";
+
 
 $tools_content = "<h1>Tools</h1>";
 
@@ -68,22 +67,22 @@ if ($result_tools) { // Check if query was successful
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/UBlogo.png" rel="icon">
-  <link href="assets/img/UBlogo.png" rel="apple-touch-icon">
+  <link href="admin/assets/img/UBlogo.png" rel="icon">
+  <link href="admin/assets/img/UBlogo.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="admin/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="admin/assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Regna
@@ -101,7 +100,7 @@ if ($result_tools) { // Check if query was successful
     <div class="container d-flex justify-content-between align-items-center">
 
       <div id="logo">
-        <a href="index.html"><img src="assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
+        <a href="index.html"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="index.html">Regna</a></h1>-->
       </div>
@@ -171,7 +170,7 @@ if ($result_tools) { // Check if query was successful
                 <h3>Wire Cutter</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Wire Cutter.jpg" style="width: 500px; height: 350px;">>
+              <img class="img-fluid" src="admin/assets/img/Wire Cutter.jpg" style="width: 500px; height: 350px;">>
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
@@ -180,7 +179,7 @@ if ($result_tools) { // Check if query was successful
                 <h3>SolderingIron</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/SolderingIron.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="admin/assets/img/SolderingIron.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
@@ -189,7 +188,7 @@ if ($result_tools) { // Check if query was successful
                 <h3>Drill</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Drill.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="admin/assets/img/Drill.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
         </div>
@@ -230,16 +229,16 @@ if ($result_tools) { // Check if query was successful
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="admin/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="admin/assets/vendor/aos/aos.js"></script>
+  <script src="admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="admin/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="admin/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="admin/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="admin/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="admin/assets/js/main.js"></script>
 
 </body>
 
