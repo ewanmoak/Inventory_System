@@ -1,6 +1,6 @@
 <?php
-include "connect.php";
-include "search.php";
+include "admin_connect.php";
+include "admin_search.php";
 
 // Create tables (if not exist)
 /*
@@ -131,7 +131,7 @@ button {
 
   <?php
   // Include connection details
-  include "connect.php";
+  include "admin_connect.php";
 
   // Function to display records (optional)
   function displayRecords($result) {

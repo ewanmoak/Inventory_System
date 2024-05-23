@@ -1,6 +1,6 @@
 <?php
 
-include "connect.php";
+include "admin_connect.php";
 
 
 if (isset($_POST['search'])) {

@@ -1,3 +1,4 @@
+//
 <?php
 session_start();
 
@@ -33,7 +34,7 @@ if (isset($_GET['logout'])) {
   <?php
 }
 ?>
-
+//
 <!--
 <!DOCTYPE html>
 <html lang="en">
@@ -143,12 +144,12 @@ if (isset($_GET['logout'])) {
       <nav id="navbar" class="navbar">
         <ul>
             <li class="dropdown"><a href=""><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
-                <ul><li><a href="ad_tools.php">Tools</a></li>
-                <li><a href="add_tool_maintenance.php">Tool Maintenance</a></li>
+                <ul><li><a href="admin_tools.php">Tools</a></li>
+                <li><a href="admin_add_tool_maintenance.php">Tool Maintenance</a></li>
                 </ul>
             </li>
-          <li><a class="nav-link" href="borrowers.php">Borrowers</a></li>
-          <li><a class="nav-link" href="notifications.php">Notifications</a></li>
+          <li><a class="nav-link" href="admin_borrowers.php">Borrowers</a></li>
+          <li><a class="nav-link" href="admin_notifications.php">Notifications</a></li>
           <li><a class="nav-link" href="logout.php">Log Out</a></li>
         <li class="search-bar">
             <form action="" method="post">

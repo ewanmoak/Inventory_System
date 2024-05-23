@@ -1,3 +1,78 @@
+<?php
+session_start();
+
+$db = mysqli_connect('localhost', 'root', '', 'login');
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+$student_content = "<h1>Toolroom</h1>
+<p>This is some content specific to the student user.</p>";
+
+// Check if user is student
+if (isset($_SESSION['role']) && $_SESSION['role'] === "student") {
+  echo $student_content;
+  header('login.php'); // Redirect to login page (assuming it exists)
+  exit();
+}
+
+if (isset($_GET['logout'])) {
+  if (isset($_SESSION['success'])) {
+    // Display success message from previous login (optional)
+    echo $_SESSION['success'];
+    unset($_SESSION['success']);
+  }
+
+  // Confirmation message and logout link
+  echo "Are you sure you want to log out?";
+  ?>
+  <a href="#">Yes, Log Out</a>
+  <a href="#">Cancel</a>
+  <?php
+}
+?>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="d-flex flex-column h-100 justify-content-center">
+  <h1 class="text-center">Dashboard</h1>
+  <nav class="bg-light d-flex flex-column px-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="ad_cpetools.php">CPE Tools</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ad_ietools.php">IE Tools</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#users">Users Management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../login/login.php>Logout</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<?php if (isset($student_content)): ?>
+    <?php echo $student_content; ?>
+      <?php endif; ?>
+
+</body>
+</html>
+
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,13 +143,18 @@
       <nav id="navbar" class="navbar">
         <ul>
             <li class="dropdown"><a href=""><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
-                <ul><li><a href="ad_tools.php">Tools</a></li>
-                <li><a href="add_tool_maintenance.php">Tool Maintenance</a></li>
+                <ul>
+                <li><a href="MyPortfolio/hand.html">Hand Tools</a></li>
+                <li><a href="MyPortfolio/measurement.html">Measurement Tools</a></li>
+                <li><a href="MyPortfolio/proto.html">Prototyping Tools</a></li>
+                <li><a href="MyPortfolio/fastening.html">Assembly and Fastening Tools</a></li>
+                <li><a href="MyPortfolio/cutting.html">Cutting and Machining Tools</a></li>
+                <li><a href="MyPortfolio/inspection.html">Measurement and Machining Tools</a></li>
                 </ul>
             </li>
-          <li><a class="nav-link" href="borrowers.php">Borrowers</a></li>
+          <li><a class="nav-link" href="borrowedItems_list.php">Borrowed Items</a></li>
           <li><a class="nav-link" href="notifications.php">Notifications</a></li>
-          <li><a class="nav-link" href="logout.php">Log Out</a></li>
+          <li><a class="nav-link" href="../login/login.php">Log Out</a></li>
         <li class="search-bar">
             <form action="" method="post">
               <input type="text" name="search" placeholder="Search">

@@ -1,35 +1,36 @@
 <?php
-// Include connection details
-include "connect.php";
+include "admin_connect1.php";
 
-$sql = "CREATE TABLE IF NOT EXISTS tool_maintenance (
-  tool_id INT(11) NOT NULL,
-  FOREIGN KEY (tool_id) REFERENCES tools(id),
-  maintenance_date DATE NOT NULL,
-  note TEXT NOT NULL
-)";
-
-if (!mysqli_query($db, $sql)) {
+$sql = "CREATE TABLE IF NOT EXISTS borrowers(
+   id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+   student_no INT(11) NOT NULL,
+   program TEXT(255) NOT NULL,
+   tool_no INT(11) NOT NULL,
+   FOREIGN KEY (tool_no) REFERENCES tools(id),
+   FOREIGN KEY (student_no) REFERENCES users(user_id)
+  )";
+  
+if (!mysqli_query($db, $sql)){
   die("Error creating table: " . mysqli_error($db));
 } else {
-  echo "Table tool_maintenance created successfully";
+  echo "Table list created successfully";
 }
 
-$sql = "SELECT * FROM tool_maintenance";
+$sql = "SELECT * FROM list";
 $result = mysqli_query($db, $sql);
 
-if (!$result) {
+if (!result) {
   echo "Error retrieving data: " . mysqli_error($db);
 } else {
-  // Process the results (optional)
-  while ($row = mysqli_fetch_assoc($result)) {
-    $tool_id = $row['tool_id'];
-    $maintenance_date = $row['maintenance_date'];
-    $note = $row['note'];
+
+  while ($row = mysqli_fetch_assoc(result)){
+    $student_no = $row['student_no'];
+    $program = $row['program'];
+    $tool_no = $row['tool_no'];
   }
 }
 
-mysqli_close($db); // Close the connection
+mysqli_closw($db);
 
 ?>
 
@@ -38,7 +39,7 @@ mysqli_close($db); // Close the connection
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tool Maintenance Records</title>
+  <title>List of Borrowers</title>
   <style>
   body {
   font-family: Arial, sans-serif;
@@ -117,18 +118,18 @@ button {
 
   <?php
   // Include connection details
-  include "connect.php";
+  include "admin_connect.php";
 
   // Function to display records (optional)
   function displayRecords($result) {
     if ($result) {
       echo "<table>";
-      echo "<tr><th>Tool ID</th><th>Maintenance Date</th><th>Note</th></tr>";
+      echo "<tr><th>Student Number</th><th>Program</th><th>Tool ID</th></tr>";
       while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr>";
-        echo "<td>" . $row['tool_id'] . "</td>";
-        echo "<td>" . $row['maintenance_date'] . "</td>";
-        echo "<td>" . $row['note'] . "</td>";
+        echo "<td>" . $row['student_no'] . "</td>";
+        echo "<td>" . $row['program'] . "</td>";
+        echo "<td>" . $row['tool_no'] . "</td>";
         echo "</tr>";
       }
       echo "</table>";
@@ -139,18 +140,18 @@ button {
 
   // Process form submission (if submitted)
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tool_id = $_POST['tool_id'];
-    $maintenance_date = $_POST['maintenance_date'];
-    $note = $_POST['note'];
+    $student_no = $_POST['student_no'];
+    $program = $_POST['program'];
+    $tool_no = $_POST['tool_no'];
 
     // Validate input (optional, add checks for data types, etc.)
-    if (empty($tool_id) || empty($maintenance_date) || empty($note)) {
+    if (empty($student_no) || empty($program) || empty($tool_no)) {
       echo "Please fill in all required fields.";
     } else {
       // Insert data into database
-      $sql = "INSERT INTO tool_maintenance (tool_id, maintenance_date, note) VALUES (?, ?, ?)";
+      $sql = "INSERT INTO borrowers (student_no, program, tool_no) VALUES (?, ?, ?)";
       $stmt = mysqli_prepare($db, $sql);
-      mysqli_stmt_bind_param($stmt, "iss", $tool_id, $maintenance_date, $note);
+      mysqli_stmt_bind_param($stmt, "iss", $student_no, $program, $tool_no);
       if (mysqli_stmt_execute($stmt)) {
         echo "Maintenance record added successfully!";
       } else {
@@ -161,11 +162,11 @@ button {
   }
 
   // Retrieve existing records (optional)
-  $sql = "SELECT * FROM tool_maintenance";
+  $sql = "SELECT * FROM borrowers";
   $result = mysqli_query($db, $sql);
 
   ?>
-
+<!--
   <h2>Add New Maintenance Record</h2>
   <form method="post">
     <label for="tool_id">Tool ID:</label>
@@ -174,9 +175,12 @@ button {
     <input type="date" name="maintenance_date" id="maintenance_date" required><br>
     <label for="note">Note:</label>
     <textarea name="note" id="note" rows="5" required></textarea><br>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required><br>
     <button type="submit">Add Record</button>
   </form>
 
+-->
   <?php
   // Display existing records (call the function)
   displayRecords($result);
@@ -185,3 +189,4 @@ button {
 
 </body>
 </html>
+

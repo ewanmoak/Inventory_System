@@ -1,6 +1,6 @@
 <?php
 
-include "connect.php";
+include "admin_connect.php";
 
 $tool_id = $_POST["tool_id"]; // Assuming your form has a hidden field with tool ID
 $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING); // Sanitize name

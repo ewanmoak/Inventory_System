@@ -1,10 +1,10 @@
 <?php
 session_start();
-include "logout.php";
+include "../login/logout.php";
 
-// Redirect to index.php if user is already logged in
+// Redirect to homepage_student if user is already logged in
 if (isset($_SESSION['user_id'])) {
-  header('location: index.php');
+  header('location: homepage_student.php');
   exit();
 }
 
@@ -59,7 +59,7 @@ if (isset($_POST['login_user'])) {
 
         if ($role === "admin") {
           $_SESSION['success'] = "Welcome Admin, you are now logged in";
-          header('location: home_admin.html');  // Redirect to admin homepage
+          header('location: homepage_admin.php');  // Redirect to admin homepage
         } else {
           $_SESSION['success'] = "You are now logged in";
           header('location: student/homepage_student.php');  // Redirect to student homepage
