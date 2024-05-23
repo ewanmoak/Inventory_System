@@ -11,7 +11,7 @@ $sql = "CREATE TABLE IF NOT EXISTS categories (
 mysqli_query($db, $sql);
 */
 $sql = "CREATE TABLE IF NOT EXISTS tools (
-  id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   tool_name VARCHAR(255) NOT NULL,
   quantity INT(11) NOT NULL,
   def TEXT NOT NULL,

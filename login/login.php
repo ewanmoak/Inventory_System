@@ -24,7 +24,7 @@ if (mysqli_connect_errno()) {
 // Auto-create table if it doesn't exist (consider a separate script for production)
 $sql = "CREATE TABLE IF NOT EXISTS users (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  user_id INT(10) NOT NULL,
+  user_id INT(11) NOT NULL,
   name VARCHAR(30) NOT NULL,
   password VARCHAR(255) NOT NULL,
   role VARCHAR(255) NOT NULL,

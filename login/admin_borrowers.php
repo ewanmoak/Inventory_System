@@ -2,13 +2,14 @@
 include "admin_connect1.php";
 
 $sql = "CREATE TABLE IF NOT EXISTS borrowers(
-   id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-   student_no INT(11) NOT NULL,
-   program TEXT(255) NOT NULL,
-   tool_no INT(11) NOT NULL,
-   FOREIGN KEY (tool_no) REFERENCES tools(id),
-   FOREIGN KEY (student_no) REFERENCES users(user_id)
-  )";
+  id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  student_no INT(11) NOT NULL,
+  program TEXT(255) NOT NULL,
+  tool_no INT(11) NOT NULL,
+  FOREIGN KEY (tool_no) REFERENCES tools(id),  -- Ensure id in tools is also INT(11)
+  FOREIGN KEY (student_no) REFERENCES users(user_id)  -- Ensure user_id in users is also INT(11)
+)";
+
   
 if (!mysqli_query($db, $sql)){
   die("Error creating table: " . mysqli_error($db));
