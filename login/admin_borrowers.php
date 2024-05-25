@@ -1,10 +1,10 @@
 <?php
 include "admin_connect1.php";
 
-$sql = "CREATE TABLE IF NOT EXISTS borrowers(
+$sql = "CREATE TABLE IF NOT EXISTS list(
   id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   student_no INT(11) NOT NULL,
-  program TEXT(255) NOT NULL,
+  program VARCHAR(255) NOT NULL,
   tool_no INT(11) NOT NULL,
   FOREIGN KEY (tool_no) REFERENCES tools(id),  -- Ensure id in tools is also INT(11)
   FOREIGN KEY (student_no) REFERENCES users(user_id)  -- Ensure user_id in users is also INT(11)
@@ -17,21 +17,24 @@ if (!mysqli_query($db, $sql)){
   echo "Table list created successfully";
 }
 
+// Prepare data for JavaScript (optional)
+$hasData = (mysqli_num_rows($result) > 0); // Assuming $result holds your query results
+
 $sql = "SELECT * FROM list";
 $result = mysqli_query($db, $sql);
 
-if (!result) {
+if (!$result) {
   echo "Error retrieving data: " . mysqli_error($db);
 } else {
 
-  while ($row = mysqli_fetch_assoc(result)){
+  while ($row = mysqli_fetch_assoc($result)){
     $student_no = $row['student_no'];
     $program = $row['program'];
     $tool_no = $row['tool_no'];
   }
 }
 
-mysqli_closw($db);
+mysqli_close($db);
 
 ?>
 
@@ -115,11 +118,11 @@ button {
 </head>
 
 <body>
-  <h1>Tool Maintenance Records</h1>
+  <h1>Borrower's List</h1>
 
   <?php
   // Include connection details
-  include "admin_connect.php";
+  include "admin_connect1.php";
 
   // Function to display records (optional)
   function displayRecords($result) {
@@ -135,7 +138,7 @@ button {
       }
       echo "</table>";
     } else {
-      echo "Error retrieving data";
+      echo "<script>showError('Error retrieving data');</script>";
     }
   }
 
@@ -150,7 +153,7 @@ button {
       echo "Please fill in all required fields.";
     } else {
       // Insert data into database
-      $sql = "INSERT INTO borrowers (student_no, program, tool_no) VALUES (?, ?, ?)";
+      $sql = "INSERT INTO lists (student_no, program, tool_no) VALUES (?, ?, ?)";
       $stmt = mysqli_prepare($db, $sql);
       mysqli_stmt_bind_param($stmt, "iss", $student_no, $program, $tool_no);
       if (mysqli_stmt_execute($stmt)) {
@@ -163,7 +166,7 @@ button {
   }
 
   // Retrieve existing records (optional)
-  $sql = "SELECT * FROM borrowers";
+  $sql = "SELECT * FROM lists";
   $result = mysqli_query($db, $sql);
 
   ?>
