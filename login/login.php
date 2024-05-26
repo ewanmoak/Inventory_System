@@ -26,7 +26,7 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
   user_id INT(11) NOT NULL,
   name VARCHAR(30) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  role VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL
 )";
 mysqli_query($db, $sql);
 
