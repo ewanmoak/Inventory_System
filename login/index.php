@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION['user_id'])) {
     header('location: login.php');
     exit();
 }
-
 
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -25,7 +23,6 @@ if (isset($_GET['logout'])) {
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-   
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -72,20 +69,22 @@ if (isset($_GET['logout'])) {
             font-size: 14px;
             margin-top: 10px;
         }
+        .text-center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="logout" onclick="location.href='index.php?logout=true'">
-        <i class='bx bx-log-out-circle'></i> Logout
+        <i class='bx bx-log-out-circle'></i> Proceed to Login
     </div>
     <div class="welcome">
-        <h2>Engineering Inventory Management System</h2>
-        <p>Hi <?php echo $_SESSION['user_id']; ?>,</p>
+        <h2>UBLC Engineering Inventory Management System</h2>
+        <p>Hi <?php echo $_SESSION['name']; ?></p>
     </div>
     <div class="content">
-
-        <p>This is the home page. You can add your content here.</p>
+        <p class="text-center">Registration successful! You can now log in.</p>
         <?php if (isset($_SESSION['error'])): ?>
             <div class="error-message"><?php echo $_SESSION['error']; ?></div>
             <?php unset($_SESSION['error']); ?>
