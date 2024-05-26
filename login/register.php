@@ -35,6 +35,7 @@ if (isset($_POST['register_user'])) {
   $name = mysqli_real_escape_string($db, $_POST['name']);
   $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
   $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+  $role = mysqli_real_escape_string($db, $_POST['role']);
 
   // form validation
   if (empty($user_id)) {
@@ -52,14 +53,13 @@ if (isset($_POST['register_user'])) {
 
   // register user if there are no errors in the form
   if (count($errors) == 0) {
-    // **Use a secure hashing algorithm instead of md5!**
-    $password_1 = password_hash($password_1, PASSWORD_BCRYPT); // Example using bcrypt
-
-    $query = "INSERT INTO users (user_id, name, password) VALUES('$user_id', '$name', '$password_1')";
+    $password_1 = password_hash($password_1, PASSWORD_BCRYPT);
+  
+    $query = "INSERT INTO users (user_id, name, password, role) VALUES ('$user_id', '$name', '$password_1', '$role')";
     mysqli_query($db, $query);
-
+  
     $_SESSION['user_id'] = $user_id;
-    $_SESSION['name'] = $name;  // Store name in session
+    $_SESSION['name'] = $name;
     $_SESSION['success'] = "You are now registered and logged in";
     header('location: index.php');
   }
