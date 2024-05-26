@@ -194,23 +194,36 @@ button {
     $maintenance_date = $_POST['maintenance_date'];
     $note = $_POST['note'];
     $email = $_POST['email'];
-
-    // Validate input (optional, add checks for data types, etc.)
-    if (empty($tool_id) || empty($maintenance_date) || empty($note) || empty($email)) {
-      echo "Please fill in all required fields.";
-    } else {
-      // Insert data into database
-      $sql = "INSERT INTO tool_maintenance (tool_id, maintenance_date, note, email) VALUES (?, ?, ?, ?)";
-      $stmt = mysqli_prepare($db, $sql);
-      mysqli_stmt_bind_param($stmt, "iss", $tool_id, $maintenance_date, $note, $email);
-      if (mysqli_stmt_execute($stmt)) {
-        echo "Maintenance record added successfully!";
-      } else {
-        echo "Error adding record: " . mysqli_error($db);
-      }
-      mysqli_stmt_close($stmt);
-    }
   }
+    // Validate input (add checks for data types, etc.)
+if (empty($tool_id) || empty($maintenance_date) || empty($note) || empty($email)) {
+  echo "Please fill in all required fields.";
+} else {
+  // Improved validation (consider adding more specific checks)
+  if (!strtotime($maintenance_date)) {
+    echo "Invalid date format. Please use YYYY-MM-DD.";
+    exit(); // Stop script execution on invalid date
+  }
+
+  // Insert data into database
+  $sql = "INSERT INTO tool_maintenance (tool_id, maintenance_date, note, email) VALUES (?, ?, ?, ?)";
+  $stmt = mysqli_prepare($db, $sql);
+
+  // Optional: Adjust data types based on your table schema
+  mysqli_stmt_bind_param($stmt, "isss", $tool_id, $maintenance_date, $note, $email);
+
+  if (mysqli_stmt_execute($stmt)) {
+    echo "Maintenance record added successfully!";
+  } else {
+    // Improved error handling
+    $error = mysqli_stmt_error($stmt);
+    echo "Error adding record: $error";
+  }
+
+  mysqli_stmt_close($stmt); // Close the statement
+  
+}
+  
 
   // Retrieve existing records (optional)
   $sql = "SELECT * FROM tool_maintenance";

@@ -1,36 +1,33 @@
 <?php
-include "admin_connect1.php";
 
-// Check if user is logged in (replace with your authentication logic)
-if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
-  echo json_encode(array("error" => "Unauthorized access. Please login."));
+
+$db = mysqli_connect('localhost', 'root', '', 'inventory'); // Assuming correct connection details
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
   exit();
 }
 
-$toolId = isset($_POST['tool_id']) ? intval($_POST['tool_id']) : 0;
-$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 0;
+// Get tool information from query parameter
+$id = $_GET['id'];
 
-if ($toolId > 0 && $quantity > 0) {
-  $studentId = $_SESSION['user_id']; // Retrieve student ID from session
+// Write a query to retrieve tool information
+$stmt = mysqli_prepare($db, "SELECT * FROM tools WHERE id = ?");
+mysqli_stmt_bind_param($stmt, "i", id); // Bind the parameter as integer (optional, based on your tool_id data type)
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-  $borrowedDate = date('Y-m-d'); // Today's date
-
-  // Prepared statement to prevent SQL injection (recommended)
-  $stmt = mysqli_prepare($db, "INSERT INTO borrowed_items (student_id, id_tool, borrowed_date, quantity) VALUES (?, ?, ?, ?)");
-  mysqli_stmt_bind_param($stmt, "iiii", $studentId, $toolId, $borrowedDate, $quantity);
-
-  if (mysqli_stmt_execute($stmt)) {
-    echo json_encode(array("message" => "Item borrowed successfully!"));
-  } else {
-    echo json_encode(array("error" => "Failed to add item: " . mysqli_error($db)));
-  }
-
-  mysqli_stmt_close($stmt);
+if (isset($_GET['id'])) {
+  $tool_id = $_GET['id'];
+  // ... rest of your code using $tool_id
 } else {
-  echo json_encode(array("error" => "Invalid data provided."));
+  // Handle missing tool_id case (e.g., display error message)
+  echo "Error: Tool ID not found in the URL.";
+  exit(); // Stop script execution
 }
 
-mysqli_close($db);
+mysqli_close($db); // Close connection
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +57,9 @@ mysqli_close($db);
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <script src="borrowItems.js"></script>
 
-  
+</head> 
 
 <body>
 
@@ -91,55 +89,40 @@ mysqli_close($db);
 
   <main id="main">
 
-    <section class="section">
-      <div class="container">
-        <div class="row mb-4 align-items-center">
-          <div class="col-md-6" data-aos="fade-up">
-            <h2>Wire Cutter</h2>
-            <p>-A wire cutter is a hand tool designed for cutting wires and cables. It typically consists of two sharp blades that are forced together to cleanly cut through the wire.
-            </p>
-          </div>
-        </div>
+  <section class="section">
+  <div class="container">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-6" data-aos="fade-up">
+        <h2>Wire Cutter</h2>
+        <p>-A wire cutter is a hand tool designed for cutting wires and cables. It typically consists of two sharp blades that are forced together to cleanly cut through the wire.</p>
+        <a href="work-single.php?tool=wire-cutter" class="btn btn-primary">View Details</a>
       </div>
+    </div>
+  </div>
 
-      <div class="site-section pb-0">
-        <div class="container">
-          <div class="row align-items-stretch">
-            <div class="col-md-8" data-aos="fade-up">
-            <img src="assets/img/Wire Cutter.jpg" alt="Image" class="img-fluid" >
-            </div>
-            <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              
+  <div class="site-section pb-0">
+    <div class="container">
+      <div class="row align-items-stretch">
+        <div class="col-md-8" data-aos="fade-up">
+          <img src="assets/img/Wire Cutter.jpg" alt="Image" class="img-fluid">
+        </div>
+        <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
 
                
 
                 <button id="borrow-item-btn">Borrow Item</button>
           <div id="borrowed-items-list"></div>
-              <script>
-                // Placeholder Javascript for demonstration
-                  document.getElementById('borrow-item-btn').addEventListener('click', function() {
-                // Simulate AJAX request
-                  console.log("Borrowing item...");
-                // Update borrowed-items-list using Javascript (replace with actual logic)
-                  document.getElementById('borrowed-items-list').innerHTML += "<li>Wire Cutter (1)</li>";
-                });
-              </script>
-                
                 </div>
               </div>
             </div>
           </div>
         </div>
     </section>
-
- 
-
-            <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=MyPortfolio
-          -->
           </div>
         </div>
        
