@@ -184,7 +184,7 @@ button {
       // Insert data into database
       $sql = "INSERT INTO tools (tool_name, quantity, def, category_name, category_id ) VALUES (?, ?, ?, ?, ?)";
       $stmt = mysqli_prepare($db, $sql);
-      mysqli_stmt_bind_param($stmt, "iss", $tool_name, $quantity, $def, $category_name, $category_id);
+      mysqli_stmt_bind_param($stmt, "sssss", $tool_name, $quantity, $def, $category_name, $category_id);
       if (mysqli_stmt_execute($stmt)) {
         echo "Tool record added successfully!";
       } else {
@@ -261,7 +261,7 @@ deleteButtons.forEach(button => {
     if (confirm("Are you sure you want to delete this record?")) {
       // Send AJAX request to delete record
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'delete_tool.php'); // Replace with your server-side script for deletion
+      xhr.open('POST', 'admindelete_tool.php'); // Replace with your server-side script for deletion
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.onload = function() {
         if (xhr.status === 200) {
@@ -289,7 +289,7 @@ table.addEventListener('blur', function(event) {
 
     // Send AJAX request to update record
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'update_tool.php'); // Replace with your server-side script for update
+    xhr.open('POST', 'admin_update_tool.php'); // Replace with your server-side script for update
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
       if (xhr.status === 200) {

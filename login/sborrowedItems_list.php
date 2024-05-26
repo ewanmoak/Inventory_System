@@ -36,20 +36,27 @@ if (!mysqli_query($db, $sql)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Borrowed Items List</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>Borrowed Items</h1>
+  </header>
 
-  <h1>Borrowed Items</h1>
-
-  <?php if (!empty($borrowedItems)): ?>
+  <main>
     <ul id="borrowed-items-list">
-      <?php foreach ($borrowedItems as $item): ?>
-        <li><?php echo $item; ?></li>
-      <?php endforeach; ?>
+      <?php if (!empty($borrowedItems)): ?>
+        <?php foreach ($borrowedItems as $item): ?>
+          <li>
+            <span class="item-name"><?php echo $item; ?></span>
+          </li>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p class="no-items-message">No items currently borrowed.</p>
+      <?php endif; ?>
     </ul>
-  <?php else: ?>
-    <p>No items currently borrowed.</p>
-  <?php endif; ?>
+  </main>
 
+  <script src="borrowItems.js"></script>
 </body>
 </html>

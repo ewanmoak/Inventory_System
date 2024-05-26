@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+include "logout.php";
 
 $db = mysqli_connect('localhost', 'root', '', 'login');
 // Check connection
@@ -17,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === "student") {
   header('login.php'); // Redirect to login page (assuming it exists)
   exit();
 }
-
+/*
 if (isset($_GET['logout'])) {
   if (isset($_SESSION['success'])) {
     // Display success message from previous login (optional)
@@ -32,6 +33,7 @@ if (isset($_GET['logout'])) {
   <a href="#">Cancel</a>
   <?php
 }
+*/
 ?>
 
 <!--
@@ -152,9 +154,9 @@ if (isset($_GET['logout'])) {
                 <li><a href="student/MyPortfolio/inspection.html">Measurement and Machining Tools</a></li>
                 </ul>
             </li>
-          <li><a class="nav-link" href="borrowedItems_list.php">Borrowed Items</a></li>
+          <li><a class="nav-link" href="sborrowedItems_list.php">Borrowed Items</a></li>
           <li><a class="nav-link" href="notifications.php">Notifications</a></li>
-          <li><a class="nav-link" href="../login/login.php">Log Out</a></li>
+          <li><a class="nav-link" href="login.php">Log Out</a></li>
         <li class="search-bar">
             <form action="" method="post">
               <input type="text" name="search" placeholder="Search">

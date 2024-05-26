@@ -54,14 +54,36 @@ if (isset($_POST['register_user'])) {
   if (count($errors) == 0) {
     // **Use a secure hashing algorithm instead of md5!**
     $password_1 = password_hash($password_1, PASSWORD_BCRYPT); // Example using bcrypt
-
-    $query = "INSERT INTO users (user_id, name, password) VALUES('$user_id', '$name', '$password_1')";
-    mysqli_query($db, $query);
-
-    $_SESSION['user_id'] = $user_id;
-    $_SESSION['name'] = $name;  // Store name in session
-    $_SESSION['success'] = "You are now registered and logged in";
-    header('location: index.php');
+  
+    // **Add a field for role in your database and form**
+    $role = isset($_POST['role']) ? $_POST['POST']['role'] : ''; // Get the selected role from the form
+  
+    // **Validate role (optional, depending on your implementation)**
+    $validRoles = ['student', 'admin']; // Example allowed roles
+    if (!in_array($role, $validRoles)) {
+      $errors[] = "Invalid role selected.";
+    }
+  
+    if (empty($errors)) {
+      $query = "INSERT INTO users (user_id, name, password, role) VALUES('$user_id', '$name', '$password_1', '$role')";
+      mysqli_query($db, $query);
+  
+      $_SESSION['user_id'] = $user_id;
+      $_SESSION['name'] = $name;  // Store name in session
+  
+      // **Redirect based on role**
+      if ($role === 'student') {
+        $_SESSION['success'] = "You are now registered and logged in as a student.";
+        header('location: student_dashboard.php');
+      } else if ($role === 'admin') {
+        $_SESSION['success'] = "You are now registered and logged in as an admin.";
+        header('location: admin_dashboard.php');
+      } else {
+        // Handle unexpected role (optional)
+        $_SESSION['error'] = "An error occurred during registration.";
+        header('location: registration.php'); // Redirect back to registration
+      }
+    }
   }
 }
 ?>

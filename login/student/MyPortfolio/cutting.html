@@ -28,14 +28,6 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
 
-
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -87,7 +79,7 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single20.html" class="item-wrap fancybox">
+            <a href="work-single20.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Manual Rivet Gun</h3>
                 <span>Tool</span>
@@ -96,7 +88,7 @@
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single22.html" class="item-wrap fancybox">
+            <a href="work-single22.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Combination Pliers<h3>
                 <span>Tool</span>
@@ -105,7 +97,7 @@
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single23.html" class="item-wrap fancybox">
+            <a href="work-single23.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Craft Knife</h3>
                 <span>Tool</span>
@@ -114,7 +106,7 @@
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single24.html" class="item-wrap fancybox">
+            <a href="work-single24.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Hacksaw</h3>
                 <span>Tool</span>
@@ -123,7 +115,7 @@
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single25.html" class="item-wrap fancybox">
+            <a href="work-single25.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Manual Pipe Cutter</h3>
                 <span>Tool</span>

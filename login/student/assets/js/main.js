@@ -232,4 +232,11 @@
    */
   new PureCounter();
 
+  fetch('borrow_item.php')
+    .then(response => response.json())
+    .then(data => {
+    // Update UI based on response (e.g., display success message)
+    console.log(data.message);
+  });
+
 })()

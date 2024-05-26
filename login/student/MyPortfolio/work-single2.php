@@ -25,13 +25,6 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -66,8 +59,8 @@
       <div class="container">
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
-            <h2>Drill</h2>
-            <p>-A small portable drilling machine resembling a breast drill but designed to be held and operated by hand. 2. : a primitive drill consisting of a shaft carrying a point of stone, bone, shell, or metal and revolved usually by the palms of the hands.
+            <h2>SolderingIron</h2>
+            <p>-A soldering iron is a handheld tool used for melting solder to join metal surfaces together. It consists of a heated metal tip connected to an insulated handle and an electrical cord for power. Soldering irons are commonly used in electronics assembly, plumbing, jewelry making, and various DIY projects where precise and controlled melting of solder is required to create strong, permanent connections between components or materials.
             </p>
           </div>
         </div>
@@ -77,7 +70,7 @@
         <div class="container">
           <div class="row align-items-stretch">
             <div class="col-md-8" data-aos="fade-up">
-            <img src="assets/img/Drill.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+            <img src="assets/img/SolderingIron.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
             </div>
             <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
               
