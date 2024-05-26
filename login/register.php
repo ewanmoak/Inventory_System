@@ -212,8 +212,8 @@ h3 {
               <label for="role">Select Role:</label>
               <input type="radio" id="role-admin" name="role" value="admin" required>
               <label for="role-admin">Admin</label>
-              <input type="radio" id="role-user" name="role" value="user" required>
-              <label for="role-user">User</label>
+              <input type="radio" id="role-student" name="role" value="student" required>
+              <label for="role-user">Student</label>
         </div>
         <button type="submit" class="btn" name="register_user">Register</button>
         <div class="login-link">
