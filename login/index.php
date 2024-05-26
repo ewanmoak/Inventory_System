@@ -81,7 +81,7 @@ if (isset($_GET['logout'])) {
     </div>
     <div class="welcome">
         <h2>Engineering Inventory Management System</h2>
-        <p>Hi <?php echo $_SESSION['user_id']; ?>,</p>
+        <p>Hi <?php echo $_SESSION['name']; ?>,</p>
     </div>
     <div class="content">
 
