@@ -16,7 +16,7 @@ $sql = "CREATE TABLE IF NOT EXISTS tools (
   quantity INT(11) NOT NULL,
   def TEXT NOT NULL,
   category_name VARCHAR(255) NOT NULL,
-  category_id INT(11) NOT NULL,
+  category_id INT(11) NOT NULL
 )";
 mysqli_query($db, $sql);
 
