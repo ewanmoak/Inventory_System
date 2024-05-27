@@ -1,6 +1,5 @@
 <?php
 
-
 $db = mysqli_connect('localhost', 'root', '', 'inventory'); // Assuming correct connection details
 
 // Check connection
@@ -9,24 +8,36 @@ if (mysqli_connect_errno()) {
   exit();
 }
 
-// Get tool information from query parameter
-$id = $_GET['id'];
 
-// Write a query to retrieve tool information
-$stmt = mysqli_prepare($db, "SELECT * FROM tools WHERE id = ?");
-mysqli_stmt_bind_param($stmt, "i", id); // Bind the parameter as integer (optional, based on your tool_id data type)
+// Assuming you have a way to determine the specific tool ID (e.g., from a URL parameter)
+$toolId = isset($_GET['id']) ? intval($_GET['id']) : null; // Get tool ID from query parameter
+
+
+
+// Write a query to retrieve tool description
+$stmt = mysqli_prepare($db, "SELECT def AS description FROM tools WHERE id = ?");
+mysqli_stmt_bind_param($stmt, "i", $toolId); // Bind the parameter as integer (optional, based on your tool_id data type)
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
-if (isset($_GET['id'])) {
-  $tool_id = $_GET['id'];
-  // ... rest of your code using $tool_id
+if ($toolId !== null) {
+  if ($result) {
+    $tools = mysqli_fetch_assoc($result); // Fetch associative array for the tool
+    if ($tools) {
+      $def = $tools['def']; // Access description using the alias 'description'
+      // Do something with the description (e.g., display it)
+      echo "<p>Description: $def</p>";
+    } else {
+      echo "Error: Tool with ID $toolId not found.";
+    }
+  } else {
+    echo "Error retrieving tool data: " . mysqli_error($db);
+  }
 } else {
-  // Handle missing tool_id case (e.g., display error message)
-  echo "Error: Tool ID not found in the URL.";
-  exit(); // Stop script execution
+  echo "Error: Missing tool ID.";
 }
 
+mysqli_stmt_close($stmt); // Close prepared statement
 mysqli_close($db); // Close connection
 ?>
 
@@ -93,9 +104,23 @@ mysqli_close($db); // Close connection
   <div class="container">
     <div class="row mb-4 align-items-center">
       <div class="col-md-6" data-aos="fade-up">
-        <h2>Wire Cutter</h2>
-        <p>-A wire cutter is a hand tool designed for cutting wires and cables. It typically consists of two sharp blades that are forced together to cleanly cut through the wire.</p>
-        <a href="work-single.php?tool=wire-cutter" class="btn btn-primary">View Details</a>
+      <div class="card">
+        <h2>Wire Cutter</h2> <button class="work-single.php?tool_id=1">View Details</button>
+        <div class="details-wrapper">
+            <a href="work-single.php?tool=wire-cutter">See More Details</a>
+        </div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.card button');
+        const detailsWrappers = document.querySelectorAll('.details-wrapper');
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                detailsWrappers[index].classList.toggle('active');
+            });
+        });
+    </script>
       </div>
     </div>
   </div>
