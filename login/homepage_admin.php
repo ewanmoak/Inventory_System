@@ -1,4 +1,3 @@
-
 <?php
 include "logout.php";
 

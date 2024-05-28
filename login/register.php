@@ -37,6 +37,7 @@ if (isset($_POST['register_user'])) {
   $email = mysqli_real_escape_string($db, $_POST['email']);
   $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
   $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+  $role = mysqli_real_escape_string($db, $_POST['role']);
 
   // form validation
   if (empty($user_id)) {
@@ -57,6 +58,7 @@ if (isset($_POST['register_user'])) {
 
   // register user if there are no errors in the form
   if (count($errors) == 0) {
+
     // **Use a secure hashing algorithm instead of md5!**
     $password_1 = password_hash($password_1, PASSWORD_BCRYPT); // Example using bcrypt
   
@@ -89,8 +91,6 @@ if (isset($_POST['register_user'])) {
         header('location: registration.php'); // Redirect back to registration
       }
     }
-  }
-}
 ?>
 
 
