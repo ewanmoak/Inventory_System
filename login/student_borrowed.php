@@ -1,7 +1,6 @@
 <?php
 // Include connection details
-include "admin_connect1.php";
-include "admin_connect.php";
+include "connections.php";
 
 $sql = "CREATE TABLE IF NOT EXISTS borrowed_items (
   student_id INT(11),
@@ -32,8 +31,13 @@ if (!mysqli_query($db, $sql)) {
 }
 
 
-// Get tool ID from the URL parameter
-$toolId = $_GET['id'];
+if (isset($_GET['tool_id'])) {
+    $toolId = $_GET['tool_id'];
+  } else {
+    // Handle the case where tool_id is missing in the URL (e.g., redirect or display an error message)
+    echo "Error: Missing tool ID in the URL.";
+    exit();
+  }
 
 // Check if tool ID exists
 $sql = "SELECT * FROM tools WHERE id = $toolId";
