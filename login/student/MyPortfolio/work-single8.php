@@ -62,29 +62,35 @@
 
   <main id="main">
 
-  <section class="section">
-  <div class="container">
-    <div class="row mb-4 align-items-center">
-      <div class="col-md-6" data-aos="fade-up">
-        <h2>Banch Power Supply</h2>
-        <p>-A bench power supply is a device that provides a stable and adjustable source of electrical power for testing and prototyping electronic circuits. It typically features multiple output channels with variable voltage and current settings, allowing users to simulate different operating conditions for their components. Bench power supplies are widely used in laboratories, workshops, and educational settings for designing, testing, and repairing electronic devices.</p>
-        <a href="work-single.php?tool=banch-power-supply" class="btn btn-primary">View Details</a>  </div>
-    </div>
-  </div>
-
-  <div class="site-section pb-0">
-    <div class="container">
-      <div class="row align-items-stretch">
-        <div class="col-md-8" data-aos="fade-up">
-          <img src="assets/img/Banch Power Supply.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
-        </div>
-        <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-          <p><a href="#" class="readmore">BORROWED ITEM</a></p>
+    <section class="section">
+      <div class="container">
+        <div class="row mb-4 align-items-center">
+          <div class="col-md-6" data-aos="fade-up">
+            <h2>Banch Power Supply</h2>
+            <p>-A bench power supply is a device that provides a stable and adjustable source of electrical power for testing and prototyping electronic circuits. It typically features multiple output channels with variable voltage and current settings, allowing users to simulate different operating conditions for their components. Bench power supplies are widely used in laboratories, workshops, and educational settings for designing, testing, and repairing electronic devices.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+
+      <div class="site-section pb-0">
+        <div class="container">
+          <div class="row align-items-stretch">
+            <div class="col-md-8" data-aos="fade-up">
+            <img src="assets/img/Banch Power Supply.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+            </div>
+            <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
+              
+
+               
+
+                <p><a href="#" class="readmore">BORROWED ITEM</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
  
 
             <!--

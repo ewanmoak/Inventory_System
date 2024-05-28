@@ -25,6 +25,7 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id INT(10) NOT NULL,
   name VARCHAR(30) NOT NULL,
+  email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
 )";
 mysqli_query($db, $sql);
@@ -33,6 +34,7 @@ mysqli_query($db, $sql);
 if (isset($_POST['register_user'])) {
   $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
   $name = mysqli_real_escape_string($db, $_POST['name']);
+  $email = mysqli_real_escape_string($db, $_POST['email']);
   $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
   $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
@@ -42,6 +44,9 @@ if (isset($_POST['register_user'])) {
   }
   if (empty($name)) { // Check for empty name
     array_push($errors, "Name is required");
+  }
+  if (empty($email)) { // Check for empty name
+    array_push($errors, "Email is required");
   }
   if (empty($password_1)) {
     array_push($errors, "Password is required");
@@ -65,7 +70,7 @@ if (isset($_POST['register_user'])) {
     }
   
     if (empty($errors)) {
-      $query = "INSERT INTO users (user_id, name, password, role) VALUES('$user_id', '$name', '$password_1', '$role')";
+      $query = "INSERT INTO users (user_id, name, email, password, role) VALUES('$user_id', '$name', '$email', '$password_1', '$role')";
       mysqli_query($db, $query);
   
       $_SESSION['user_id'] = $user_id;
@@ -220,6 +225,10 @@ h3 {
         </div>
         <div class="input-box">
             <input type="text" name="name" placeholder="Name" required>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input type="text" name="email" placeholder="Email" required>
             <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">

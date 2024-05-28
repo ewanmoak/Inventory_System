@@ -1,3 +1,28 @@
+<?php
+
+$db = mysqli_connect('localhost', 'root', '', 'inventory'); // Assuming correct connection details
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+$desiredToolId = 11; // The specific tool ID you want to display
+
+$stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
+
+
+if (!$stmt) {
+  echo "Error preparing statement: " . mysqli_error($db);
+  exit();
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +30,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>MyPortfolio Bootstrap Template - Work Single</title>
+  <title>CPE TOOL</title>
+  <script src="borrowItems.js"></script>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -24,15 +50,9 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <script src="borrowItems.js"></script>
 
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+</head> 
 
 <body>
 
@@ -53,8 +73,7 @@
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">CPE Hand Tools.</a>
-      <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
+      <a class="navbar-brand" href="index.html">CPE Hand Tool</a>
         <span></span>
       </a>
     </div>
@@ -62,44 +81,75 @@
 
   <main id="main">
 
-    <section class="section">
-      <div class="container">
-        <div class="row mb-4 align-items-center">
-          <div class="col-md-6" data-aos="fade-up">
-            <h2>Resistor</h2>
-            <p>-A resistor is an electrical component that limits or regulates the flow of electric current in a circuit. It does so by introducing resistance, typically measured in ohms, to the flow of electrons. Resistors are commonly used in electronics to control voltage levels, adjust signal levels, divide voltages, and terminate transmission lines.
-            </p>
-          </div>
+  <section class="section">
+  <div class="container">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-6" data-aos="fade-up">
+        <?php
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+          
+            if ($row['id'] == $desiredToolId) {
+              $toolId = $row['id'];
+              $toolName = $row['tool_name'];
+              $def = $row['def'];
+              $quantity = $row['quantity'];
+              $categoryId = $row['category_id']; // Assuming a separate category table exists
+              $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
+          
+              echo "<section class='section'>";
+              echo "<div class='container'>";
+              echo "  <div class='row mb-4 align-items-center'>";
+              echo "    <div class='col-md-6' data-aos='fade-up'>";
+              echo "      <div class='card'>";
+              echo "        <h2>$toolName</h2>";
+              echo "        <p>Id: $toolId</p>";// Can link to tool_details.php for details page
+              echo "        <p>Description: $def</p>";
+              echo "        <p>Quantity: $quantity</p>";
+              echo "        <p>Category: $categoryId</p>"; 
+              echo "        <p>Category: $categoryName</p>"; // Display category name directly
+              // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
+              echo "      </div>";
+              echo "    </div>";
+              echo "  </div>";
+              echo "</div>";
+              echo "</section>";
+            } else {
+              echo "The desired tool (ID: $desiredToolId) was not found in the database.";
+            }
+          } else {
+            echo "No tools found in the database.";
+          }
+          
+          mysqli_stmt_close($stmt);
+          mysqli_close($db);
+          ?>
         </div>
+    </div>
+
       </div>
+    </div>
+  </div>
 
-      <div class="site-section pb-0">
-        <div class="container">
-          <div class="row align-items-stretch">
-            <div class="col-md-8" data-aos="fade-up">
-            <img src="assets/img/Resistor.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
-            </div>
-            <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              
-
-               
-
-                <p><a href="#" class="readmore">BORROWED ITEM</a></p>
+  <div class="site-section pb-0">
+    <div class="container">
+      <div class="row align-items-stretch">
+        <div class="col-md-8" data-aos="fade-up">
+        <img src="assets/img/Resistor.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+        </div>
+        <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+=
+                </div>
               </div>
             </div>
           </div>
         </div>
     </section>
-
- 
-
-            <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=MyPortfolio
-          -->
-          
           </div>
         </div>
        
