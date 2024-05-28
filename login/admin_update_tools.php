@@ -29,6 +29,37 @@ $db->close();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update Tool Record</title>
+
+  <script>
+    const updateButton = document.getElementById('update-button'); // Replace with your button ID
+
+updateButton.addEventListener('click', function() {
+  const toolId = document.getElementById('tool-id').value; // Assuming tool ID is in an input field with ID 'tool-id'
+  const name = document.getElementById('name').value; // Assuming name is in an input field with ID 'name'
+  const description = document.getElementById('description').value; // Assuming description is in an input field with ID 'description'
+
+  // Send AJAX request to update_tool.php (replace with your server-side script)
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'update_tool.php');
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      if (xhr.responseText === 'success') {
+        console.log('Tool record updated successfully!');
+        // Optionally, update the UI to reflect the changes (e.g., display a success message)
+      } else {
+        console.error('Error updating record:', xhr.responseText);
+        // Optionally, display an error message to the user
+      }
+    } else {
+      console.error('Error updating record:', xhr.statusText);
+    }
+  };
+
+  xhr.send('tool_id='+toolId+'&name='+encodeURIComponent(name)+'&description='+encodeURIComponent(description)); // Encode special characters
+});
+
+  </script>
 </head>
 <body>
   <h1>Update Tool Record</h1>

@@ -25,13 +25,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
 </head>
 
 <body>
@@ -49,7 +43,7 @@
         <div class="col-md-6 d-none d-md-block  mr-auto">
 
             <div>
-              <p><em>Prototyping tools and basic components in computer engineering are essential resources and elements, such as breadboards, microcontrollers, and development software, used to create and test preliminary models of hardware and software systems. <br> <a href="#"></a></em></p>
+              <p><em>Measurement tools in computer engineering are instruments or software used to evaluate, monitor, and analyze the performance, efficiency, and behavior of hardware and software systems. <br> <a href="#"></a></em></p>
             </div>
           </div>
         </div>
@@ -74,7 +68,7 @@
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Prototyping Tools and Basic Components</h2>
+            <h2>Measurement Tools</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -85,48 +79,48 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single11.html" class="item-wrap fancybox">
+            <a href="work-single6.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Resistor</h3>
+                <h3>Level</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Resistor.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Level.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single12.html" class="item-wrap fancybox">
+            <a href="work-single7.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>LED</h3>
+                <h3>Oscillioscope</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/LED.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Oscillioscope.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single13.html" class="item-wrap fancybox">
+            <a href="work-single8.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Breadboard</h3>
+                <h3>Banch Power Supply</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Breadboard.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Banch Power Supply.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single14.html" class="item-wrap fancybox">
+            <a href="work-single9.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Connecting Wires</h3>
+                <h3>Multimeter</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Connecting Wires.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Multimeter.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single15.html" class="item-wrap fancybox">
+            <a href="work-single10.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Diodes</h3>
+                <h3>T-square</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Diodes.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="assets/img/T-square.jpg" style="width: 500px; height: 350px;"> 
             </a>
           </div>
          

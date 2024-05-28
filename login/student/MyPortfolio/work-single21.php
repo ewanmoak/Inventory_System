@@ -1,3 +1,28 @@
+<?php
+
+$db = mysqli_connect('localhost', 'root', '', 'inventory'); // Assuming correct connection details
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+$desiredToolId = 21; // The specific tool ID you want to display
+
+$stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
+
+// Check if statement preparation was successful
+if (!$stmt) {
+  echo "Error preparing statement: " . mysqli_error($db);
+  exit();
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,9 +91,45 @@
       <div class="container">
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
-            <h2>Crescent Wrench</h2>
-            <p>-A Crescent wrench, also known as an adjustable wrench, is a versatile hand tool used for tightening or loosening nuts and bolts of various sizes. It features an adjustable jaw that can be altered to fit different fastener sizes, making it a convenient option for a range of tasks. Crescent wrenches are commonly found in mechanical, plumbing, and automotive toolkits due to their adaptability and ease of use.
-            </p>
+          <?php
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+          
+            if ($row['id'] == $desiredToolId) {
+              $toolId = $row['id'];
+              $toolName = $row['tool_name'];
+              $def = $row['def'];
+              $quantity = $row['quantity'];
+              $categoryId = $row['category_id']; // Assuming a separate category table exists
+              $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
+          
+              echo "<section class='section'>";
+              echo "<div class='container'>";
+              echo "  <div class='row mb-4 align-items-center'>";
+              echo "    <div class='col-md-6' data-aos='fade-up'>";
+              echo "      <div class='card'>";
+              echo "        <h2>$toolName</h2>";
+              echo "        <p>Id: $toolId</p>";// Can link to tool_details.php for details page
+              echo "        <p>Description: $def</p>";
+              echo "        <p>Quantity: $quantity</p>";
+              echo "        <p>Category: $categoryId</p>"; 
+              echo "        <p>Category: $categoryName</p>"; // Display category name directly
+              // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
+              echo "      </div>";
+              echo "    </div>";
+              echo "  </div>";
+              echo "</div>";
+              echo "</section>";
+            } else {
+              echo "The desired tool (ID: $desiredToolId) was not found in the database.";
+            }
+          } else {
+            echo "No tools found in the database.";
+          }
+          
+          mysqli_stmt_close($stmt);
+          mysqli_close($db);
+          ?>
           </div>
         </div>
       </div>
@@ -77,7 +138,7 @@
         <div class="container">
           <div class="row align-items-stretch">
             <div class="col-md-8" data-aos="fade-up">
-            <img src="assets/img/Crescent Wrench.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+            <img src="assets/img/Manual Rivet Gun.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
             </div>
             <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
               

@@ -1,3 +1,19 @@
+
+<?php
+
+// Connect to the database
+$db = mysqli_connect('localhost', 'root', '', 'inventory');
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+
+// Check if user is logged in (replace with your existing logic)
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,14 +41,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+  
 
 <body>
 
@@ -46,10 +55,8 @@
             
           </ul>
         </div>
-        <div class="col-md-6 d-none d-md-block  mr-auto">
-
             <div>
-              <p><em>Measurement tools in computer engineering are instruments or software used to evaluate, monitor, and analyze the performance, efficiency, and behavior of hardware and software systems. <br> <a href="#"></a></em></p>
+              <p><em>Hand tools are essential for computer engineers, allowing them to assemble, disassemble, and repair various hardware components. <br> <a href="#"></a></em></p>
             </div>
           </div>
         </div>
@@ -74,7 +81,7 @@
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Measurement Tools</h2>
+            <h2>Hand Tools</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -85,48 +92,48 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single6.html" class="item-wrap fancybox">
+            <a href="work-single.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Level</h3>
+                <h3>Wire Cutter</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Level.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Wire Cutter.jpg" style="width: 500px; height: 350px;">>
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single7.html" class="item-wrap fancybox">
+            <a href="work-single2.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Oscillioscope</h3>
+                <h3>SolderingIron</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Oscillioscope.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/SolderingIron.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single8.html" class="item-wrap fancybox">
+            <a href="work-single3.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Banch Power Supply</h3>
+                <h3>Drill</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Banch Power Supply.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Drill.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single9.html" class="item-wrap fancybox">
+            <a href="work-single4.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Multimeter</h3>
+                <h3>Cable Crimper</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Multimeter.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Cable Crimper.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single10.html" class="item-wrap fancybox">
+            <a href="work-single5.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>T-square</h3>
+                <h3>DesolderingPump</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/T-square.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="assets/img/DesolderingPump.jpg" style="width: 500px; height: 350px;"> 
             </a>
           </div>
          

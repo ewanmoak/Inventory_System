@@ -25,6 +25,7 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id INT(10) NOT NULL,
   name VARCHAR(30) NOT NULL,
+  email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
 )";
 mysqli_query($db, $sql);
@@ -33,6 +34,7 @@ mysqli_query($db, $sql);
 if (isset($_POST['register_user'])) {
   $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
   $name = mysqli_real_escape_string($db, $_POST['name']);
+  $email = mysqli_real_escape_string($db, $_POST['email']);
   $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
   $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
   $role = mysqli_real_escape_string($db, $_POST['role']);
@@ -44,6 +46,9 @@ if (isset($_POST['register_user'])) {
   if (empty($name)) { // Check for empty name
     array_push($errors, "Name is required");
   }
+  if (empty($email)) { // Check for empty name
+    array_push($errors, "Email is required");
+  }
   if (empty($password_1)) {
     array_push($errors, "Password is required");
   }
@@ -53,17 +58,39 @@ if (isset($_POST['register_user'])) {
 
   // register user if there are no errors in the form
   if (count($errors) == 0) {
-    $password_1 = password_hash($password_1, PASSWORD_BCRYPT);
+
+    // **Use a secure hashing algorithm instead of md5!**
+    $password_1 = password_hash($password_1, PASSWORD_BCRYPT); // Example using bcrypt
   
-    $query = "INSERT INTO users (user_id, name, password, role) VALUES ('$user_id', '$name', '$password_1', '$role')";
-    mysqli_query($db, $query);
+    // **Add a field for role in your database and form**
+    $role = isset($_POST['role']) ? $_POST['POST']['role'] : ''; // Get the selected role from the form
   
-    $_SESSION['user_id'] = $user_id;
-    $_SESSION['name'] = $name;
-    $_SESSION['success'] = "You are now registered and logged in";
-    header('location: index.php');
-  }
-}
+    // **Validate role (optional, depending on your implementation)**
+    $validRoles = ['student', 'admin']; // Example allowed roles
+    if (!in_array($role, $validRoles)) {
+      $errors[] = "Invalid role selected.";
+    }
+  
+    if (empty($errors)) {
+      $query = "INSERT INTO users (user_id, name, email, password, role) VALUES('$user_id', '$name', '$email', '$password_1', '$role')";
+      mysqli_query($db, $query);
+  
+      $_SESSION['user_id'] = $user_id;
+      $_SESSION['name'] = $name;  // Store name in session
+  
+      // **Redirect based on role**
+      if ($role === 'student') {
+        $_SESSION['success'] = "You are now registered and logged in as a student.";
+        header('location: student_dashboard.php');
+      } else if ($role === 'admin') {
+        $_SESSION['success'] = "You are now registered and logged in as an admin.";
+        header('location: admin_dashboard.php');
+      } else {
+        // Handle unexpected role (optional)
+        $_SESSION['error'] = "An error occurred during registration.";
+        header('location: registration.php'); // Redirect back to registration
+      }
+    }
 ?>
 
 
@@ -198,6 +225,10 @@ h3 {
         </div>
         <div class="input-box">
             <input type="text" name="name" placeholder="Name" required>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input type="text" name="email" placeholder="Email" required>
             <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
