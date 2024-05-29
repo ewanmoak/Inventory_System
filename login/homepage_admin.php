@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "logout.php";
 
 $db = mysqli_connect('localhost', 'root', '', 'login');
 // Check connection
@@ -20,15 +21,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
 }
 
 if (isset($_GET['logout'])) {
-  if (isset($_SESSION['success'])) {
-    // Display success message from previous login (optional)
-    echo $_SESSION['success'];
-    unset($_SESSION['success']);
-  }
+  // Display confirmation message
+  echo "Are you sure you want to log out?";
+  ?>
+  <a href="logout.php">Yes, Log Out</a>
+  <a href="admin_home.php">Cancel</a>
+  <?php
+  exit();
 }
 ?>
 
-<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
