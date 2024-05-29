@@ -25,13 +25,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  
 </head>
 
 <body>
@@ -46,8 +40,10 @@
             
           </ul>
         </div>
+        <div class="col-md-6 d-none d-md-block  mr-auto">
+
             <div>
-              <p><em>Measurement and inspection tools in industrial engineering refer to instruments and devices used to quantify, assess, and verify various aspects of production processes and products. These tools enable engineers to ensure quality control, monitor performance, and identify deviations from desired standards within manufacturing environments. By employing measurement and inspection tools, industrial engineers can optimize efficiency, maintain consistency, and uphold stringent quality assurance protocols throughout the production cycle. <br> <a href="#"></a></em></p>
+              <p><em>Prototyping tools and basic components in computer engineering are essential resources and elements, such as breadboards, microcontrollers, and development software, used to create and test preliminary models of hardware and software systems. <br> <a href="#"></a></em></p>
             </div>
           </div>
         </div>
@@ -58,7 +54,7 @@
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="homepage_student.php">IE Tools</a>
+      <a class="navbar-brand" href="homepage_student.php">CPE Tools</a>
       <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
         <span></span>
       </a>
@@ -72,7 +68,7 @@
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Measurement and Inspection Tools</h2>
+            <h2>Prototyping Tools and Basic Components</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -83,48 +79,48 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single16.html" class="item-wrap fancybox">
+            <a href="work-single11.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Protractor</h3>
+                <h3>Resistor</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Protractor.jpg" style="width: 500px; height: 350px;">>
+              <img class="img-fluid" src="assets/img/Resistor.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single17.html" class="item-wrap fancybox">
+            <a href="work-single12.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Tape Measure<h3>
+                <h3>LED</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Tape Measure.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/LED.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single18.html" class="item-wrap fancybox">
+            <a href="work-single13.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Thermometer</h3>
+                <h3>Breadboard</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Thermometer.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Breadboard.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single19.html" class="item-wrap fancybox">
+            <a href="work-single14.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Vernier Caliper</h3>
+                <h3>Connecting Wires</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Vernier Caliper.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="assets/img/Connecting Wires.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single20.html" class="item-wrap fancybox">
+            <a href="work-single15.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Combination Square</h3>
+                <h3>Diodes</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Combination Square.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="assets/img/Diodes.jpg" style="width: 500px; height: 350px;"> 
             </a>
           </div>
          

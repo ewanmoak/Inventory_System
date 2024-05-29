@@ -25,14 +25,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Mar 17 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+ 
 
 <body>
 
@@ -83,7 +76,7 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single26.html" class="item-wrap fancybox">
+            <a href="work-single26.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Screwdriver</h3>
                 <span>Tool</span>
@@ -92,7 +85,7 @@
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single27.html" class="item-wrap fancybox">
+            <a href="work-single27.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Allen Keys<h3>
                 <span>Tool</span>
@@ -101,7 +94,7 @@
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single28.html" class="item-wrap fancybox">
+            <a href="work-single28.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Crescent Wrench</h3>
                 <span>Tool</span>
@@ -110,7 +103,7 @@
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single29.html" class="item-wrap fancybox">
+            <a href="work-single29.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>G Clamp</h3>
                 <span>Tool</span>
@@ -119,7 +112,7 @@
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single30.html" class="item-wrap fancybox">
+            <a href="work-single30.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Hammer</h3>
                 <span>Tool</span>

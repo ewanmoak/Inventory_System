@@ -2,10 +2,11 @@
 include "admin_connect1.php";
 
 $sql = "CREATE TABLE IF NOT EXISTS list(
-  id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   student_no INT(11) NOT NULL,
+  email_id VARCHAR(255) NOT NULL,
   program VARCHAR(255) NOT NULL,
   tool_no INT(11) NOT NULL,
+  FOREIGN KEY (email_id) REFERENCES users(email), 
   FOREIGN KEY (tool_no) REFERENCES tools(id),  -- Ensure id in tools is also INT(11)
   FOREIGN KEY (student_no) REFERENCES users(user_id)  -- Ensure user_id in users is also INT(11)
 )";
@@ -29,6 +30,7 @@ if (!$result) {
 
   while ($row = mysqli_fetch_assoc($result)){
     $student_no = $row['student_no'];
+    $email = $row['email_id'];
     $program = $row['program'];
     $tool_no = $row['tool_no'];
   }
@@ -132,6 +134,7 @@ button {
       while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr>";
         echo "<td>" . $row['student_no'] . "</td>";
+        echo "<td>" . $row['email'] . "</td>";
         echo "<td>" . $row['program'] . "</td>";
         echo "<td>" . $row['tool_no'] . "</td>";
         echo "</tr>";
@@ -145,17 +148,18 @@ button {
   // Process form submission (if submitted)
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student_no = $_POST['student_no'];
+    $email_id = $_POST['email_id'];
     $program = $_POST['program'];
     $tool_no = $_POST['tool_no'];
 
     // Validate input (optional, add checks for data types, etc.)
-    if (empty($student_no) || empty($program) || empty($tool_no)) {
+    if (empty($student_no) || empty($email_id) || empty($program) || empty($tool_no)) {
       echo "Please fill in all required fields.";
     } else {
       // Insert data into database
-      $sql = "INSERT INTO lists (student_no, program, tool_no) VALUES (?, ?, ?)";
+      $sql = "INSERT INTO lists (student_no, email_id, program, tool_no) VALUES (?, ?, ?, ?)";
       $stmt = mysqli_prepare($db, $sql);
-      mysqli_stmt_bind_param($stmt, "iss", $student_no, $program, $tool_no);
+      mysqli_stmt_bind_param($stmt, "iss", $student_no, $email_id, $program, $tool_no);
       if (mysqli_stmt_execute($stmt)) {
         echo "Maintenance record added successfully!";
       } else {

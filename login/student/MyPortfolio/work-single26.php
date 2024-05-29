@@ -1,3 +1,30 @@
+<?php
+
+$db = mysqli_connect('localhost', 'root', '', 'inventory'); // Assuming correct connection details
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+$desiredToolId = 1; // The specific tool ID you want to display
+
+$stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
+
+// Check if statement preparation was successful
+if (!$stmt) {
+  echo "Error preparing statement: " . mysqli_error($db);
+  exit();
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +80,7 @@
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">CPE Hand Tools.</a>
+      <a class="navbar-brand" href="index.html">IE Measurement and Inspection Tools.</a>
       <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
         <span></span>
       </a>
@@ -66,9 +93,45 @@
       <div class="container">
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
-            <h2>Diodes</h2>
-            <p>-Diodes are semiconductor devices that allow current to flow in only one direction. They are commonly used in electronic circuits to control the direction of current and to convert alternating current (AC) to direct current (DC). Diodes play a critical role in rectification, signal modulation, and voltage regulation within various electronic systems and devices.
-            </p>
+          <?php
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+          
+            if ($row['id'] == $desiredToolId) {
+              $toolId = $row['id'];
+              $toolName = $row['tool_name'];
+              $def = $row['def'];
+              $quantity = $row['quantity'];
+              $categoryId = $row['category_id']; // Assuming a separate category table exists
+              $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
+          
+              echo "<section class='section'>";
+              echo "<div class='container'>";
+              echo "  <div class='row mb-4 align-items-center'>";
+              echo "    <div class='col-md-6' data-aos='fade-up'>";
+              echo "      <div class='card'>";
+              echo "        <h2>$toolName</h2>";
+              echo "        <p>Id: $toolId</p>";// Can link to tool_details.php for details page
+              echo "        <p>Description: $def</p>";
+              echo "        <p>Quantity: $quantity</p>";
+              echo "        <p>Category: $categoryId</p>"; 
+              echo "        <p>Category: $categoryName</p>"; // Display category name directly
+              // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
+              echo "      </div>";
+              echo "    </div>";
+              echo "  </div>";
+              echo "</div>";
+              echo "</section>";
+            } else {
+              echo "The desired tool (ID: $desiredToolId) was not found in the database.";
+            }
+          } else {
+            echo "No tools found in the database.";
+          }
+          
+          mysqli_stmt_close($stmt);
+          mysqli_close($db);
+          ?>
           </div>
         </div>
       </div>
@@ -77,7 +140,7 @@
         <div class="container">
           <div class="row align-items-stretch">
             <div class="col-md-8" data-aos="fade-up">
-            <img src="assets/img/Diodes.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+            <img src="assets/img/Screwdriver.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
             </div>
             <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
               

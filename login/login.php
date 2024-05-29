@@ -1,6 +1,5 @@
 <?php
-  //session_start();
-  include "logout.php";
+  //  include "logout.php";
 
   // Redirect to homepage_student if user is already logged in
   if (isset($_SESSION['user_id'])) {

@@ -39,10 +39,7 @@ if (!$result) {
 }
 
 mysqli_close($db); // Close the connection
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,261 +48,291 @@ mysqli_close($db); // Close the connection
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tool Records</title>
   <style>
-  body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
 
-h1 ,h2 {
-  margin-bottom: 10px;
-}
+    header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      text-align: right;
+      position: relative;
+    }
 
-/* Table Styles */
+    .header-image {
+      width: 420px; /* Adjust the size as needed */
+      height: auto; /* Maintain aspect ratio */
+      position: absolute;
+      top: 40px;
+      left: 10px;
+    }
 
-table {
-  border-collapse: collapse;
-  width: 70%;
-  margin: 50px 50px;
-}
+    h1 {
+      margin: 0;
+      padding: 20px;
+      font-size: 2em;
+    }
 
-th, td {
-  border: 5px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
+    h1, h2 {
+      margin-bottom: 10px;
+    }
 
-th {
-  background-color: #f2f2f2;
-}
+    /* Table Styles */
+    table {
+      border-collapse: collapse;
+      width: 70%;
+      margin: 50px auto; /* Center the table */
+    }
 
-/* Form Styles */
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center; /* Center table contents */
+    }
 
-form {
-  margin-top: 20px;
-}
+    th {
+      background-color: #f2f2f2;
+    }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
+    /* Specific style for description column */
+    td.description {
+      text-align: justify; /* Justify the description text */
+    }
 
-input[type="text"],
-input[type="number"],
-input[type="date"],
-textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+    /* Button Styles */
+    #add-tool-btn {
+      background-color: #6b1500;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
 
-button {
-  background-color: #6b1500; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-}
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
 
-/* Error Styles (Optional) */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 8px;
+    }
 
-.error {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
-}
-</style>
+    .modal-header {
+      background-color: #6b1500; /* Your desired color */
+      color: white;
+      padding: 10px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Form Styles */
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #6b1500;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    /* Error Styles (Optional) */
+    .error {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <body>
-  <div>
+  <header>
+    <img src="admin/assets/img/IS Logo.png" alt="IS Logo" class="header-image">
     <h1>Tool Records</h1>
+  </header>
 
+  <div>
 
-  <?php
-  // Include connection details
-  include "admin_connect.php";
+    <?php
+    include "admin_connect.php";
 
-  // Function to display records (optional)
-  function displayRecords($result) {
-    if ($result) {
-      echo "<table>";
-      echo "<tr>
-              <th>Tool Name</th>
-              <th>Quantity</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Category ID</th>
-              <th>Action</th> </tr>";
-  
-      while ($row = mysqli_fetch_assoc($result)) {
-        $tool_id = $row['id']; // Assuming an 'id' column exists
-  
-        echo "<tr>";
-        echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['tool_name'] . "</span></td>";
-        echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['quantity'] . "</span></td>";
-        echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['def'] . "</span></td>";
-        echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['category_name'] . "</span></td>";
-        echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['category_id'] . "</span></td>";
-  
-        // Edit and Delete buttons with tool ID as data attribute
-        echo "<td>
+    function displayRecords($result) {
+      if ($result) {
+        echo "<table>";
+        echo "<tr>
+                <th>Tool Name</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Category ID</th>
+                <th>Action</th>
+              </tr>";
+    
+        while ($row = mysqli_fetch_assoc($result)) {
+          $tool_id = $row['id'];
+    
+          echo "<tr>";
+          echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['tool_name'] . "</span></td>";
+          echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['quantity'] . "</span></td>";
+          echo "<td class='description'><span contenteditable='true' data-id='$tool_id'>" . $row['def'] . "</span></td>";
+          echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['category_name'] . "</span></td>";
+          echo "<td><span contenteditable='true' data-id='$tool_id'>" . $row['category_id'] . "</span></td>";
+          echo "<td>
                   <button class='edit-btn' data-id='$tool_id'>Edit</button>
                   <button class='delete-btn' data-id='$tool_id'>Delete</button>
                 </td>";
-        echo "</tr>";
-      }
-  
-      echo "</table>";
-    } else {
-      echo "Error retrieving data";
-    }
-  }
-
-  // Process form submission (if submitted)
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tool_name = $_POST['tool_name'];
-    $quantity = $_POST['quantity'];
-    $def = $_POST['def'];
-    $category_name = $_POST['category_name'];
-    $category_id = $_POST['category_id'];
-
-    // Validate input (optional, add checks for data types, etc.)
-    if (empty($tool_name) || empty($quantity) || empty($def) || empty($category_name) || empty($category_id)) {
-      echo "Please fill in all required fields.";
-    } else {
-      // Insert data into database
-      $sql = "INSERT INTO tools (tool_name, quantity, def, category_name, category_id ) VALUES (?, ?, ?, ?, ?)";
-      $stmt = mysqli_prepare($db, $sql);
-      mysqli_stmt_bind_param($stmt, "iss", $tool_name, $quantity, $def, $category_name, $category_id);
-      if (mysqli_stmt_execute($stmt)) {
-        echo "Tool record added successfully!";
-      } else {
-        echo "Error adding record: " . mysqli_error($db);
-      }
-      mysqli_stmt_close($stmt);
-    }
-  }
-
-  // Retrieve existing records (optional)
-  $sql = "SELECT * FROM tools";
-  $result = mysqli_query($db, $sql);
-
-  ?>
-  
-<div id="add-tool-wrapper">
-  <button id="add-tool-btn">Add Tool</button>
-  <div id="add-tool-container" style="display: none;">
-    <h2>Add New Tool Record</h2>
-    <form method="post" id="add-tool-form">
-      <label for="tool_name">Tool Name:</label>
-      <input type="text" name="tool_name" id="tool_name" required><br>
-      <label for="def">Description:</label>
-      <textarea name="def" id="def" rows="5" required></textarea><br>
-      <label for="quantity">Quantity:</label>
-      <input type="number" name="quantity" id="quantity" required><br>
-      <label for="category_name">Category:</label>
-      <input type="text" name="category_name" id="category_name" required><br>
-      <label for="quantity">Category ID:</label>
-      <input type="text" name="category_id" id="category_id" required><br>
-      <button type="submit">Add Record</button>
-    </form>
-  </div>
-</div>
-  <?php
-  // Display existing records (call the function)
-  displayRecords($result);
-  mysqli_close($db); // Close connection
-  ?>
-
-</body>
-<script>
-const addToolButton = document.getElementById('add-tool-btn');
-const addToolContainer = document.getElementById('add-tool-container');
-
-addToolButton.addEventListener('click', function() {
-  addToolContainer.style.display = (addToolContainer.style.display === 'none') ? 'block' : 'none';
-});
-
-  </script>
-
-
-
-<script>
-const editButtons = document.querySelectorAll('.edit-btn');
-console.log(editButtons);
-const deleteButtons = document.querySelectorAll('.delete-btn');
-
-// Loop through edit buttons and add click event listener
-editButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    const span = this.parentElement.previousElementSibling.firstChild; // Get the corresponding span element (data cell)
-    // Toggle contenteditable attribute (on for edit, off for save)
-    span.setAttribute('contenteditable', span.getAttribute('contenteditable') === 'false' ? 'true' : 'false');
-  });
-});
-
-// Loop through delete buttons and add click event listener
-deleteButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    const toolId = this.dataset.id; // Get tool ID from data attribute
-
-    // Confirmation prompt before sending delete request
-    if (confirm("Are you sure you want to delete this record?")) {
-      // Send AJAX request to delete record
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'delete_tool.php'); // Replace with your server-side script for deletion
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          // Handle successful deletion (e.g., remove row from table)
-          console.log('Record deleted successfully');
-          // Update table content (optional)
-          // You can reload the entire table or update the specific row
-        } else {
-          console.error('Error deleting record:', xhr.statusText);
+          echo "</tr>";
         }
-      };
-      xhr.send(`tool_id=${toolId}`); // Send tool ID as data in POST request
-    }
-  });
-});
-
-// **Functionality for updating database based on changes (with error handling)**
-const table = document.querySelector('table');
-
-table.addEventListener('blur', function(event) {
-  if (event.target.tagName === 'SPAN' && event.target.contentEditable === 'true') {
-    const span = event.target;
-    const toolId = span.dataset.id;
-    const newValue = span.textContent; // Get the updated value
-
-    // Send AJAX request to update record
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'update_tool.php'); // Replace with your server-side script for update
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        // Handle successful update
-        console.log('Record updated successfully');
-        // Update table content (optional)
-        // You can update the specific cell content here
-        span.textContent = newValue; // Update cell content locally
+    
+        echo "</table>";
       } else {
-        console.error('Error updating record:', xhr.statusText);
-        // Display error message to user (optional)
-        alert('Error updating record. Please try again.');
+        echo "Error retrieving data";
       }
-    };
-    xhr.send('tool_id='+toolId+'&new_value='+newValue); // Send tool ID and new value
-  }
-});
-</script>
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $tool_name = $_POST['tool_name'];
+      $quantity = $_POST['quantity'];
+      $def = $_POST['def'];
+      $category_name = $_POST['category_name'];
+      $category_id = $_POST['category_id'];
+
+      if (empty($tool_name) || empty($quantity) || empty($def) || empty($category_name) || empty($category_id)) {
+        echo "Please fill in all required fields.";
+      } else {
+        $sql = "INSERT INTO tools (tool_name, quantity, def, category_name, category_id) VALUES (?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($db, $sql);
+        mysqli_stmt_bind_param($stmt, "sisss", $tool_name, $quantity, $def, $category_name, $category_id);
+        if (mysqli_stmt_execute($stmt)) {
+          echo "Tool record added successfully!";
+        } else {
+          echo "Error adding record: " . mysqli_error($db);
+        }
+        mysqli_stmt_close($stmt);
+      }
+    }
+
+    $sql = "SELECT * FROM tools";
+    $result = mysqli_query($db, $sql);
+
+    ?>
+  
+    <div id="add-tool-wrapper">
+      <button id="add-tool-btn">Add Tool</button>
+    </div>
+
+    <div id="addToolModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+          <h2>Add New Tool Record</h2>
+        </div>
+        <form method="post" id="add-tool-form">
+          <label for="tool_name">Tool Name:</label>
+          <input type="text" id="tool_name" name="tool_name" required>
+  
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" name="quantity" required>
+  
+          <label for="def">Description:</label>
+          <textarea id="def" name="def" required></textarea>
+  
+          <label for="category_name">Category Name:</label>
+          <input type="text" id="category_name" name="category_name" required>
+  
+          <label for="category_id">Category ID:</label>
+          <input type="number" id="category_id" name="category_id" required>
+  
+          <button type="submit">Add Tool</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript for Modal
+      var modal = document.getElementById("addToolModal");
+      var btn = document.getElementById("add-tool-btn");
+      var span = document.getElementsByClassName("close")[0];
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+
+    <?php
+    displayRecords($result); // Display records after including the function
+    mysqli_close($db); // Close the connection
+    ?>
+
+  </div>
+</body>
 </html>
