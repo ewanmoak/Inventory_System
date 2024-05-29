@@ -1,6 +1,5 @@
 <?php
-
-include "logout.php";
+session_start();
 
 $db = mysqli_connect('localhost', 'root', '', 'login');
 // Check connection
@@ -18,22 +17,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === "student") {
   header('login.php'); // Redirect to login page (assuming it exists)
   exit();
 }
-/*
+
 if (isset($_GET['logout'])) {
   if (isset($_SESSION['success'])) {
     // Display success message from previous login (optional)
     echo $_SESSION['success'];
     unset($_SESSION['success']);
   }
-
-  // Confirmation message and logout link
-  echo "Are you sure you want to log out?";
-  ?>
-  <a href="#">Yes, Log Out</a>
-  <a href="#">Cancel</a>
-  <?php
 }
-*/
 ?>
 
 <!--
@@ -137,7 +128,7 @@ if (isset($_GET['logout'])) {
     <div class="container d-flex justify-content-between align-items-center">
 
       <div id="logo">
-        <a href="homepage_student.php"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
+        <a href="index.html"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="index.html">Regna</a></h1>-->
       </div>
@@ -146,17 +137,17 @@ if (isset($_GET['logout'])) {
         <ul>
             <li class="dropdown"><a href=""><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                <li><a href="student/MyPortfolio/hand.php">Hand Tools</a></li>
-                <li><a href="student/MyPortfolio/measurement.php">Measurement Tools</a></li>
-                <li><a href="student/MyPortfolio/proto.php">Prototyping Tools</a></li>
-                <li><a href="student/MyPortfolio/fastening.php">Assembly and Fastening Tools</a></li>
-                <li><a href="student/MyPortfolio/cutting.php">Cutting and Machining Tools</a></li>
-                <li><a href="student/MyPortfolio/inspection.php">Measurement and Machining Tools</a></li>
+                <li><a href="student/MyPortfolio/hand.html">Hand Tools</a></li>
+                <li><a href="student/MyPortfolio/measurement.html">Measurement Tools</a></li>
+                <li><a href="student/MyPortfolio/proto.html">Prototyping Tools</a></li>
+                <li><a href="student/MyPortfolio/fastening.html">Assembly and Fastening Tools</a></li>
+                <li><a href="student/MyPortfolio/cutting.html">Cutting and Machining Tools</a></li>
+                <li><a href="student/MyPortfolio/inspection.html">Measurement and Machining Tools</a></li>
                 </ul>
             </li>
-          <li><a class="nav-link" href="student_borrowed.php">Borrowed Items</a></li>
+          <li><a class="nav-link" href="borrowedItems_list.php">Borrowed Items</a></li>
           <li><a class="nav-link" href="notifications.php">Notifications</a></li>
-          <li><a class="nav-link" href="login.php">Log Out</a></li>
+          <li><a class="nav-link" href="../login/login.php">Log Out</a></li>
         <li class="search-bar">
             <form action="" method="post">
               <input type="text" name="search" placeholder="Search">
