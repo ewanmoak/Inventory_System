@@ -1,3 +1,27 @@
+<?php
+
+$db = mysqli_connect('localhost', 'root', '', 'inventory'); // Assuming correct connection details
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
+$desiredToolId = 8; // The specific tool ID you want to display
+
+$stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
+
+// Check if statement preparation was successful
+if (!$stmt) {
+  echo "Error preparing statement: " . mysqli_error($db);
+  exit();
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,9 +90,46 @@
       <div class="container">
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
-            <h2>Banch Power Supply</h2>
-            <p>-A bench power supply is a device that provides a stable and adjustable source of electrical power for testing and prototyping electronic circuits. It typically features multiple output channels with variable voltage and current settings, allowing users to simulate different operating conditions for their components. Bench power supplies are widely used in laboratories, workshops, and educational settings for designing, testing, and repairing electronic devices.
-            </p>
+          <?php
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+          
+            if ($row['id'] == $desiredToolId) {
+              $toolId = $row['id'];
+              $toolName = $row['tool_name'];
+              $def = $row['def'];
+              $quantity = $row['quantity'];
+              $categoryId = $row['category_id']; // Assuming a separate category table exists
+              $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
+          
+              echo "<section class='section'>";
+              echo "<div class='container'>";
+              echo "  <div class='row mb-4 align-items-center'>";
+              echo "    <div class='col-md-6' data-aos='fade-up'>";
+              echo "      <div class='card'>";
+              echo "        <h2>$toolName</h2>";
+              echo "        <p>ID: $toolId</p>";// Can link to tool_details.php for details page
+              echo "        <p>Description: $def</p>";
+              echo "        <p>Quantity: $quantity</p>";
+              echo "        <p>Category ID: $categoryId</p>"; 
+              echo "        <p>Category: $categoryName</p>"; // Display category name directly
+              // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
+              echo "      <a href='http://localhost/Inventory_System/login/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>"; // Add borrow button with tool ID parameter
+              echo "      </div>";
+              echo "    </div>";
+              echo "  </div>";
+              echo "</div>";
+              echo "</section>";
+            } else {
+              echo "The desired tool (ID: $desiredToolId) was not found in the database.";
+            }
+          } else {
+            echo "No tools found in the database.";
+          }
+          
+          mysqli_stmt_close($stmt);
+          mysqli_close($db);
+          ?>
           </div>
         </div>
       </div>
@@ -84,7 +145,7 @@
 
                
 
-                <p><a href="#" class="readmore">BORROWED ITEM</a></p>
+
               </div>
             </div>
           </div>
