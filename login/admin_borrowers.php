@@ -1,6 +1,7 @@
 <?php
 include "admin_connect1.php";
 
+// Create table (if not exists)
 $sql = "CREATE TABLE IF NOT EXISTS list(
   student_no INT(11) NOT NULL,
   email_id VARCHAR(255) NOT NULL,
@@ -11,24 +12,22 @@ $sql = "CREATE TABLE IF NOT EXISTS list(
   FOREIGN KEY (student_no) REFERENCES users(user_id)  -- Ensure user_id in users is also INT(11)
 )";
 
-  
-if (!mysqli_query($db, $sql)){
+if (!mysqli_query($db, $sql)) {
   die("Error creating table: " . mysqli_error($db));
 } else {
   echo "Table list created successfully";
 }
 
 // Prepare data for JavaScript (optional)
-$hasData = (mysqli_num_rows($result) > 0); // Assuming $result holds your query results
-
 $sql = "SELECT * FROM list";
 $result = mysqli_query($db, $sql);
 
 if (!$result) {
   echo "Error retrieving data: " . mysqli_error($db);
 } else {
+  $hasData = (mysqli_num_rows($result) > 0);
 
-  while ($row = mysqli_fetch_assoc($result)){
+  while ($row = mysqli_fetch_assoc($result)) {
     $student_no = $row['student_no'];
     $email = $row['email_id'];
     $program = $row['program'];

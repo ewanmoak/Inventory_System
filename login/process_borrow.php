@@ -33,6 +33,7 @@ mysqli_close($db);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>List of Borrowed Items</title>
+  <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
@@ -93,11 +94,14 @@ if (mysqli_stmt_execute($stmt)) {
   echo "Error adding record: $error";
 }
 
-mysqli_stmt_close($stmt); // Close the statement
+
 
 // Retrieve existing records (optional)
 $sql = "SELECT * FROM borrowed_items";
 $result = mysqli_query($db, $sql);
+
+displayRecords($result);
+
 // Function to display records (optional)
   function displayRecords($result) {
     if ($result) {
@@ -120,6 +124,9 @@ $result = mysqli_query($db, $sql);
       echo "Error retrieving data";
     }
   }
+
+  mysqli_stmt_close($stmt); // Close the statement
+
   ?>
 
     <!-- Display success message if exists -->

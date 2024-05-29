@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
   exit();
 }
 
-$desiredToolId = 1; // The specific tool ID you want to display
+$desiredToolId = 26; // The specific tool ID you want to display
 
 $stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
 
@@ -147,7 +147,7 @@ $result = mysqli_stmt_get_result($stmt);
 
                
 
-                <p><a href="#" class="readmore">BORROWED ITEM</a></p>
+
               </div>
             </div>
           </div>
