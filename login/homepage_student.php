@@ -154,7 +154,7 @@ if (isset($_GET['logout'])) {
                 <li><a href="student/MyPortfolio/inspection.php">Measurement and Machining Tools</a></li>
                 </ul>
             </li>
-          <li><a class="nav-link" href="sborrowedItems_list.php">Borrowed Items</a></li>
+          <li><a class="nav-link" href="student_borrowed.php">Borrowed Items</a></li>
           <li><a class="nav-link" href="notifications.php">Notifications</a></li>
           <li><a class="nav-link" href="login.php">Log Out</a></li>
         <li class="search-bar">
