@@ -24,13 +24,6 @@ if (isset($_GET['logout'])) {
     echo $_SESSION['success'];
     unset($_SESSION['success']);
   }
-
-  // Confirmation message and logout link
-  echo "Are you sure you want to log out?";
-  ?>
-  <a href="#">Yes, Log Out</a>
-  <a href="#">Cancel</a>
-  <?php
 }
 ?>
 
