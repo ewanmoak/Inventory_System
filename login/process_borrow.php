@@ -10,6 +10,9 @@ $borrowedDate = $_POST['borrowed_date'];
 $returnedDate = $_POST['returned_date']; // Optional, might be empty if not returned yet
 $returnedTime = $_POST['returned_time']; // Optional, might be empty if not returned yet
 
+
+$allowedStatuses = array("borrowed", "returned");
+
 // Basic validation (optional, improve based on your needs)
 if (!is_numeric($studentId) || !is_numeric($toolId) || !is_numeric($quantity) || !preg_match("/^\d{4}-\d{2}-\d{2}$/", $borrowedDate) || ($returnedDate && !preg_match("/^\d{4}-\d{2}-\d{2}$/", $returnedDate))) {
   echo "Invalid data submitted.";
@@ -33,7 +36,136 @@ mysqli_close($db);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>List of Borrowed Items</title>
-  <link rel="stylesheet" href="style.css"> 
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+
+  h1, h2 {
+    margin-bottom: 10px;
+  }
+
+  /* Header Styles */
+  header {
+    background-color: #800000; /* Maroon */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  header nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+  }
+
+  header nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* Center the table */
+  .table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  /* Table Styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px; /* Adjust the max width as needed */
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #800000; /* Maroon */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  /* Error Styles (Optional) */
+  .error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  /* Success Message Styles */
+  .success {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  </style>
 </head>
 <body>
 
