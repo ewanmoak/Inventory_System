@@ -1,11 +1,47 @@
 <?php
 session_start();
 
+// Database credentials
+$servername = "localhost";
+$username = "root";
+$password = ""; // Your database password
+$dbname = "login";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Create database if it doesn't exist
+$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+if ($conn->query($sql) === FALSE) {
+    die("Error creating database: " . $conn->error);
+}
+
+// Select the database
+$conn->select_db($dbname);
+
+// Create users table if it doesn't exist
+$sql = "CREATE TABLE IF NOT EXISTS users (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(30) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+if ($conn->query($sql) === FALSE) {
+    die("Error creating table: " . $conn->error);
+}
+
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header('location: login.php');
     exit();
 }
 
+// Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['user_id']);
@@ -81,7 +117,7 @@ if (isset($_GET['logout'])) {
     </div>
     <div class="welcome">
         <h2>UBLC Engineering Inventory Management System</h2>
-        <p>Hi <?php echo $_SESSION['name']; ?></p>
+        <p>Hi <?php echo $_SESSION['user_id']; ?></p>
     </div>
     <div class="content">
         <p class="text-center">Registration successful! You can now log in.</p>
