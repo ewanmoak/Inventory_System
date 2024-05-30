@@ -125,6 +125,13 @@ button {
   // Include connection details
   include "admin_connect1.php";
 
+
+ // Retrieve existing records (optional)
+  $sql = "SELECT * FROM lists";
+  $result = mysqli_query($db, $sql);
+
+  displayRecords($result);
+
   // Function to display records (optional)
   function displayRecords($result) {
     if ($result) {
@@ -168,10 +175,7 @@ button {
     }
   }
 
-  // Retrieve existing records (optional)
-  $sql = "SELECT * FROM lists";
-  $result = mysqli_query($db, $sql);
-
+ 
   ?>
 <!--
   <h2>Add New Maintenance Record</h2>
