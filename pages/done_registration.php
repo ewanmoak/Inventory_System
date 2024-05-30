@@ -37,7 +37,7 @@ if ($conn->query($sql) === FALSE) {
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('location: login.php');
+    header('Location: login.php');
     exit();
 }
 
@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
 if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['user_id']);
-    header('location: login.php');
+    header('Location: login.php');
     exit();
 }
 ?>
@@ -112,8 +112,8 @@ if (isset($_GET['logout'])) {
 </head>
 <body>
 <div class="container">
-    <div class="logout" onclick="location.href='index.php?logout=true'">
-        <i class='bx bx-log-out-circle'></i> Proceed to Login
+    <div class="logout" onclick="location.href='http://localhost/Inventory_System/Inventory_System/pages/index.html'">
+        <i class='bx bx-log-out-circle'></i> Proceed to Home
     </div>
     <div class="welcome">
         <h2>UBLC Engineering Inventory Management System</h2>

@@ -15,7 +15,7 @@ if (isset($_GET['logout'])) {
       // User confirms logout
       session_destroy();
       unset($_SESSION['user_id']);
-      header('location: login.php');
+      header('location: index.html');
       exit();
     }
   }

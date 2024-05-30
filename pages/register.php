@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-// Redirect to index.php if user is already logged in
-if (isset($_SESSION['user_id'])) {
-  header('location: index.php');
-  exit();
-}
-
 // initializing variables
 $user_id = "";
 $errors = array(); 
@@ -14,7 +8,15 @@ $errors = array();
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'login');
 
-// Check connection
+// Check connection and create the database if it doesn't exist
+if (!$db) {
+  $db = mysqli_connect('localhost', 'root', '');
+  $sql = "CREATE DATABASE IF NOT EXISTS login";
+  mysqli_query($db, $sql);
+  $db = mysqli_connect('localhost', 'root', '', 'login');
+}
+
+// Check connection again
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   exit();
@@ -25,7 +27,8 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id INT(10) NOT NULL,
   name VARCHAR(30) NOT NULL,
-  password VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(30) NOT NULL
 )";
 mysqli_query($db, $sql);
 
@@ -53,20 +56,18 @@ if (isset($_POST['register_user'])) {
 
   // register user if there are no errors in the form
   if (count($errors) == 0) {
-    $password_1 = password_hash($password_1, PASSWORD_BCRYPT);
-  
-    $query = "INSERT INTO users (user_id, name, password, role) VALUES ('$user_id', '$name', '$password_1', '$role')";
+    $password = password_hash($password_1, PASSWORD_DEFAULT); // Encrypt the password
+    $query = "INSERT INTO users (user_id, name, password, role) VALUES ('$user_id', '$name', '$password', '$role')";
     mysqli_query($db, $query);
   
     $_SESSION['user_id'] = $user_id;
     $_SESSION['name'] = $name;
     $_SESSION['success'] = "You are now registered and logged in";
     header('location: done_registration.php');
+    exit();
   }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,114 +78,114 @@ if (isset($_POST['register_user'])) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
     /* General styles */
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
-}
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
 
-/* Wrapper styles */
-.wrapper {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-}
+    /* Wrapper styles */
+    .wrapper {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
 
-/* Form styles */
-form {
-  display: flex;
-  flex-direction: column;
-}
+    /* Form styles */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
 
-h3 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+    h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-.input-box {
-  margin-bottom: 15px;
-  position: relative;
-}
+    .input-box {
+      margin-bottom: 15px;
+      position: relative;
+    }
 
-.input-box input {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 16px;
-}
+    .input-box input {
+      width: 95%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
 
-.input-box i {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  color: #ccc;
-  font-size: 18px;
-}
+    .input-box i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      color: #ccc;
+      font-size: 18px;
+    }
 
-.input-box input:focus + i,
-.input-box input:valid + i {
-  color: #999;
-}
+    .input-box input:focus + i,
+    .input-box input:valid + i {
+      color: #999;
+    }
 
-/* Role selection styles */
-.role {
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-}
+    /* Role selection styles */
+    .role {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
 
-.role label {
-  margin-right: 10px;
-}
+    .role label {
+      margin-right: 10px;
+    }
 
-/* Button styles */
-.btn {
-  background-color: #671111;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 15px;
-}
+    /* Button styles */
+    .btn {
+      background-color: #671111;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
 
-.btn:hover {
-  background-color: #671111;
-}
+    .btn:hover {
+      background-color: #671111;
+    }
 
-/* Login link styles */
-.login-link {
-  text-align: center;
-  margin-top: 15px;
-}
+    /* Login link styles */
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+    }
 
-.login-link a {
-  color: #671111;
-  text-decoration: none;
-}
+    .login-link a {
+      color: #671111;
+      text-decoration: none;
+    }
 
-/* Error message styles */
-.error-message {
-  background-color: #f0ad4e;
-  color: #fff;
-  padding: 10px;
-  border-radius: 3px;
-  margin-top: 15px;
-}
+    /* Error message styles */
+    .error-message {
+      background-color: #f0ad4e;
+      color: #fff;
+      padding: 10px;
+      border-radius: 3px;
+      margin-top: 15px;
+    }
 
-.error-message p {
-  margin-bottom: 5px;
-}
+    .error-message p {
+      margin-bottom: 5px;
+    }
 </style>
 
 </head>
@@ -217,7 +218,7 @@ h3 {
         </div>
         <button type="submit" class="btn" name="register_user">Register</button>
         <div class="login-link">
-            <p>Already have an account? <a href="../forms/login.php">Login</a></p>
+            <p>Already have an account? <a href="login.php">Login</a></p>
         </div>
         <?php if(isset($errors) && count($errors) > 0) { ?>
             <div class="error-message">

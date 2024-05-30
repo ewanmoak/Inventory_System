@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Database connection details
 $servername = "localhost"; // Your MySQL server name
 $username = "root"; // Your MySQL username
@@ -38,10 +43,6 @@ if (!mysqli_query($db, $sql)) {
 
 // Initialize errors array
 $errors = array();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 
 // LOGIN USER
 if (isset($_POST['login_user'])) {
@@ -55,34 +56,39 @@ if (isset($_POST['login_user'])) {
         array_push($errors, "Password is required");
     }
 
-    if (isset($errors) && count($errors) == 0) {
-        $query = "SELECT * FROM users WHERE id='$user_id'";
+    if (count($errors) == 0) {
+        $query = "SELECT * FROM users WHERE user_id='$user_id'";
         $results = mysqli_query($db, $query);
 
         if (mysqli_num_rows($results) == 1) {
             $row = mysqli_fetch_assoc($results);
 
-            // Hashing user-entered password before comparison
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Use a cost of at least 12
-
-            if (password_verify($password, $row['password'])) { // Verify with hashed password
+            // Verify the user-entered password with the stored hashed password
+            if (password_verify($password, $row['password'])) {
                 $_SESSION['user_id'] = $user_id;
-                $role = $row['role'];  // Assuming a user_type field exists
+                $role = $row['role'];
 
                 if ($role === "admin") {
                     $_SESSION['success'] = "Welcome Admin, you are now logged in";
-                    header('location: pages/homepage_admin.php');  // Redirect to admin homepage
+                    header('Location: homepage_admin.php');  // Redirect to admin homepage
                 } else {
                     $_SESSION['success'] = "You are now logged in";
-                    header('location: pages/homepage_student.php');  // Redirect to student homepage
+                    header('Location: homepage_student.php');  // Redirect to student homepage
                 }
                 exit();
             } else {
-                array_push($errors, "Wrong User ID/password combination");
+                $_SESSION['login_error'] = "Wrong User ID/password combination";
             }
         } else {
-            array_push($errors, "Wrong User ID/password combination");
+            $_SESSION['login_error'] = "Wrong User ID/password combination";
         }
     }
+
+    if (!empty($errors)) {
+        $_SESSION['login_error'] = implode('<br>', $errors);
+    }
+
+    header('Location: ../index.php');  // Redirect back to the login page
+    exit();
 }
 ?>
