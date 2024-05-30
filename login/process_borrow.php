@@ -203,7 +203,7 @@ if (!strtotime($returned_date)) {
 }
 
 // Insert data into database (using prepared statement)
-$sql = "INSERT INTO borrowed_items (student_id, id_tool, quan, borrowed_date, returned_date, returned_time) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO borrowed_items (student_id, id_tool, quan, borrowed_date, returned_date, returned_time, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($db, $sql);
 
 if (!$stmt) {
