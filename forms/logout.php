@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_GET['logout'])) {
     if (isset($_GET['stay']) && $_GET['stay'] == 'true') {
       // User wants to stay logged in (implement logic based on role)

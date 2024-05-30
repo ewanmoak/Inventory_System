@@ -44,7 +44,7 @@
     }
 
     if (count($errors) == 0) {
-      $query = "SELECT * FROM users WHERE user_id='$user_id'";
+      $query = "SELECT * FROM users WHERE id='$user_id'";
       $results = mysqli_query($db, $query);
     
       if (mysqli_num_rows($results) == 1) {
@@ -59,10 +59,10 @@
 
           if ($role === "admin") {
             $_SESSION['success'] = "Welcome Admin, you are now logged in";
-            header('location: homepage_admin.php');  // Redirect to admin homepage
+            header('location: forms/homepage_admin.php');  // Redirect to admin homepage
           } else {
             $_SESSION['success'] = "You are now logged in";
-            header('location: homepage_student.php');  // Redirect to student homepage
+            header('location: forms/homepage_student.php');  // Redirect to student homepage
           }
           exit();
         } else {

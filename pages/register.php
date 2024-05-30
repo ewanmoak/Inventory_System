@@ -217,7 +217,7 @@ h3 {
         </div>
         <button type="submit" class="btn" name="register_user">Register</button>
         <div class="login-link">
-            <p>Already have an account? <a href="login.php">Login</a></p>
+            <p>Already have an account? <a href="../forms/login.php">Login</a></p>
         </div>
         <?php if(isset($errors) && count($errors) > 0) { ?>
             <div class="error-message">
