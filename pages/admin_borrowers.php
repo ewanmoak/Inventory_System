@@ -1,5 +1,5 @@
 <?php
-include "admin_connect1.php";
+include "forms/admin_connect1.php";
 
 // Create table (if not exists)
 $sql = "CREATE TABLE IF NOT EXISTS list(

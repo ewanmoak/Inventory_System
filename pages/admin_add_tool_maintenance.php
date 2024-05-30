@@ -1,6 +1,19 @@
 <?php
+
+// Start session
+session_start();
+
+// Connect to the database
+$db = mysqli_connect('localhost', 'root', '', 'inventory');
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  exit();
+}
+
 // Include connection details
-include "admin_connect.php";
+include "forms/admin_connect.php";
 
 $sql = "CREATE TABLE IF NOT EXISTS tool_maintenance (
   tool_id INT(11),
@@ -15,72 +28,6 @@ if (!mysqli_query($db, $sql)) {
 } else {
   echo "Table tool_maintenance created successfully";
 }
-/*
-// ---- Email content preparation (assuming maintenance description is available)
-$recipient_email = "recipient@example.com"; // Replace with actual recipient email
-$subject = "Tool Maintenance Reminder: " . $tool_name;
-$maintenance_description = "Sample maintenance description"; // Replace with actual description
-
-$body = "This is a friendly reminder that the maintenance for " . $tool_name . " is due on " . $maintenance_date . ".
-
-Please refer to the following description for the maintenance procedure:
-
-" . $maintenance_description . "
-
-If the maintenance has already been performed, you can disregard this email.
-
-Thank you.";
-
-// ---- Send email notification
-$mail = new PHPMailer(true);
-
-try {
-  // Server settings (replace with your email server details if needed)
-  $mail->SMTPDebug = 0; // Set to 0 or 2 for detailed debugging
-  $mail->isSMTP();
-  $mail->Host = 'smtp.example.com'; // Replace with your SMTP server address
-  $mail->SMTPAuth = true;
-  $mail->Username = $dianeendaya4@gmail.com;
-  $mail->Password = $nvzn wisg wwrs zhme;
-  $mail->SMTPSecure = 'tls'; // Adjust encryption if needed (e.g., 'ssl')
-  $mail->Port = 587; // Replace with your SMTP port
-
-  // Sender and recipient information
-  $mail->setFrom($sender_email, 'Tool Maintenance System');
-  $mail->addAddress($recipient_email);
-  $mail->addReplyTo($sender_email, 'Tool Maintenance System');
-
-  // Content
-  $mail->isHTML(true);
-  $mail->Subject = $subject;
-  $mail->Body = $body;
-
-  $mail->send();
-  echo 'Message has been sent successfully.';
-} catch (Exception $e) {
-  echo "Error sending email: " . $e->getMessage();
-}
-
-mysqli_close($db); // Close the connection
-
-?>
-
-$sql = "SELECT * FROM tool_maintenance";
-$result = mysqli_query($db, $sql);
-
-if (!$result) {
-  echo "Error retrieving data: " . mysqli_error($db);
-} else {
-  // Process the results (optional)
-  while ($row = mysqli_fetch_assoc($result)) {
-    $tool_id = $row['tool_id'];
-    $maintenance_date = $row['maintenance_date'];
-    $note = $row['note'];
-  }
-}
-
-mysqli_close($db); // Close the connection
-*/
 ?>
 
 <!DOCTYPE html>
@@ -227,9 +174,6 @@ mysqli_close($db); // Close the connection
 </header>
 
   <?php
-  // Include connection details
-  include "admin_connect.php";
-
   // Initialize a variable to hold success message
   $success_message = "";
 

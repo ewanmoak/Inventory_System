@@ -61,7 +61,7 @@ if (isset($_POST['register_user'])) {
     $_SESSION['user_id'] = $user_id;
     $_SESSION['name'] = $name;
     $_SESSION['success'] = "You are now registered and logged in";
-    header('location: index.php');
+    header('location: done_registration.php');
   }
 }
 ?>

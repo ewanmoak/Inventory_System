@@ -1,76 +1,88 @@
 <?php
-  //session_start();
-  include "logout.php";
+session_start();
 
-  // Redirect to homepage_student if user is already logged in
-  if (isset($_SESSION['user_id'])) {
-    header('location: homepage_student.php');
-    exit();
-  }
+// Database connection details
+$servername = "localhost"; // Your MySQL server name
+$username = "root"; // Your MySQL username
+$password = ""; // Your MySQL password
+$dbname = "login"; // Your desired database name
 
-  // initializing variables
-  $user_id = "";
-  $errors = array(); 
+// Create connection
+$db = mysqli_connect($servername, $username, $password);
 
-  // Connect to the database
-  $db = mysqli_connect('localhost', 'root', '', 'login');
+// Check connection
+if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-  // Check connection
-  if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    exit();
-  }
+// Create the database if it doesn't exist
+$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+if (!mysqli_query($db, $sql)) {
+    die("Error creating database: " . mysqli_error($db));
+}
 
-  // Auto-create table if it doesn't exist (consider a separate script for production)
-  $sql = "CREATE TABLE IF NOT EXISTS users (
+// Select the database
+mysqli_select_db($db, $dbname);
+
+// Create users table if it doesn't exist
+$sql = "CREATE TABLE IF NOT EXISTS users (
     id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(11) NOT NULL,
     name VARCHAR(30) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL
-  )";
-  mysqli_query($db, $sql);
+)";
+if (!mysqli_query($db, $sql)) {
+    die("Error creating table: " . mysqli_error($db));
+}
 
-  // LOGIN USER
-  if (isset($_POST['login_user'])) {
+// Initialize errors array
+$errors = array();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+// LOGIN USER
+if (isset($_POST['login_user'])) {
     $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
 
     if (empty($user_id)) {
-      array_push($errors, "User ID is required");
+        array_push($errors, "User ID is required");
     }
     if (empty($password)) {
-      array_push($errors, "Password is required");
+        array_push($errors, "Password is required");
     }
 
-    if (count($errors) == 0) {
-      $query = "SELECT * FROM users WHERE id='$user_id'";
-      $results = mysqli_query($db, $query);
-    
-      if (mysqli_num_rows($results) == 1) {
-        $row = mysqli_fetch_assoc($results);
+    if (isset($errors) && count($errors) == 0) {
+        $query = "SELECT * FROM users WHERE id='$user_id'";
+        $results = mysqli_query($db, $query);
 
-        // Hashing user-entered password before comparison
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Use a cost of at least 12
+        if (mysqli_num_rows($results) == 1) {
+            $row = mysqli_fetch_assoc($results);
 
-        if (password_verify($password, $row['password'])) { // Verify with hashed password
-          $_SESSION['user_id'] = $user_id;
-          $role = $row['role'];  // Assuming a user_type field exists
+            // Hashing user-entered password before comparison
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT); // Use a cost of at least 12
 
-          if ($role === "admin") {
-            $_SESSION['success'] = "Welcome Admin, you are now logged in";
-            header('location: forms/homepage_admin.php');  // Redirect to admin homepage
-          } else {
-            $_SESSION['success'] = "You are now logged in";
-            header('location: forms/homepage_student.php');  // Redirect to student homepage
-          }
-          exit();
+            if (password_verify($password, $row['password'])) { // Verify with hashed password
+                $_SESSION['user_id'] = $user_id;
+                $role = $row['role'];  // Assuming a user_type field exists
+
+                if ($role === "admin") {
+                    $_SESSION['success'] = "Welcome Admin, you are now logged in";
+                    header('location: pages/homepage_admin.php');  // Redirect to admin homepage
+                } else {
+                    $_SESSION['success'] = "You are now logged in";
+                    header('location: pages/homepage_student.php');  // Redirect to student homepage
+                }
+                exit();
+            } else {
+                array_push($errors, "Wrong User ID/password combination");
+            }
         } else {
-          array_push($errors, "Wrong User ID/password combination");
+            array_push($errors, "Wrong User ID/password combination");
         }
-      } else {
-        array_push($errors, "Wrong User ID/password combination");
-      }
     }
-  }
+}
 ?>
