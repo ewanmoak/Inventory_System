@@ -82,9 +82,7 @@ if (isset($_POST['login_user'])) {
         } else {
             $_SESSION['login_error'] = "Wrong User ID/password combination";
         }
-    }
-
-    if (!empty($errors)) {
+    } else {
         $_SESSION['login_error'] = implode('<br>', $errors);
     }
 

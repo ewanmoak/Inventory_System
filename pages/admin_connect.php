@@ -1,12 +1,14 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = ""; // Your MySQL password
+$dbname = "inventory";
 
-// Connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'inventory');
+// Create connection
+$db = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  exit();
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
-
 ?>

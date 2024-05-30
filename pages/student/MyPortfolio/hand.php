@@ -1,17 +1,21 @@
-
 <?php
 
-// Connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'inventory');
+include "../../admin_connect.php";
+
+$servername = "localhost";
+$username = "root";
+$password = ""; // Your MySQL password
+$dbname = "inventory";
+
+// Create connection
+$db = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  exit();
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
 
-
-// Check if user is logged in (replace with your existing logic)
+$db->close();
 ?>
 
 <!DOCTYPE html>
