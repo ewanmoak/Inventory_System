@@ -62,7 +62,7 @@ $result = mysqli_stmt_get_result($stmt);
         <div class="row align-items-start">
             <div class="col-md-2">
                 <ul class="custom-menu">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="homepage_student.php">Home</a></li>
                 </ul>
             </div>
         </div>
@@ -71,7 +71,7 @@ $result = mysqli_stmt_get_result($stmt);
 
 <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html">CPE Hand Tool</a>
+        <a class="navbar-brand" href="homepage_student.php">CPE Hand Tool</a>
         <span></span>
     </div>
 </nav>
@@ -105,7 +105,7 @@ $result = mysqli_stmt_get_result($stmt);
                                 echo "        <p>Category ID: $categoryId</p>";
                                 echo "        <p>Category: $categoryName</p>"; // Display category name directly
                                 // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
-                                echo "        <a href='http://localhost/Inventory_System/pages/student/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>"; // Add borrow button with tool ID parameter
+                                echo "        <a href='http://localhost/Inventory_System/Inventory_System/pages/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>"; // Add borrow button with tool ID parameter
                                 echo "      </div>";
                                 echo "    </div>";
                                 echo "  </div>";

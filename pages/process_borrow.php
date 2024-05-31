@@ -236,20 +236,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <header>
     <nav>
         <a href="homepage_student.php">Home</a>
+        <a href="borrowedItems_list.php">Borrowed Tools</a>
     </nav>
 </header>
-
-<?php if (!empty($success_message)): ?>
-    <div class="success">
-        <?php echo $success_message; ?>
-    </div>
-<?php endif; ?>
-
-<?php if (!empty($error_message)): ?>
-    <div class="error">
-        <?php echo $error_message; ?>
-    </div>
-<?php endif; ?>
 
 <h2>Borrowed Items</h2>
 <?php

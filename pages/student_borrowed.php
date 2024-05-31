@@ -94,6 +94,7 @@ function displayRecords($result) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,7 +159,7 @@ function displayRecords($result) {
 <h1>Borrowed Items Form</h1>
 <form method="post" action="process_borrow.php">
     <label for="student_id">Student ID:</label>
-    <input type="number" name="student_id" id="student_id" value="<?php echo htmlspecialchars($student_id); ?>" readonly required>
+    <input type="number" name="student_id" id="student_id" value="<?php echo htmlspecialchars($student_id); ?>" required>
     <br>
     <label for="id_tool">Tool ID:</label>
     <input type="number" name="id_tool" id="id_tool" value="<?php echo htmlspecialchars($last_accessed_tool_id); ?>" required>
