@@ -82,7 +82,7 @@ if (isset($_GET['logout'])) {
     <div class="container d-flex justify-content-between align-items-center">
 
         <div id="logo">
-            <a href="index.html"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
+            <a href="homepage_student.php"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
             <!-- Uncomment below if you prefer to use a text logo -->
             <!--<h1><a href="index.html">Regna</a></h1>-->
         </div>

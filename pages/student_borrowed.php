@@ -1,97 +1,152 @@
 <?php
 session_start();
 
-// Database connection details
+// Database connection details for the MySQL server
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "borrowers"; // Make sure this is the correct database name
 
-// Create connection
-$db = mysqli_connect($servername, $username, $password);
+// Create connection to MySQL server (no specific database)
+$conn = new mysqli($servername, $username, $password);
 
 // Check connection
-if (!$db) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Create the database if it doesn't exist
-$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
-if (!mysqli_query($db, $sql)) {
-    die("Error creating database: " . mysqli_error($db));
+// Create the borrowers database if it doesn't exist
+$sql = "CREATE DATABASE IF NOT EXISTS borrowers";
+if ($conn->query($sql) !== TRUE) {
+    die("Error creating database: " . $conn->error);
 }
 
-// Select the database
-mysqli_select_db($db, $dbname);
+// Close the connection to the server
+$conn->close();
 
-// SQL to create the users table if it doesn't exist
-$sql = "CREATE TABLE IF NOT EXISTS users (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL,
-    status VARCHAR(10) DEFAULT 'offline' NOT NULL
-)";
-if (!mysqli_query($db, $sql)) {
-    die("Error creating users table: " . mysqli_error($db));
+// Database connection details for the login database
+$loginServername = "localhost";
+$loginUsername = "root";
+$loginPassword = "";
+$loginDbname = "login";
+
+// Database connection details for the inventory database
+$inventoryServername = "localhost";
+$inventoryUsername = "root";
+$inventoryPassword = "";
+$inventoryDbname = "inventory";
+
+// Database connection details for the borrowers database
+$borrowersServername = "localhost";
+$borrowersUsername = "root";
+$borrowersPassword = "";
+$borrowersDbname = "borrowers";
+
+// Create connection to the login database
+$loginDb = new mysqli($loginServername, $loginUsername, $loginPassword, $loginDbname);
+if ($loginDb->connect_error) {
+    die("Login database connection failed: " . $loginDb->connect_error);
 }
 
-// SQL to create the tools table if it doesn't exist
-$sql = "CREATE TABLE IF NOT EXISTS tools (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    tool_name VARCHAR(50) NOT NULL,
-    quantity INT(11) NOT NULL
-)";
-if (!mysqli_query($db, $sql)) {
-    die("Error creating tools table: " . mysqli_error($db));
+// Create connection to the inventory database
+$inventoryDb = new mysqli($inventoryServername, $inventoryUsername, $inventoryPassword, $inventoryDbname);
+if ($inventoryDb->connect_error) {
+    die("Inventory database connection failed: " . $inventoryDb->connect_error);
 }
 
-// SQL to create the borrowed_items table if it doesn't exist
+// Create connection to the borrowers database
+$borrowersDb = new mysqli($borrowersServername, $borrowersUsername, $borrowersPassword, $borrowersDbname);
+if ($borrowersDb->connect_error) {
+    die("Borrowers database connection failed: " . $borrowersDb->connect_error);
+}
+
+// Create the borrowed_items table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS borrowed_items (
-    student_id INT(11),
-    id_tool INT NOT NULL,
-    quan INT NOT NULL,
-    borrowed_date DATE NOT NULL,
-    returned_date DATE,
-    returned_time TIME,
-    FOREIGN KEY (student_id) REFERENCES users(id),
-    FOREIGN KEY (id_tool) REFERENCES tools(id)
+  student_id INT(11),
+  id_tool INT NOT NULL,
+  quan INT NOT NULL,
+  borrowed_date DATE NOT NULL,
+  returned_date DATE,
+  returned_time TIME,
+  FOREIGN KEY (student_id) REFERENCES login.users(id),
+  FOREIGN KEY (id_tool) REFERENCES inventory.tools(id)
 )";
-if (!mysqli_query($db, $sql)) {
-    die("Error creating borrowed_items table: " . mysqli_error($db));
-} else {
-    echo "Table Borrowed Items created successfully<br>";
+
+if (!mysqli_query($borrowersDb, $sql)) {
+  die("Error creating table: " . mysqli_error($borrowersDb));
 }
 
-// Retrieve the student ID and last accessed tool ID from the session
-$student_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
-$last_accessed_tool_id = isset($_SESSION['last_accessed_tool_id']) ? $_SESSION['last_accessed_tool_id'] : '';
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get form data
+    $studentId = $_POST['student_id'];
+    $toolId = $_POST['id_tool'];
+    $quantity = $_POST['quan'];
+    $borrowedDate = $_POST['borrowed_date'];
+    $returnedDate = $_POST['returned_date']; // Optional, might be empty if not returned yet
+    $returnedTime = $_POST['returned_time']; // Optional, might be empty if not returned yet
 
-function displayRecords($result) {
-    if ($result) {
-        echo '<div class="table-container">';
-        echo "<table>";
-        echo "<tr><th>Tool ID:</th><th>Quantity:</th><th>Status</th></tr>";
-        while ($row = mysqli_fetch_assoc($result)) {
-            $itemId = $row['id_tool'];
-            $isReturned = !empty($row['returned_date']); // Check if a returned date is set
-            echo "<tr>";
-            echo "<td>" . $row['id_tool'] . "</td>";
-            echo "<td>" . $row['quan'] . "</td>";
-            echo "<td>";
-            if ($isReturned) {
-                echo "Returned";
-            } else {
-                echo '<button id="returnButton_' . $itemId . '" data-item-id="' . $itemId . '">Return</button>';
-            }
-            echo "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        echo '</div>';
-    } else {
-        echo "Error retrieving data";
+    // Basic validation (optional, improve based on your needs)
+    if (!is_numeric($studentId) || !is_numeric($toolId) || !is_numeric($quantity) || !preg_match("/^\d{4}-\d{2}-\d{2}$/", $borrowedDate) || ($returnedDate && !preg_match("/^\d{4}-\d{2}-\d{2}$/", $returnedDate))) {
+        echo "Invalid data submitted.";
+        exit;
     }
+
+    // Check if student ID exists in users table of the login database
+    $checkStudentSql = "SELECT * FROM users WHERE id = ?";
+    $checkStmt = $loginDb->prepare($checkStudentSql);
+    $checkStmt->bind_param("i", $studentId);
+    $checkStmt->execute();
+    $result = $checkStmt->get_result();
+
+    if ($result->num_rows == 0) {
+        echo "Invalid student ID.";
+        $checkStmt->close();
+        $loginDb->close();
+        $inventoryDb->close();
+        $borrowersDb->close();
+        exit;
+    }
+    $checkStmt->close();
+
+    // Check if tool ID exists in tools table of the inventory database
+    $checkToolSql = "SELECT * FROM tools WHERE id = ?";
+    $checkToolStmt = $inventoryDb->prepare($checkToolSql);
+    $checkToolStmt->bind_param("i", $toolId);
+    $checkToolStmt->execute();
+    $resultTool = $checkToolStmt->get_result();
+
+    if ($resultTool->num_rows == 0) {
+        echo "Invalid tool ID.";
+        $checkToolStmt->close();
+        $loginDb->close();
+        $inventoryDb->close();
+        $borrowersDb->close();
+        exit;
+    }
+    $checkToolStmt->close();
+
+    // Insert statement into the borrowers database
+    $sql = "INSERT INTO borrowed_items (student_id, id_tool, quan, borrowed_date, returned_date, returned_time) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $borrowersDb->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("iiisss", $studentId, $toolId, $quantity, $borrowedDate, $returnedDate, $returnedTime);
+
+        if ($stmt->execute()) {
+            echo "Successfully borrowed a tool!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        echo "Error: " . $borrowersDb->error;
+    }
+
+    // Close connections
+    $loginDb->close();
+    $inventoryDb->close();
+    $borrowersDb->close();
 }
 ?>
 
@@ -99,107 +154,163 @@ function displayRecords($result) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borrowed Items Form</title>
+    <title>Borrow Tool</title>
     <style>
-        /* Basic form styling */
-        form {
-            width: fit-content;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 40px;
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+
+        h1, h2 {
+            margin-bottom: 10px;
         }
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        input[type="time"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-bottom: 15px;
-        }
-        button[type="submit"] {
-            background-color: #4CAF50; /* Green */
+
+        header {
+            background-color: #800000; /* Maroon */
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 20px;
         }
-        /* Center the table */
+
+        header nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
         .table-container {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
-        /* Table Styles */
+
         table {
             border-collapse: collapse;
             width: 100%;
             max-width: 800px; /* Adjust the max width as needed */
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #800000; /* Maroon */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-<h1>Borrowed Items Form</h1>
-<form method="post" action="process_borrow.php">
-    <label for="student_id">Student ID:</label>
-    <input type="number" name="student_id" id="student_id" value="<?php echo htmlspecialchars($student_id); ?>" required>
-    <br>
-    <label for="id_tool">Tool ID:</label>
-    <input type="number" name="id_tool" id="id_tool" value="<?php echo htmlspecialchars($last_accessed_tool_id); ?>" required>
-    <br>
-    <label for="quan">Quantity:</label>
-    <input type="number" name="quan" id="quan" min="1" required> (Enter 1 for borrowing a single tool)
-    <br>
-    <label for="borrowed_date">Borrowed Date:</label>
-    <input type="date" name="borrowed_date" id="borrowed_date" value="<?php echo date('Y-m-d'); ?>" readonly>
-    <br>
-    <label for="returned_date">Returned Date:</label>
-    <input type="date" name="returned_date" id="returned_date">
-    <br>
-    <label for="returned_time">Returned Time:</label>
-    <input type="time" name="returned_time" id="returned_time">
-    <br>
-    <button type="submit">Submit</button>
-</form>
-<?php
-// Retrieve existing records (optional)
-$sql = "SELECT * FROM borrowed_items";
-$result = mysqli_query($db, $sql);
-displayRecords($result);
-?>
-<!-- Display success message if exists -->
-<?php if (!empty($success_message)): ?>
-    <div class="success">
-        <?php echo $success_message; ?>
+    <header>
+        <nav>
+            <a href="homepage_student.php">Home</a>
+            <a href="borrowedItems_list.php">Borrowed Tools</a>
+        </nav>
+    </header>
+    <div class="table-container">
+        <form method="POST" action="process_borrow.php">
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" required>
+
+            <label for="id_tool">Tool ID:</label>
+            <input type="text" id="id_tool" name="id_tool" required>
+
+            <label for="quan">Quantity:</label>
+            <input type="number" id="quan" name="quan" required>
+
+            <label for="borrowed_date">Borrowed Date:</label>
+            <input type="date" id="borrowed_date" name="borrowed_date" required>
+
+            <label for="returned_date">Returned Date (optional):</label>
+            <input type="date" id="returned_date" name="returned_date">
+
+            <label for="returned_time">Returned Time (optional):</label>
+            <input type="time" id="returned_time" name="returned_time">
+
+            <button type="submit">Borrow Tool</button>
+        </form>
     </div>
-<?php endif; ?>
-<script>
-    const returnButtons = document.querySelectorAll("[id^='returnButton_']");
-    returnButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            const itemId = this.dataset.itemId;
-            this.textContent = "Returned";
-            this.disabled = true;
-            // Consider sending an AJAX request to update the status on the server-side
-        });
-    });
-</script>
 </body>
 </html>
