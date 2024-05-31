@@ -60,7 +60,7 @@ $db->close();
           </ul>
         </div>
             <div>
-              <p><em>Hand tools are essential for computer engineers, allowing them to assemble, disassemble, and repair various hardware components. <br> <a href="#"></a></em></p>
+              <p><em>Hand tools are essential for computer engineers, allowing them to assemble, disassemble, and repair various hardware components.</p>
             </div>
           </div>
         </div>

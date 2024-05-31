@@ -39,7 +39,7 @@ $result = mysqli_stmt_get_result($stmt);
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -68,11 +68,9 @@ $result = mysqli_stmt_get_result($stmt);
         <div class="col-md-2">
           <ul class="custom-menu">
             <li><a href="index.html">Home</a></li>
-          
+          </ul>
         </div>
-        
       </div>
-
     </div>
   </div>
 
@@ -91,45 +89,46 @@ $result = mysqli_stmt_get_result($stmt);
       <div class="container">
         <div class="row mb-4 align-items-center">
           <div class="col-md-6" data-aos="fade-up">
-          <?php
-          if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-          
-            if ($row['id'] == $desiredToolId) {
-              $toolId = $row['id'];
-              $toolName = $row['tool_name'];
-              $def = $row['def'];
-              $quantity = $row['quantity'];
-              $categoryId = $row['category_id']; // Assuming a separate category table exists
-              $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
-          
-              echo "<section class='section'>";
-              echo "<div class='container'>";
-              echo "  <div class='row mb-4 align-items-center'>";
-              echo "    <div class='col-md-6' data-aos='fade-up'>";
-              echo "      <div class='card'>";
-              echo "        <h2>$toolName</h2>";
-              echo "        <p>Id: $toolId</p>";// Can link to tool_details.php for details page
-              echo "        <p>Description: $def</p>";
-              echo "        <p>Quantity: $quantity</p>";
-              echo "        <p>Category: $categoryId</p>"; 
-              echo "        <p>Category: $categoryName</p>"; // Display category name directly
-              // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
-              echo "      </div>";
-              echo "    </div>";
-              echo "  </div>";
-              echo "</div>";
-              echo "</section>";
-            } else {
+            <?php
+            $toolFound = false;
+            while ($row = $result->fetch_assoc()) {
+              if ($row['id'] == $desiredToolId) {
+                $toolFound = true;
+                $toolId = $row['id'];
+                $toolName = $row['tool_name'];
+                $def = $row['def'];
+                $quantity = $row['quantity'];
+                $categoryId = $row['category_id'];
+                $categoryName = $row['category_name'];
+            
+                echo "<section class='section'>";
+                echo "<div class='container'>";
+                echo "  <div class='row mb-4 align-items-center'>";
+                echo "    <div class='col-md-6' data-aos='fade-up'>";
+                echo "      <div class='card'>";
+                echo "        <h2>$toolName</h2>";
+                echo "        <p>Id: $toolId</p>";
+                echo "        <p>Description: $def</p>";
+                echo "        <p>Quantity: $quantity</p>";
+                echo "        <p>Category ID: $categoryId</p>"; 
+                echo "        <p>Category: $categoryName</p>";
+                echo "        <a href='http://localhost/Inventory_System/login/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>";
+                echo "      </div>";
+                echo "    </div>";
+                echo "  </div>";
+                echo "</div>";
+                echo "</section>";
+                break;
+              }
+            }
+
+            if (!$toolFound) {
               echo "The desired tool (ID: $desiredToolId) was not found in the database.";
             }
-          } else {
-            echo "No tools found in the database.";
-          }
-          
-          mysqli_stmt_close($stmt);
-          mysqli_close($db);
-          ?>
+            
+            mysqli_stmt_close($stmt);
+            mysqli_close($db);
+            ?>
           </div>
         </div>
       </div>
@@ -138,47 +137,37 @@ $result = mysqli_stmt_get_result($stmt);
         <div class="container">
           <div class="row align-items-stretch">
             <div class="col-md-8" data-aos="fade-up">
-            <img src="assets/img/Manual Rivet Gun.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+              <img src="assets/img/Manual Rivet Gun.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
             </div>
             <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              
-
-               
-
-                <p><a href="#" class="readmore">BORROWED ITEM</a></p>
-              </div>
+              <p><a href="#" class="readmore">BORROWED ITEM</a></p>
             </div>
           </div>
         </div>
+      </div>
     </section>
 
- 
-
-            <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=MyPortfolio
-          -->
-          
-          </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>&copy; 2024 IE Measurement and Inspection Tools. All Rights Reserved.</p>
+                </div>
+            </div>
         </div>
-       
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 
 </body>
 
