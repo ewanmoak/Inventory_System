@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$desiredToolId = 21; // The specific tool ID you want to display
+$desiredToolId = 1; // The specific tool ID you want to display
 
 $stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
 
@@ -30,7 +30,8 @@ $result = mysqli_stmt_get_result($stmt);
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>MyPortfolio Bootstrap Template - Work Single</title>
+    <title>CPE TOOL</title>
+    <script src="borrowItems.js"></script>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -49,6 +50,7 @@ $result = mysqli_stmt_get_result($stmt);
 
     <!-- Template Main CSS File -->
     <link href="student/MyPortfolio/assets/css/style.css" rel="stylesheet">
+    <script src="borrowItems.js"></script>
 
 </head>
 
@@ -69,10 +71,8 @@ $result = mysqli_stmt_get_result($stmt);
 
 <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html">IE Measurement and Inspection Tools.</a>
-        <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
-            <span></span>
-        </a>
+        <a class="navbar-brand" href="index.html">CPE Hand Tool</a>
+        <span></span>
     </div>
 </nav>
 
@@ -83,39 +83,42 @@ $result = mysqli_stmt_get_result($stmt);
             <div class="row mb-4 align-items-center">
                 <div class="col-md-6" data-aos="fade-up">
                     <?php
-                    $toolFound = false;
-                    while ($row = $result->fetch_assoc()) {
-                        if ($row['id'] == $desiredToolId) {
-                            $toolFound = true;
-                            $toolId = $row['id'];
-                            $toolName = $row['tool_name'];
-                            $def = $row['def'];
-                            $quantity = $row['quantity'];
-                            $categoryId = $row['category_id'];
-                            $categoryName = $row['category_name'];
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            if ($row['id'] == $desiredToolId) {
+                                $toolId = $row['id'];
+                                $toolName = $row['tool_name'];
+                                $def = $row['def'];
+                                $quantity = $row['quantity'];
+                                $categoryId = $row['category_id']; // Assuming a separate category table exists
+                                $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
 
-                            echo "<section class='section'>";
-                            echo "<div class='container'>";
-                            echo "  <div class='row mb-4 align-items-center'>";
-                            echo "    <div class='col-md-6' data-aos='fade-up'>";
-                            echo "      <div class='card'>";
-                            echo "        <h2>$toolName</h2>";
-                            echo "        <p>Id: $toolId</p>";
-                            echo "        <p>Description: $def</p>";
-                            echo "        <p>Quantity: $quantity</p>";
-                            echo "        <p>Category ID: $categoryId</p>";
-                            echo "        <p>Category: $categoryName</p>";
-                            echo "        <a href='http://localhost/Inventory_System/login/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>";
-                            echo "      </div>";
-                            echo "    </div>";
-                            echo "  </div>";
-                            echo "</div>";
-                            echo "</section>";
-                            break;
+                                echo "<section class='section'>";
+                                echo "<div class='container'>";
+                                echo "  <div class='row mb-4 align-items-center'>";
+                                echo "    <div class='col-md-6' data-aos='fade-up'>";
+                                echo "      <div class='card'>";
+                                echo "        <h2>$toolName</h2>";
+                                echo "        <p>ID: $toolId</p>"; // Can link to tool_details.php for details page
+                                echo "        <p>Description: $def</p>";
+                                echo "        <p>Quantity: $quantity</p>";
+                                echo "        <p>Category ID: $categoryId</p>";
+                                echo "        <p>Category: $categoryName</p>"; // Display category name directly
+                                // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
+                                echo "        <a href='http://localhost/Inventory_System/pages/student/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>"; // Add borrow button with tool ID parameter
+                                echo "      </div>";
+                                echo "    </div>";
+                                echo "  </div>";
+                                echo "</div>";
+                                echo "</section>";
+                                break;
+                            }
                         }
+                    } else {
+                        echo "No tools found in the database.";
                     }
 
-                    if (!$toolFound) {
+                    if ($result->num_rows === 0) {
                         echo "The desired tool (ID: $desiredToolId) was not found in the database.";
                     }
 
@@ -131,10 +134,9 @@ $result = mysqli_stmt_get_result($stmt);
         <div class="container">
             <div class="row align-items-stretch">
                 <div class="col-md-8" data-aos="fade-up">
-                    <img src="student/MyPortfolio/assets/img/Manual Rivet Gun.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+                    <img src="student/MyPortfolio/assets/img/Wire Cutter.jpg" alt="Image" class="img-fluid">
                 </div>
                 <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-                    <p><a href="#" class="readmore">BORROWED ITEM</a></p>
                 </div>
             </div>
         </div>
@@ -145,7 +147,7 @@ $result = mysqli_stmt_get_result($stmt);
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <p>&copy; 2024 IE Measurement and Inspection Tools. All Rights Reserved.</p>
+                <p>&copy; 2024 CPE Hand Tool. All Rights Reserved.</p>
             </div>
         </div>
     </div>
