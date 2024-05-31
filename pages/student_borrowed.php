@@ -1,78 +1,18 @@
 <?php
 session_start();
 
-// Database connection details for the MySQL server
+// Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
+$dbname = "borrowers";
 
-// Create connection to MySQL server (no specific database)
-$conn = new mysqli($servername, $username, $password);
+// Create connection
+$db = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Create the borrowers database if it doesn't exist
-$sql = "CREATE DATABASE IF NOT EXISTS borrowers";
-if ($conn->query($sql) !== TRUE) {
-    die("Error creating database: " . $conn->error);
-}
-
-// Close the connection to the server
-$conn->close();
-
-// Database connection details for the login database
-$loginServername = "localhost";
-$loginUsername = "root";
-$loginPassword = "";
-$loginDbname = "login";
-
-// Database connection details for the inventory database
-$inventoryServername = "localhost";
-$inventoryUsername = "root";
-$inventoryPassword = "";
-$inventoryDbname = "inventory";
-
-// Database connection details for the borrowers database
-$borrowersServername = "localhost";
-$borrowersUsername = "root";
-$borrowersPassword = "";
-$borrowersDbname = "borrowers";
-
-// Create connection to the login database
-$loginDb = new mysqli($loginServername, $loginUsername, $loginPassword, $loginDbname);
-if ($loginDb->connect_error) {
-    die("Login database connection failed: " . $loginDb->connect_error);
-}
-
-// Create connection to the inventory database
-$inventoryDb = new mysqli($inventoryServername, $inventoryUsername, $inventoryPassword, $inventoryDbname);
-if ($inventoryDb->connect_error) {
-    die("Inventory database connection failed: " . $inventoryDb->connect_error);
-}
-
-// Create connection to the borrowers database
-$borrowersDb = new mysqli($borrowersServername, $borrowersUsername, $borrowersPassword, $borrowersDbname);
-if ($borrowersDb->connect_error) {
-    die("Borrowers database connection failed: " . $borrowersDb->connect_error);
-}
-
-// Create the borrowed_items table if it doesn't exist
-$sql = "CREATE TABLE IF NOT EXISTS borrowed_items (
-  student_id INT(11),
-  id_tool INT NOT NULL,
-  quan INT NOT NULL,
-  borrowed_date DATE NOT NULL,
-  returned_date DATE,
-  returned_time TIME,
-  FOREIGN KEY (student_id) REFERENCES login.users(id),
-  FOREIGN KEY (id_tool) REFERENCES inventory.tools(id)
-)";
-
-if (!mysqli_query($borrowersDb, $sql)) {
-  die("Error creating table: " . mysqli_error($borrowersDb));
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
 
 // Check if the form is submitted
@@ -91,43 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Check if student ID exists in users table of the login database
-    $checkStudentSql = "SELECT * FROM users WHERE id = ?";
-    $checkStmt = $loginDb->prepare($checkStudentSql);
-    $checkStmt->bind_param("i", $studentId);
-    $checkStmt->execute();
-    $result = $checkStmt->get_result();
-
-    if ($result->num_rows == 0) {
-        echo "Invalid student ID.";
-        $checkStmt->close();
-        $loginDb->close();
-        $inventoryDb->close();
-        $borrowersDb->close();
-        exit;
-    }
-    $checkStmt->close();
-
-    // Check if tool ID exists in tools table of the inventory database
-    $checkToolSql = "SELECT * FROM tools WHERE id = ?";
-    $checkToolStmt = $inventoryDb->prepare($checkToolSql);
-    $checkToolStmt->bind_param("i", $toolId);
-    $checkToolStmt->execute();
-    $resultTool = $checkToolStmt->get_result();
-
-    if ($resultTool->num_rows == 0) {
-        echo "Invalid tool ID.";
-        $checkToolStmt->close();
-        $loginDb->close();
-        $inventoryDb->close();
-        $borrowersDb->close();
-        exit;
-    }
-    $checkToolStmt->close();
-
-    // Insert statement into the borrowers database
+    // Insert statement
     $sql = "INSERT INTO borrowed_items (student_id, id_tool, quan, borrowed_date, returned_date, returned_time) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $borrowersDb->prepare($sql);
+    $stmt = $db->prepare($sql);
 
     if ($stmt) {
         $stmt->bind_param("iiisss", $studentId, $toolId, $quantity, $borrowedDate, $returnedDate, $returnedTime);
@@ -140,15 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
     } else {
-        echo "Error: " . $borrowersDb->error;
+        echo "Error: " . $db->error;
     }
 
-    // Close connections
-    $loginDb->close();
-    $inventoryDb->close();
-    $borrowersDb->close();
+    // Close connection
+    $db->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -288,29 +193,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="homepage_student.php">Home</a>
             <a href="borrowedItems_list.php">Borrowed Tools</a>
         </nav>
-    </header>
-    <div class="table-container">
-        <form method="POST" action="process_borrow.php">
-            <label for="student_id">Student ID:</label>
-            <input type="text" id="student_id" name="student_id" required>
+    
 
-            <label for="id_tool">Tool ID:</label>
-            <input type="text" id="id_tool" name="id_tool" required>
-
-            <label for="quan">Quantity:</label>
-            <input type="number" id="quan" name="quan" required>
-
-            <label for="borrowed_date">Borrowed Date:</label>
-            <input type="date" id="borrowed_date" name="borrowed_date" required>
-
-            <label for="returned_date">Returned Date (optional):</label>
-            <input type="date" id="returned_date" name="returned_date">
-
-            <label for="returned_time">Returned Time (optional):</label>
-            <input type="time" id="returned_time" name="returned_time">
-
-            <button type="submit">Borrow Tool</button>
-        </form>
-    </div>
+    
 </body>
 </html>
