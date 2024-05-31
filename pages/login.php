@@ -44,6 +44,7 @@ if (!mysqli_query($db, $sql)) {
 
 // Initialize errors array
 $errors = array();
+
 // LOGIN USER
 if (isset($_POST['login_user'])) {
     $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
@@ -90,8 +91,7 @@ if (isset($_POST['login_user'])) {
         $_SESSION['login_error'] = implode('<br>', $errors);
     }
 
-    header('Location: ../index.php');  // Redirect back to the login page
+    header('Location: ../index.html');  // Redirect back to the login page
     exit();
-
 }
 ?>

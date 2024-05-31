@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include "logout.php";
@@ -10,31 +9,11 @@ if (mysqli_connect_errno()) {
   exit();
 }
 
-$admin_content = "<h1>Welcome to the Admin Homepage!</h1>
-<p>This is some content specific to the admin user.</p>";
-
 // Check if user is admin
 if (isset($_SESSION['role']) && $_SESSION['role'] === "admin") {
-  echo $admin_content;
-  header('login.php'); // Redirect to login page (assuming it exists)
-  exit();
+    header('login.php'); // Redirect to login page (assuming it exists)
+    exit();
 }
-/*
-if (isset($_GET['logout'])) {
-  if (isset($_SESSION['success'])) {
-    // Display success message from previous login (optional)
-    echo $_SESSION['success'];
-    unset($_SESSION['success']);
-  }
-
-  // Confirmation message and logout link
-  echo "Are you sure you want to log out?";
-  ?>
-  <a href="logout.php">Yes, Log Out</a>
-  <a href="homepage_admin">Cancel</a>
-  <?php
-} 
-*/
 ?>
 
 <!--
@@ -138,7 +117,7 @@ if (isset($_GET['logout'])) {
     <div class="container d-flex justify-content-between align-items-center">
 
       <div id="logo">
-        <a href="index.html"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
+        <a href="homepage_admin.php"><img src="admin/assets/img/UB-Master-Logo.png" alt="" style="width: 220px; height: -250px;"></a>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="index.html">Regna</a></h1>-->
       </div>
@@ -151,8 +130,7 @@ if (isset($_GET['logout'])) {
                 </ul>
             </li>
           <li><a class="nav-link" href="admin_borrowers.php">Borrowers</a></li>
-          <li><a class="nav-link" href="admin_notifications.php">Notifications</a></li>
-          <li><a class="nav-link" href="../login/login.php">Log Out</a></li>
+          <li><a class="nav-link" href="logout.php">Log Out</a></li>
         <li class="search-bar">
             <form action="" method="post">
               <input type="text" name="search" placeholder="Search">

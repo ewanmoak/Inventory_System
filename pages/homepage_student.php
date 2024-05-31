@@ -32,20 +32,19 @@ if (isset($_GET['logout'])) {
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="admin/assets/img/Ublogo.png" rel="Ub-Logo">
-    <link href="admin/assets/img/ublogo.png" rel="ub-logo">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
+    <link href="admin/assets/img/Ublogo.png" rel="Ub-Logo">
+    <link href="admin/assets/img/ublogo.png" rel="ub-logo">
     <link href="admin/assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="admin/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="admin/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="admin/assets/css/style.css" rel="stylesheet">
+
 
     <!-- Template Main CSS File -->
     <link href="admin/assets/css/style.css" rel="stylesheet">
