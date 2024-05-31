@@ -1,3 +1,23 @@
+<?php
+
+include "admin_connect.php";
+
+$servername = "localhost";
+$username = "root";
+$password = ""; // Your MySQL password
+$dbname = "inventory";
+
+// Create connection
+$db = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
+}
+
+$db->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,23 +30,22 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="student/MyPortfolio/assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/css/style.css" rel="stylesheet">
 
   
-</head>
 
 <body>
 
@@ -40,10 +59,8 @@
             
           </ul>
         </div>
-        <div class="col-md-6 d-none d-md-block  mr-auto">
-
             <div>
-              <p><em>Prototyping tools and basic components in computer engineering are essential resources and elements, such as breadboards, microcontrollers, and development software, used to create and test preliminary models of hardware and software systems. <br> <a href="#"></a></em></p>
+              <p><em>Hand tools are essential for computer engineers, allowing them to assemble, disassemble, and repair various hardware components.</p>
             </div>
           </div>
         </div>
@@ -68,7 +85,7 @@
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Prototyping Tools and Basic Components</h2>
+            <h2>Hand Tools</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -79,48 +96,48 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single11.php" class="item-wrap fancybox">
+            <a href="student_cutting_wireCutter.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Resistor</h3>
+                <h3>Wire Cutter</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Resistor.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Wire Cutter.jpg" style="width: 500px; height: 350px;">>
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single12.php" class="item-wrap fancybox">
+            <a href="work-single2.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>LED</h3>
+                <h3>SolderingIron</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/LED.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/SolderingIron.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single13.php" class="item-wrap fancybox">
+            <a href="work-single3.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Breadboard</h3>
+                <h3>Drill</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Breadboard.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Drill.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single14.php" class="item-wrap fancybox">
+            <a href="work-single4.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Connecting Wires</h3>
+                <h3>Cable Crimper</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Connecting Wires.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Cable Crimper.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single15.php" class="item-wrap fancybox">
+            <a href="work-single5.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Diodes</h3>
+                <h3>DesolderingPump</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Diodes.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/DesolderingPump.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
          
@@ -138,14 +155,14 @@
 
  
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/aos/aos.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="student/MyPortfolio/assets/js/main.js"></script>
 
 </body>
 

@@ -137,12 +137,12 @@ if (isset($_GET['logout'])) {
         <ul>
             <li class="dropdown"><a href=""><span>Tools</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                <li><a href="student/MyPortfolio/hand.php">Hand Tools</a></li>
-                <li><a href="student/MyPortfolio/measurement.php">Measurement Tools</a></li>
-                <li><a href="student/MyPortfolio/proto.php">Prototyping Tools</a></li>
-                <li><a href="student/MyPortfolio/fastening.php">Assembly and Fastening Tools</a></li>
-                <li><a href="student/MyPortfolio/cutting.php">Cutting and Machining Tools</a></li>
-                <li><a href="student/MyPortfolio/inspection.php">Measurement and Machining Tools</a></li>
+                <li><a href="hand.php">Hand Tools</a></li>
+                <li><a href="student_measurement.php">Measurement Tools</a></li>
+                <li><a href="student_prototyping.php">Prototyping Tools</a></li>
+                <li><a href="fastening.php">Assembly and Fastening Tools</a></li>
+                <li><a href="student_cutting.php">Cutting and Machining Tools</a></li>
+                <li><a href="inspection.php">Measurement and Machining Tools</a></li>
                 </ul>
             </li>
           <li><a class="nav-link" href="borrowedItems_list.php">Borrowed Items</a></li>

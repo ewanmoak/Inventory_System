@@ -17,15 +17,15 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/css/style.css" rel="stylesheet">
 
 
 </head>
@@ -79,12 +79,12 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single20.php" class="item-wrap fancybox">
+            <a href="student_cuttingAndMachining_rivetGun.php" class="item-wrap fancybox">
               <div class="work-info">
                 <h3>Manual Rivet Gun</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Manual Rivet Gun.jpg" style="width: 500px; height: 350px;">>
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Manual Rivet Gun.jpg" style="width: 500px; height: 350px;">>
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
@@ -93,7 +93,7 @@
                 <h3>Combination Pliers<h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Combination Pliers.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Combination Pliers.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
@@ -102,7 +102,7 @@
                 <h3>Craft Knife</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Craft Knife.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Craft Knife.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
@@ -111,7 +111,7 @@
                 <h3>Hacksaw</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Hacksaw.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Hacksaw.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
@@ -120,7 +120,7 @@
                 <h3>Manual Pipe Cutter</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Manual Pipe Cutter.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Manual Pipe Cutter.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
          
@@ -138,14 +138,14 @@
 
  
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/aos/aos.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="student/MyPortfolio/assets/js/main.js"></script>
 
 </body>
 

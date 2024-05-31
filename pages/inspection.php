@@ -10,22 +10,23 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="student/MyPortfolio/assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/css/style.css" rel="stylesheet">
 
- 
+  
+</head>
 
 <body>
 
@@ -40,7 +41,7 @@
           </ul>
         </div>
             <div>
-              <p><em>Assembly and fastening tools in industrial engineering refer to equipment utilized for joining and securing components together during manufacturing processes. These tools facilitate the assembly of intricate machinery and structures by efficiently connecting parts, ensuring precision and reliability in production lines. They encompass a range of devices such as wrenches, screwdrivers, and riveters, crucial for streamlining assembly operations and enhancing productivity within industrial settings. <br> <a href="#"></a></em></p>
+              <p><em>Measurement and inspection tools in industrial engineering refer to instruments and devices used to quantify, assess, and verify various aspects of production processes and products. These tools enable engineers to ensure quality control, monitor performance, and identify deviations from desired standards within manufacturing environments. By employing measurement and inspection tools, industrial engineers can optimize efficiency, maintain consistency, and uphold stringent quality assurance protocols throughout the production cycle. <br> <a href="#"></a></em></p>
             </div>
           </div>
         </div>
@@ -65,7 +66,7 @@
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2> Assembly and Fastening Tools</h2>
+            <h2>Measurement and Inspection Tools</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -76,48 +77,48 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single26.php" class="item-wrap fancybox">
+            <a href="student_measurement_protractor.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Screwdriver</h3>
+                <h3>Protractor</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Screwdriver.jpg" style="width: 500px; height: 350px;">>
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Protractor.jpg" style="width: 500px; height: 350px;">>
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single27.php" class="item-wrap fancybox">
+            <a href="work-single17.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Allen Keys<h3>
+                <h3>Tape Measure<h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Allen Keys.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Tape Measure.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single28.php" class="item-wrap fancybox">
+            <a href="work-single18.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Crescent Wrench</h3>
+                <h3>Thermometer</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Crescent Wrench.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Thermometer.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single29.php" class="item-wrap fancybox">
+            <a href="work-single19.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>G Clamp</h3>
+                <h3>Vernier Caliper</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/G Clamp.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Vernier Caliper.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single30.php" class="item-wrap fancybox">
+            <a href="student_cuttingAndMachining_rivetGun.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Hammer</h3>
+                <h3>Combination Square</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Hammer.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Combination Square.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
          
@@ -135,14 +136,14 @@
 
  
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/aos/aos.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="student/MyPortfolio/assets/js/main.js"></script>
 
 </body>
 

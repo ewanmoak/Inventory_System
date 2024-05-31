@@ -1,23 +1,3 @@
-<?php
-
-include "../../admin_connect.php";
-
-$servername = "localhost";
-$username = "root";
-$password = ""; // Your MySQL password
-$dbname = "inventory";
-
-// Create connection
-$db = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
-
-$db->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,22 +10,23 @@ $db->close();
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="student/MyPortfolio/assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/css/style.css" rel="stylesheet">
 
-  
+
+</head>
 
 <body>
 
@@ -59,8 +40,10 @@ $db->close();
             
           </ul>
         </div>
+        <div class="col-md-6 d-none d-md-block  mr-auto">
+
             <div>
-              <p><em>Hand tools are essential for computer engineers, allowing them to assemble, disassemble, and repair various hardware components.</p>
+              <p><em>Measurement tools in computer engineering are instruments or software used to evaluate, monitor, and analyze the performance, efficiency, and behavior of hardware and software systems. <br> <a href="#"></a></em></p>
             </div>
           </div>
         </div>
@@ -85,7 +68,7 @@ $db->close();
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Hand Tools</h2>
+            <h2>Measurement Tools</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -96,48 +79,48 @@ $db->close();
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single.php" class="item-wrap fancybox">
+            <a href="student_measurement_level.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Wire Cutter</h3>
+                <h3>Level</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Wire Cutter.jpg" style="width: 500px; height: 350px;">>
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Level.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single2.php" class="item-wrap fancybox">
+            <a href="work-single7.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>SolderingIron</h3>
+                <h3>Oscillioscope</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/SolderingIron.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Oscillioscope.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single3.php" class="item-wrap fancybox">
+            <a href="student_measurement_benchPowerSupply.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Drill</h3>
+                <h3>Banch Power Supply</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Drill.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Banch Power Supply.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single4.php" class="item-wrap fancybox">
+            <a href="work-single9.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Cable Crimper</h3>
+                <h3>Multimeter</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Cable Crimper.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Multimeter.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single5.php" class="item-wrap fancybox">
+            <a href="work-single10.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>DesolderingPump</h3>
+                <h3>T-square</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/DesolderingPump.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/T-square.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
          
@@ -155,14 +138,14 @@ $db->close();
 
  
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/aos/aos.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="student/MyPortfolio/assets/js/main.js"></script>
 
 </body>
 

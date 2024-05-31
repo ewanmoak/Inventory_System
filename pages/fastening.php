@@ -10,23 +10,22 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="student/MyPortfolio/assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="student/MyPortfolio/assets/css/style.css" rel="stylesheet">
 
-
-</head>
+ 
 
 <body>
 
@@ -40,10 +39,8 @@
             
           </ul>
         </div>
-        <div class="col-md-6 d-none d-md-block  mr-auto">
-
             <div>
-              <p><em>Measurement tools in computer engineering are instruments or software used to evaluate, monitor, and analyze the performance, efficiency, and behavior of hardware and software systems. <br> <a href="#"></a></em></p>
+              <p><em>Assembly and fastening tools in industrial engineering refer to equipment utilized for joining and securing components together during manufacturing processes. These tools facilitate the assembly of intricate machinery and structures by efficiently connecting parts, ensuring precision and reliability in production lines. They encompass a range of devices such as wrenches, screwdrivers, and riveters, crucial for streamlining assembly operations and enhancing productivity within industrial settings. <br> <a href="#"></a></em></p>
             </div>
           </div>
         </div>
@@ -54,7 +51,7 @@
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="homepage_student.php">CPE Tools</a>
+      <a class="navbar-brand" href="homepage_student.php">IE Tools</a>
       <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
         <span></span>
       </a>
@@ -68,7 +65,7 @@
       <div class="container">
         <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Measurement Tools</h2>
+            <h2> Assembly and Fastening Tools</h2>
            
           </div>
           <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
@@ -79,48 +76,48 @@
         </div>
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single6.php" class="item-wrap fancybox">
+            <a href="student_assemblyAndFastening_screwdriver.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Level</h3>
+                <h3>Screwdriver</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Level.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Screwdriver.jpg" style="width: 500px; height: 350px;">>
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single7.php" class="item-wrap fancybox">
+            <a href="work-single27.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Oscillioscope</h3>
+                <h3>Allen Keys<h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Oscillioscope.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Allen Keys.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single8.php" class="item-wrap fancybox">
+            <a href="work-single28.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Banch Power Supply</h3>
+                <h3>Crescent Wrench</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Banch Power Supply.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Crescent Wrench.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single9.php" class="item-wrap fancybox">
+            <a href="work-single29.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>Multimeter</h3>
+                <h3>G Clamp</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/Multimeter.jpg" style="width: 500px; height: 350px;">
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/G Clamp.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single10.php" class="item-wrap fancybox">
+            <a href="work-single30.php" class="item-wrap fancybox">
               <div class="work-info">
-                <h3>T-square</h3>
+                <h3>Hammer</h3>
                 <span>Tool</span>
               </div>
-              <img class="img-fluid" src="assets/img/T-square.jpg" style="width: 500px; height: 350px;"> 
+              <img class="img-fluid" src="student/MyPortfolio/assets/img/Hammer.jpg" style="width: 500px; height: 350px;">
             </a>
           </div>
          
@@ -138,14 +135,14 @@
 
  
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/aos/aos.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="student/MyPortfolio/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="student/MyPortfolio/assets/js/main.js"></script>
 
 </body>
 
