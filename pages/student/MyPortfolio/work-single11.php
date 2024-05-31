@@ -10,9 +10,9 @@ if (mysqli_connect_errno()) {
 
 $desiredToolId = 11; // The specific tool ID you want to display
 
-$stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools"); // Select id and tool_name
+$stmt = mysqli_prepare($db, "SELECT id, tool_name, quantity, def, category_name, category_id FROM tools");
 
-
+// Check if statement preparation was successful
 if (!$stmt) {
   echo "Error preparing statement: " . mysqli_error($db);
   exit();
@@ -20,8 +20,8 @@ if (!$stmt) {
 
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +52,7 @@ $result = mysqli_stmt_get_result($stmt);
   <link href="assets/css/style.css" rel="stylesheet">
   <script src="borrowItems.js"></script>
 
-</head> 
+</head>
 
 <body>
 
@@ -63,96 +63,89 @@ $result = mysqli_stmt_get_result($stmt);
         <div class="col-md-2">
           <ul class="custom-menu">
             <li><a href="index.html">Home</a></li>
-          
+          </ul>
         </div>
-        
       </div>
-
     </div>
   </div>
 
   <nav class="navbar navbar-light custom-navbar">
     <div class="container">
       <a class="navbar-brand" href="index.html">CPE Hand Tool</a>
-        <span></span>
-      </a>
+      <span></span>
     </div>
   </nav>
 
   <main id="main">
 
-  <section class="section">
-  <div class="container">
-    <div class="row mb-4 align-items-center">
-      <div class="col-md-6" data-aos="fade-up">
-        <?php
-          if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-          
-            if ($row['id'] == $desiredToolId) {
-              $toolId = $row['id'];
-              $toolName = $row['tool_name'];
-              $def = $row['def'];
-              $quantity = $row['quantity'];
-              $categoryId = $row['category_id']; // Assuming a separate category table exists
-              $categoryName = $row['category_name']; // Assuming category_name is a column in the tools table (or retrieved from a separate query)
-          
-              echo "<section class='section'>";
-              echo "<div class='container'>";
-              echo "  <div class='row mb-4 align-items-center'>";
-              echo "    <div class='col-md-6' data-aos='fade-up'>";
-              echo "      <div class='card'>";
-              echo "        <h2>$toolName</h2>";
-              echo "        <p>Id: $toolId</p>";// Can link to tool_details.php for details page
-              echo "        <p>Description: $def</p>";
-              echo "        <p>Quantity: $quantity</p>";
-              echo "        <p>Category: $categoryId</p>"; 
-              echo "        <p>Category: $categoryName</p>"; // Display category name directly
-              // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
-              echo "      </div>";
-              echo "    </div>";
-              echo "  </div>";
-              echo "</div>";
-              echo "</section>";
-            } else {
+    <section class="section">
+      <div class="container">
+        <div class="row mb-4 align-items-center">
+          <div class="col-md-6" data-aos="fade-up">
+            <?php
+            $toolFound = false;
+            while ($row = $result->fetch_assoc()) {
+              if ($row['id'] == $desiredToolId) {
+                $toolFound = true;
+                $toolId = $row['id'];
+                $toolName = $row['tool_name'];
+                $def = $row['def'];
+                $quantity = $row['quantity'];
+                $categoryId = $row['category_id'];
+                $categoryName = $row['category_name'];
+
+                echo "<section class='section'>";
+                echo "<div class='container'>";
+                echo "  <div class='row mb-4 align-items-center'>";
+                echo "    <div class='col-md-6' data-aos='fade-up'>";
+                echo "      <div class='card'>";
+                echo "        <h2>$toolName</h2>";
+                echo "        <p>Id: $toolId</p>";
+                echo "        <p>Description: $def</p>";
+                echo "        <p>Quantity: $quantity</p>";
+                echo "        <p>Category: $categoryId</p>";
+                echo "        <p>Category: $categoryName</p>";
+                echo "        <a href='http://localhost/Inventory_System/login/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>";
+                echo "      </div>";
+                echo "    </div>";
+                echo "  </div>";
+                echo "</div>";
+                echo "</section>";
+                break;
+              }
+            }
+
+            if (!$toolFound) {
               echo "The desired tool (ID: $desiredToolId) was not found in the database.";
             }
-          } else {
-            echo "No tools found in the database.";
-          }
-          
-          mysqli_stmt_close($stmt);
-          mysqli_close($db);
-          ?>
-        </div>
-    </div>
 
-      </div>
-    </div>
-  </div>
-
-  <div class="site-section pb-0">
-    <div class="container">
-      <div class="row align-items-stretch">
-        <div class="col-md-8" data-aos="fade-up">
-        <img src="assets/img/Resistor.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
-        </div>
-        <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-          </div>
-      </div>
-    </div>
-  </div>
-</section>
-=
-                </div>
-              </div>
-            </div>
+            mysqli_stmt_close($stmt);
+            mysqli_close($db);
+            ?>
           </div>
         </div>
+      </div>
     </section>
+
+    <div class="site-section pb-0">
+      <div class="container">
+        <div class="row align-items-stretch">
+          <div class="col-md-8" data-aos="fade-up">
+            <img src="assets/img/Resistor.jpg" alt="Image" class="img-fluid" style="width: 500px; height: 350px;">
+          </div>
+          <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
           </div>
         </div>
-       
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>&copy; 2024 CPE Hand Tools. All Rights Reserved.</p>
+        </div>
       </div>
     </div>
   </footer>
