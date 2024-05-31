@@ -1,6 +1,50 @@
 <?php
-// Include connection details
-include "admin_connect1.php";
+session_start();
+
+// Database connection details
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "borrowers"; // Make sure this is the correct database name
+
+// Create connection
+$db = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Create the database if it doesn't exist
+$sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+if (!mysqli_query($db, $sql)) {
+    die("Error creating database: " . mysqli_error($db));
+}
+
+// Select the database
+mysqli_select_db($db, $dbname);
+
+// SQL to create the users table if it doesn't exist
+$sql = "CREATE TABLE IF NOT EXISTS users (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    status VARCHAR(10) DEFAULT 'offline' NOT NULL
+)";
+if (!mysqli_query($db, $sql)) {
+    die("Error creating users table: " . mysqli_error($db));
+}
+
+// SQL to create the tools table if it doesn't exist
+$sql = "CREATE TABLE IF NOT EXISTS tools (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    tool_name VARCHAR(50) NOT NULL,
+    quantity INT(11) NOT NULL
+)";
+if (!mysqli_query($db, $sql)) {
+    die("Error creating tools table: " . mysqli_error($db));
+}
 
 // SQL to create the borrowed_items table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS borrowed_items (
@@ -13,11 +57,41 @@ $sql = "CREATE TABLE IF NOT EXISTS borrowed_items (
     FOREIGN KEY (student_id) REFERENCES users(id),
     FOREIGN KEY (id_tool) REFERENCES tools(id)
 )";
-
 if (!mysqli_query($db, $sql)) {
-    die("Error creating table: " . mysqli_error($db));
+    die("Error creating borrowed_items table: " . mysqli_error($db));
 } else {
     echo "Table Borrowed Items created successfully<br>";
+}
+
+// Retrieve the student ID and last accessed tool ID from the session
+$student_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+$last_accessed_tool_id = isset($_SESSION['last_accessed_tool_id']) ? $_SESSION['last_accessed_tool_id'] : '';
+
+function displayRecords($result) {
+    if ($result) {
+        echo '<div class="table-container">';
+        echo "<table>";
+        echo "<tr><th>Tool ID:</th><th>Quantity:</th><th>Status</th></tr>";
+        while ($row = mysqli_fetch_assoc($result)) {
+            $itemId = $row['id_tool'];
+            $isReturned = !empty($row['returned_date']); // Check if a returned date is set
+            echo "<tr>";
+            echo "<td>" . $row['id_tool'] . "</td>";
+            echo "<td>" . $row['quan'] . "</td>";
+            echo "<td>";
+            if ($isReturned) {
+                echo "Returned";
+            } else {
+                echo '<button id="returnButton_' . $itemId . '" data-item-id="' . $itemId . '">Return</button>';
+            }
+            echo "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        echo '</div>';
+    } else {
+        echo "Error retrieving data";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -84,10 +158,10 @@ if (!mysqli_query($db, $sql)) {
 <h1>Borrowed Items Form</h1>
 <form method="post" action="process_borrow.php">
     <label for="student_id">Student ID:</label>
-    <input type="number" name="student_id" id="student_id" required>
+    <input type="number" name="student_id" id="student_id" value="<?php echo htmlspecialchars($student_id); ?>" readonly required>
     <br>
     <label for="id_tool">Tool ID:</label>
-    <input type="number" name="id_tool" id="id_tool" required>
+    <input type="number" name="id_tool" id="id_tool" value="<?php echo htmlspecialchars($last_accessed_tool_id); ?>" required>
     <br>
     <label for="quan">Quantity:</label>
     <input type="number" name="quan" id="quan" min="1" required> (Enter 1 for borrowing a single tool)
@@ -108,33 +182,6 @@ if (!mysqli_query($db, $sql)) {
 $sql = "SELECT * FROM borrowed_items";
 $result = mysqli_query($db, $sql);
 displayRecords($result);
-// Function to display records (optional)
-function displayRecords($result) {
-    if ($result) {
-        echo '<div class="table-container">';
-        echo "<table>";
-        echo "<tr><th>Tool ID:</th><th>Quantity:</th><th>Status</th></tr>";
-        while ($row = mysqli_fetch_assoc($result)) {
-            $itemId = $row['id_tool'];
-            $isReturned = !empty($row['returned_date']); // Check if a returned date is set
-            echo "<tr>";
-            echo "<td>" . $row['id_tool'] . "</td>";
-            echo "<td>" . $row['quan'] . "</td>";
-            echo "<td>";
-            if ($isReturned) {
-                echo "Returned";
-            } else {
-                echo '<button id="returnButton_' . $itemId . '" data-item-id="' . $itemId . '">Return</button>';
-            }
-            echo "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        echo '</div>';
-    } else {
-        echo "Error retrieving data";
-    }
-}
 ?>
 <!-- Display success message if exists -->
 <?php if (!empty($success_message)): ?>

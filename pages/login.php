@@ -35,7 +35,8 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
     user_id INT(11) NOT NULL,
     name VARCHAR(30) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(255) NOT NULL
+    role VARCHAR(255) NOT NULL,
+    status VARCHAR(10) DEFAULT 'offline' NOT NULL
 )";
 if (!mysqli_query($db, $sql)) {
     die("Error creating table: " . mysqli_error($db));
@@ -43,7 +44,6 @@ if (!mysqli_query($db, $sql)) {
 
 // Initialize errors array
 $errors = array();
-
 // LOGIN USER
 if (isset($_POST['login_user'])) {
     $user_id = mysqli_real_escape_string($db, $_POST['user_id']);
@@ -65,10 +65,14 @@ if (isset($_POST['login_user'])) {
 
             // Verify the user-entered password with the stored hashed password
             if (password_verify($password, $row['password'])) {
-                $_SESSION['user_id'] = $user_id;
-                $role = $row['role'];
+                $_SESSION['user_id'] = $row['id']; // Store user ID in session
+                $_SESSION['role'] = $row['role']; // Store user role in session
 
-                if ($role === "admin") {
+                // Update user status to 'online'
+                $update_status_query = "UPDATE users SET status='online' WHERE id='{$row['id']}'";
+                mysqli_query($db, $update_status_query);
+
+                if ($row['role'] === "admin") {
                     $_SESSION['success'] = "Welcome Admin, you are now logged in";
                     header('Location: homepage_admin.php');  // Redirect to admin homepage
                 } else {
@@ -88,5 +92,6 @@ if (isset($_POST['login_user'])) {
 
     header('Location: ../index.php');  // Redirect back to the login page
     exit();
+
 }
 ?>

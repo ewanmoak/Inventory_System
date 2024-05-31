@@ -22,14 +22,18 @@ if (mysqli_connect_errno()) {
   exit();
 }
 
-// Auto-create table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS users (
-  id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  user_id INT(10) NOT NULL,
-  name VARCHAR(30) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  role VARCHAR(30) NOT NULL
+    id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11) NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL,
+    status VARCHAR(10) DEFAULT 'offline' NOT NULL
 )";
+if (!mysqli_query($db, $sql)) {
+    die("Error creating table: " . mysqli_error($db));
+}
+
 mysqli_query($db, $sql);
 
 // REGISTER USER

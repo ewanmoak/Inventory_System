@@ -112,7 +112,7 @@ if (isset($_GET['logout'])) {
 </head>
 <body>
 <div class="container">
-    <div class="logout" onclick="location.href='http://localhost/Inventory_System/Inventory_System/pages/index.html'">
+    <div class="logout" onclick="location.href='http://localhost/Inventory_System/Inventory_System/index.html'">
         <i class='bx bx-log-out-circle'></i> Proceed to Home
     </div>
     <div class="welcome">

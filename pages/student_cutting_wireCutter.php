@@ -105,7 +105,7 @@ $result = mysqli_stmt_get_result($stmt);
                                 echo "        <p>Category ID: $categoryId</p>";
                                 echo "        <p>Category: $categoryName</p>"; // Display category name directly
                                 // Consider adding logic to display category details if needed (e.g., using another query based on $categoryId)
-                                echo "        <a href='http://localhost/Inventory_System/pages/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>"; // Add borrow button with tool ID parameter
+                                echo "        <a href='http://localhost/Inventory_System/Inventory_System/pages/student_borrowed.php?tool_id=$toolId' class='btn btn-primary'>Borrow Tool</a>"; // Add borrow button with tool ID parameter
                                 echo "      </div>";
                                 echo "    </div>";
                                 echo "  </div>";

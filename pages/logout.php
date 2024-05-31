@@ -1,22 +1,77 @@
 <?php
-if (isset($_GET['logout'])) {
-    if (isset($_GET['stay']) && $_GET['stay'] == 'true') {
-      // User wants to stay logged in (implement logic based on role)
-      // Here, you'll need to check the user's role (stored in session or database)
-      // and redirect them to the appropriate homepage based on their role.
-      // Example (assuming role is stored in session):
-      if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
-        header('location: admin_homepage.php');
-      } else {
-        header('location: user_homepage.php'); // Replace with actual user homepage
-      }
-      exit();
-    } else {
-      // User confirms logout
-      session_destroy();
-      unset($_SESSION['user_id']);
-      header('location: index.html');
-      exit();
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Database connection details
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "login";
+
+    // Create connection
+    $db = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($db->connect_error) {
+        session_start();
+
+// Enable error reporting
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+
+            // Database connection details
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "login";
+
+            // Create connection
+            $db = new mysqli($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($db->connect_error) {
+                die("Connection failed: " . $db->connect_error);
+            }
+
+            // Update user status to 'offline'
+            $update_status_query = "UPDATE users SET status='offline' WHERE user_id='$user_id'";
+            if (!mysqli_query($db, $update_status_query)) {
+                die("Error updating status: " . mysqli_error($db));
+            }
+
+            // Destroy the session
+            session_unset();
+            session_destroy();
+
+            // Redirect to login page
+            header('Location: http://localhost/Inventory_System/Inventory_System/index.html');
+            exit();
+        } else {
+            // If no user_id is found in session, redirect to login page
+            header('Location: http://localhost/Inventory_System/Inventory_System/index.html');
+            exit();
+        }
+
+
+        die("Connection failed: " . $db->connect_error);
     }
-  }
+
+    // Update user status to 'offline'
+    $update_status_query = "UPDATE users SET status='offline' WHERE user_id='$user_id'";
+    mysqli_query($db, $update_status_query);
+
+    // Destroy the session
+    session_unset();
+    session_destroy();
+
+    // Redirect to login page
+    header('Location: http://localhost/Inventory_System/Inventory_System/index.html');
+    exit();
+}
 ?>
